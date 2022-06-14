@@ -1,5 +1,92 @@
 {{ define "main" }}
 <div>
-    <h1 class="title">{{ .Site.Title }}</h1>
+    <h1 class="title">
+        {{ .Site.Title }}
+    </h1>
+    <p class="subtitle">
+        Welcome to the <b>site</b>.
+    </p>
+
+    <button class="button">
+        Button
+    </button>
+    <button class="button is-primary">
+        Button
+    </button>
+    <button class="button is-link">
+        Button
+    </button>
+    <button class="button is-info">
+        Button
+    </button>
+    <button class="button is-success">
+        Button
+    </button>
+    <button class="button is-warning">
+        Button
+    </button>
+    <button class="button is-danger">
+        Button
+    </button>
+
+    <br><br>
+
+    <button class="button is-outlined is-small">
+        Button
+    </button>
+    <button class="button is-primary is-outlined is-small">
+        Button
+    </button>
+    <button class="button is-link is-outlined is-small">
+        Button
+    </button>
+    <button class="button is-info is-outlined is-small">
+        Button
+    </button>
+    <button class="button is-success is-outlined is-small">
+        Button
+    </button>
+    <button class="button is-warning is-outlined is-small">
+        Button
+    </button>
+    <button class="button is-danger is-outlined is-small">
+        Button
+    </button>
+
+    <div class="columns">
+        <div class="column">1</div>
+        <div class="column">1</div>
+        <div class="column">1</div>
+        <div class="column">1</div>
+    </div>
+    <h1 class="title">
+        Bulma
+    </h1>
+
+    <p class="subtitle">
+        Modern CSS framework based on <a
+            href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox">Flexbox</a>
+    </p>
+
+    <div class="field">
+        <div class="control">
+            <input class="input" type="text" placeholder="Input">
+        </div>
+    </div>
+
+    <div class="field">
+        <p class="control">
+            <span class="select">
+                <select>
+                    <option>Select dropdown</option>
+                </select>
+            </span>
+        </p>
+    </div>
+
+    <div class="buttons">
+        <a class="button is-primary">Primary</a>
+        <a class="button is-link">Link</a>
+    </div>
 </div>
 {{ end }}

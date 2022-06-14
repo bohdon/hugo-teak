@@ -2,5 +2,8 @@
   "devDependencies": {
     "prettier": "^2.6.2",
     "prettier-plugin-go-template": "^0.0.13"
+  },
+  "dependencies": {
+    "bulma": "^0.9.4"
   }
 }
