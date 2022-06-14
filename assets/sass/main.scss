@@ -13,33 +13,36 @@ $yellow: hsl(44, 72%, 50%);
 $red: hsl(7, 46%, 48%);
 $grey-darker: hsl(24, 5%, 22%);
 $grey-dark: hsl(24, 7%, 36%);
-$grey: hsl(36, 10%, 50%);
-$grey-light: hsl(39, 10%, 60%);
+$grey: hsl(37, 7%, 46%);
+$grey-light: hsl(37, 18%, 64%);
 $grey-lighter: hsl(39, 13%, 71%);
 
 // bulma global variables
 $family-sans-serif: "Rubik", sans-serif;
 $primary: $grey-dark;
-$link: $grey-light;
-$link-hover: $grey-lighter;
+$link: $grey-lighter;
+$link-hover: $teal;
 $info: $teal;
-$success: $green;
-$warning: $yellow;
-$danger: $red;
 
 // bulma component variables
 $body-background-color: $grey-darker;
+$body-font-size: 1.05em;
 $text: $grey;
 $text-strong: $grey-light;
 $input-border-color: transparent;
 $input-shadow: none;
 
+
 @import "../../node_modules/bulma/bulma.sass";
 
-.title, .button {
+.button {
     text-transform: uppercase;
 }
 
 .title {
     font-weight: $weight-normal;
+}
+
+.input, .select select {
+    color: $grey;
 }
