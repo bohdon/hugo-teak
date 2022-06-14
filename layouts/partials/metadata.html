@@ -1,11 +1,11 @@
 {{ $dateTime := .PublishDate.Format "2000-01-01" }}
 {{ $dateFormat := .Site.Params.dateFormat | default "Jan 1, 2000" }}
-<i data-feather="calendar"></i>
+<div class="icon-text"><i class="fas fa-home"></i></div>
 <time datetime="{{ $dateTime }}">{{ .PublishDate.Format $dateFormat }}</time>
 {{ with .Params.tags }}
 <i data-feather="tag"></i>
 {{ range . }}
 {{ $href := print (absURL "tags/") (urlize .) }}
-<button class="button" href="{{ $href }}">{{ . }}</button>
+<button class="button tag is-small is-outlined is-primary" href="{{ $href }}">{{ . }}</button>
 {{ end }}
 {{ end }}

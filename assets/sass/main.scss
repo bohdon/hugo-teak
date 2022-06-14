@@ -12,6 +12,7 @@ $green: hsl(88, 46%, 46%);
 $yellow: hsl(44, 72%, 50%);
 $red: hsl(7, 46%, 48%);
 $grey-darker: hsl(24, 5%, 22%);
+$grey-darkerish: hsl(24, 5%, 25%);
 $grey-dark: hsl(24, 7%, 36%);
 $grey: hsl(37, 7%, 46%);
 $grey-light: hsl(37, 18%, 64%);
@@ -45,4 +46,8 @@ $input-shadow: none;
 
 .input, .select select {
     color: $grey;
+}
+
+.box {
+    background-color: $grey-darkerish;
 }

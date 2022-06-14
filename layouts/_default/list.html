@@ -1,12 +1,20 @@
 {{ define "main" }}
-<h1>{{ .Title }}</h1>
-{{ range .Pages.ByPublishDate.Reverse }}
-<p>
-    <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-    {{ partial "metadata.html" }}
-    <a href="{{ .RelPermalink }}">
-        <p>{{ .Summary }}</p>
-    </a>
-</p>
-{{ end }}
+<h1 class="title">{{ .Title }}</h1>
+<div class="columns is-multiline">
+
+    {{ range .Pages.ByPublishDate.Reverse }}
+    <div class="column is-half">
+        <article class="box">
+            <h4 class="title is-4 mb-2"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
+            {{ partial "metadata.html" . }}
+            <div class="mt-3">
+                <a href="{{ .RelPermalink }}">
+                    <p>{{ .Summary }}</p>
+                </a>
+            </div>
+        </article>
+    </div>
+    {{ end }}
+
+</div>
 {{ end }}
