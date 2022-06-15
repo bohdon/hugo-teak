@@ -1,13 +1,15 @@
 <div class="container box pt-3 mt-5 mb-0">
-    <div class="is-size-3 has-text-primary"><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
-        {{ if ne .Title .Site.Title }}
-        > {{ .Title }}
-        {{ end }}
+    <div class="is-size-3 has-text-primary">
+        <a class="has-text-primary" href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
     </div>
     <p class="subtitle">
-        <a class="is-uppercase" href="/notes">Tech Notes</a> |
-        <a class="is-uppercase" href="">Design</a> |
-        <a class="is-uppercase" href="">Projects</a> |
-        <a class="is-uppercase" href="/about">About</a>
+        {{ $current := . }}
+        {{/* list of main menu items */}}
+        {{ range $key, $menu := .Site.Menus.main }}
+        {{ $active := or ($current.IsMenuCurrent "main" .) ($current.HasMenuCurrent "main" .)}}
+        {{/*  add separator between items  */}}
+        {{ if ne $key 0 }}<span class="m-1">|</span>{{ end }}
+        <a class="is-uppercase {{ if not $active }}has-text-primary{{ end }}" href="{{ .URL }}">{{ .Name }}</a>
+        {{ end }}
     </p>
 </div>
