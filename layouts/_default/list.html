@@ -1,4 +1,11 @@
 {{ define "main" }}
+
+{{ if .Content }}
+<div class="content">
+    {{ .Content }}
+</div>
+{{ end }}
+
 <div class="columns is-multiline">
 
     {{ range .Pages.ByPublishDate.Reverse }}
