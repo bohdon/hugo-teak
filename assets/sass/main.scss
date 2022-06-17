@@ -11,12 +11,12 @@ $blue: hsl(192, 46%, 50%);
 $green: hsl(88, 46%, 46%);
 $yellow: hsl(44, 72%, 50%);
 $red: hsl(7, 46%, 48%);
-$grey-darker: hsl(24, 5%, 21.5%);
-$grey-darkerish: hsl(24, 5%, 25%);
-$grey-dark: hsl(24, 7%, 40%);
-$grey: hsl(37, 7%, 46%);
-$grey-light: hsl(37, 18%, 64%);
-$grey-lighter: hsl(39, 13%, 71%);
+$grey-darker: hsl(26, 5%, 21.5%);
+$grey-darkerish: hsl(26, 5%, 25%);
+$grey-dark: hsl(26, 7%, 40%);
+$grey: hsl(32, 7%, 46%);
+$grey-light: hsl(32, 18%, 64%);
+$grey-lighter: hsl(32, 13%, 71%);
 
 // bulma global variables
 $family-sans-serif: "Rubik", sans-serif;
@@ -66,6 +66,50 @@ hr {
     border-color: $grey-dark;
     border-radius: $radius-small;
     font-style: italic;
+}
+
+$blockquote-bg-alpha-adjust: -0.85;
+
+.content blockquote.is-primary {
+    background-color: adjust-color($primary, $alpha: $blockquote-bg-alpha-adjust);
+    color: $primary;
+    border-color: $primary;
+}
+
+.content blockquote.is-link {
+    background-color: adjust-color($link, $alpha: $blockquote-bg-alpha-adjust);
+    color: $link;
+    border-color: $link;
+}
+
+.content blockquote.is-info {
+    background-color: adjust-color($info, $alpha: $blockquote-bg-alpha-adjust);
+    color: $info;
+    border-color: $info;
+}
+
+.content blockquote.is-success {
+    background-color: adjust-color($success, $alpha: $blockquote-bg-alpha-adjust);
+    color: $success;
+    border-color: $success;
+}
+
+.content blockquote.is-warning {
+    background-color: adjust-color($warning, $alpha: $blockquote-bg-alpha-adjust);
+    color: $warning;
+    border-color: $warning;
+}
+
+.content blockquote.is-danger {
+    background-color: adjust-color($danger, $alpha: $blockquote-bg-alpha-adjust);
+    color: $danger;
+    border-color: $danger;
+}
+
+.content blockquote {
+    strong, code {
+        color: unset;
+    }
 }
 
 
