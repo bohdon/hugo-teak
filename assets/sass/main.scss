@@ -57,13 +57,17 @@ a.has-text-primary:hover, a.has-text-link:hover {
     color: $link-hover !important;
 }
 
-code, pre {
-    border-radius: $radius;
+hr {
+    background-color: $grey-darkerish;
 }
 
-.content div.highlight:not(:last-child) {
-    margin-bottom: 1em;
+.content blockquote {
+    background-color: $grey-darkerish;
+    border-color: $grey-dark;
+    border-radius: $radius-small;
+    font-style: italic;
 }
+
 
 @import "syntax/_syntax-theme-teak.scss";
 
@@ -71,4 +75,12 @@ code, pre {
 pre, code {
     background-color: $chroma-bg;
     color: $chroma-fg;
+}
+
+code, pre {
+    border-radius: $radius;
+}
+
+.content div.highlight:not(:last-child) {
+    margin-bottom: 1em;
 }
