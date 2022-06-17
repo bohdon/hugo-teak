@@ -11,13 +11,11 @@
     {{ range .Pages.ByPublishDate.Reverse }}
     <div class="column is-half">
         <article class="box">
-            <h4 class="title is-4 mb-2"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h4>
-            {{ partial "metadata.html" . }}
-            <div class="mt-3">
-                <a href="{{ .RelPermalink }}">
-                    <p>{{ .Summary }}</p>
-                </a>
+            <h4 class="title is-4 mb-2"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h4>
+            <div class="content mt-3">
+                {{ .Summary }}
             </div>
+            {{ partial "metadata.html" . }}
         </article>
     </div>
     {{ end }}
