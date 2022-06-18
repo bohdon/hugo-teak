@@ -2,42 +2,94 @@
 
 @import url('https://fonts.googleapis.com/css?family=Rubik:400');
 
+@import "../../../../node_modules/bulma/sass/utilities/functions.sass";
+
 $test: hsl(308, 100%, 50%);
 
-// theme colors
-$teal: hsl(170, 33%, 49%);
+// new colors
 $teal-dark: hsl(173, 31%, 45%);
-$blue: hsl(192, 46%, 50%);
-$green: hsl(88, 46%, 46%);
-$yellow: hsl(44, 72%, 50%);
-$red: hsl(7, 46%, 48%);
-$grey-darker: hsl(26, 5%, 21.5%);
-$grey-darkerish: hsl(26, 5%, 25%);
-$grey-dark: hsl(26, 7%, 40%);
-$grey: hsl(32, 7%, 46%);
-$grey-light: hsl(32, 18%, 64%);
-$grey-lighter: hsl(32, 13%, 71%);
+$grey-darker-bis: hsl(26, 5%, 25%);
+$grey-darker-ter: hsl(26, 5%, 28%);
 
 // bulma global variables
+$black: hsl(26, 5%, 9%);
+$black-bis: hsl(26, 5%, 11%);
+$black-ter: hsl(26, 5%, 17%);
+$grey-darker: hsl(26, 5%, 21.5%);
+$grey-dark: hsl(26, 7%, 40%);
+$grey: hsl(32, 7%, 52%);
+$grey-light: hsl(32, 18%, 64%);
+$grey-lighter: hsl(32, 13%, 71%);
+$grey-lightest: hsl(0, 0%, 93%);
+$white-ter: hsl(0, 0%, 93%);
+$white-bis: hsl(0, 0%, 98%);
+$white: hsl(0, 0%, 100%);
+$orange: hsl(14, 80%, 53%);
+$yellow: hsl(44, 72%, 50%);
+$green: hsl(88, 46%, 46%);
+$turquoise: hsl(170, 33%, 49%);
+$cyan: hsl(207, 61%, 53%);
+$blue: hsl(192, 46%, 50%);
+$purple: hsl(278, 54%, 56%);
+$red: hsl(7, 46%, 48%);
 $family-sans-serif: "Rubik", sans-serif;
-$primary: $grey-dark;
-$link: $grey-lighter;
-$link-hover: $teal;
-$info: $teal;
 $weight-semibold: 400;
 
-// bulma component variables
-$body-background-color: $grey-darker;
-$body-font-size: 1.05em;
+// bulma derived variables
+$primary: $grey-dark;
+$info: $turquoise;
+$success: $green;
+$warning: $yellow;
+$danger: $red;
+$primary-light: bulmaRgba($primary, 0.3);
+$primary-dark: $primary;
+$info-light: bulmaRgba($info, 0.3);
+$info-dark: $info;
+$success-light: bulmaRgba($success, 0.3);
+$success-dark: $success;
+$warning-light: bulmaRgba($warning, 0.3);
+$warning-dark: $warning;
+$danger-light: bulmaRgba($danger, 0.3);
+$danger-dark: $danger;
+$link: $grey-lighter;
+$link-light: bulmaRgba($link, 0.3);
+$link-dark: $link;
+$link-hover: $turquoise;
+$link-hover-border: $link-hover;
+$link-active: $grey-lighter;
+$link-active-border: $grey-lighter;
+$light: $grey;
+$dark: $grey-darker;
+$scheme-main: $grey-darker;
+$scheme-main-bis: $black-ter;
+$scheme-main-ter: $black-bis;
+$scheme-invert: $black;
+$scheme-invert-bis: $black-bis;
+$scheme-invert-ter: $black-ter;
+$background: $grey-darker;
+$border: $grey-darker-ter;
+$border-hover: $link-hover;
+$border-light: $grey-darker-bis;
+$border-light-hover: $link-hover;
 $text: $grey;
+$text-light: $grey;
 $text-strong: $grey-light;
-$input-border-color: transparent;
-$input-shadow: none;
+$pre: $text;
+$pre: $background;
+
+// bulma component variables
+$card-content-background-color: $grey-darker-bis;
+$navbar-item-hover-color: $link-hover;
+$navbar-dropdown-item-hover-color: $link-hover;
+$panel-heading-background-color: $grey-darker-bis;
+$panel-block-hover-background-color: $grey-darker-bis;
+$pagination-current-background-color: $grey-dark;
+$pagination-current-border-color: $grey-dark;
 
 
 @import "../../../../node_modules/bulma/bulma.sass";
 
-.button {
+.button, .tag {
     text-transform: uppercase;
 }
 
@@ -50,19 +102,15 @@ $input-shadow: none;
 }
 
 .box {
-    background-color: $grey-darkerish;
+    background-color: $grey-darker-bis;
 }
 
 a.has-text-primary:hover, a.has-text-link:hover {
     color: $link-hover !important;
 }
 
-hr {
-    background-color: $grey-darkerish;
-}
-
 .content blockquote {
-    background-color: $grey-darkerish;
+    background-color: $grey-darker-bis;
     border-color: $grey-dark;
     border-radius: $radius-small;
 }
