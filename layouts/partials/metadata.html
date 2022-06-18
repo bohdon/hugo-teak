@@ -1,15 +1,19 @@
-{{ $dateTime := .PublishDate.Format "2000-01-01" }}
-{{ $dateFormat := .Site.Params.dateFormat | default "Jan 1, 2000" }}
+{{ $dateTime := .PublishDate.Format "2006-01-02" }}
+{{ $dateFormat := .Site.Params.dateFormat | default "2006-01-02" }}
 
-{{ if .PublishDate }}
-<div class="icon-text"><i class="fas fa-home"></i></div>
-<time datetime="{{ $dateTime }}">{{ .PublishDate.Format $dateFormat }}</time>
-{{ end }}
+<div class="field is-grouped is-grouped-multiline">
+    {{ if .PublishDate }}
+    <time class="control" datetime="{{ $dateTime }}">{{ .PublishDate.Format $dateFormat }}</time>
+    {{ end }}
 
-{{ with .Params.tags }}
-<i data-feather="tag"></i>
-{{ range . }}
-{{ $href := print (absURL "tags/") (urlize .) }}
-<button class="button tag is-small is-outlined is-primary" href="{{ $href }}">{{ . }}</button>
-{{ end }}
-{{ end }}
+    {{ with .Params.Tags }}
+    {{ range . }}
+    <div class="control">
+        <div class="tags">
+            {{ $href := print (absURL "tags/") (urlize .) }}
+            <a class="tag" href="{{ $href }}">{{ . }}</a>
+        </div>
+    </div>
+    {{ end }}
+    {{ end }}
+</div>

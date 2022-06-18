@@ -1,9 +1,37 @@
 {{ define "main" }}
+
 <div class="content">
-    <h1 class="title mb-2">{{ .Title }}</h1>
-    <div class="mb-5">
-        {{ partial "metadata.html" . }}
-    </div>
+    <h1 class="title">{{ .Title }}</h1>
     {{ .Content }}
+</div>
+
+<div class="box">
+    {{ partial "metadata.html" . }}
+</div>
+
+<div class="columns">
+    {{/* previous page link */}}
+    <div class="column">
+        {{ with .PrevInSection }}
+        <div class="card">
+            <div class="card-content">
+                <a href="{{ .Permalink }}">Previous : {{ .Title }}</a>
+                <div>{{ .Summary }}</div>
+            </div>
+        </div>
+        {{ end }}
+    </div>
+
+    {{/* next page link */}}
+    <div class="column">
+        {{ with .NextInSection }}
+        <div class="card">
+            <div class="card-content">
+                <a href="{{ .Permalink }}">Next : {{ .Title }}</a>
+                <div>{{ .Summary }}</div>
+            </div>
+        </div>
+        {{ end }}
+    </div>
 </div>
 {{ end }}
