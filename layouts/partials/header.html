@@ -7,6 +7,7 @@
         {{/* list of main menu items */}}
         {{ range $key, $menu := .Site.Menus.main }}
         {{ $active := or ($current.IsMenuCurrent "main" .) ($current.HasMenuCurrent "main" .)}}
+        {{ $active = or $active (and (eq .Name "Tags") (eq $current.Section "tags")) }}
         {{/*  add separator between items  */}}
         {{ if ne $key 0 }}<span class="m-1">|</span>{{ end }}
         <a class="is-uppercase {{ if not $active }}has-text-primary{{ end }}" href="{{ .URL }}">{{ .Name }}</a>
