@@ -9,24 +9,8 @@
 <div class="columns is-multiline">
 
     {{ range .Pages.ByPublishDate.Reverse }}
-    <div class="column is-half">
-        <div class="card">
-            {{/*  TODO: if poster image is set  */}}
-            {{ if false }}
-            <div class="card-image">
-                <figure class="image is-3by1">
-                    <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-                </figure>
-            </div>
-            {{ end }}
-            <div class="card-content">
-                <h4 class="title is-4 mb-2"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h4>
-                <div class="content mt-3">
-                    {{ .Summary }}
-                </div>
-                {{ partial "metadata.html" . }}
-            </div>
-        </div>
+    <div class="column is-6">
+        {{ partial "pagecard.html" . }}
     </div>
     {{ end }}
 
