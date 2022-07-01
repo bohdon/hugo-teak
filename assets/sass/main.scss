@@ -175,3 +175,52 @@ code, pre {
 .content div.highlight:not(:last-child) {
     margin-bottom: 1em;
 }
+
+.card {
+
+    &.is-horizontal {
+        flex-direction: row;
+        display: flex;
+        flex-basis: 50ex;
+        flex-grow: 0;
+        flex-shrink: 1;
+
+        .card-image {
+            flex: 0.5;
+            flex-shrink: 1;
+
+            .image {
+                display: block;
+                position: relative;
+                overflow: hidden;
+                height: 100%;
+                width: 100%;
+            }
+
+            img {
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+
+                &:first-child {
+                    border-top-left-radius: $radius;
+                    border-bottom-left-radius: $radius;
+                    border-top-right-radius: 0;
+                    border-bottom-right-radius: 0;
+                }
+            }
+        }
+
+        .card-content {
+            flex: 3;
+            flex-shrink: 3;
+
+            &:last-child {
+                border-top-right-radius: $radius;
+                border-bottom-right-radius: $radius;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+        }
+    }
+}
