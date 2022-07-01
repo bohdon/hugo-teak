@@ -10,7 +10,7 @@
     {{ range . }}
     <div class="control">
         <div class="tags">
-            {{ $href := print (absURL "tags/") (urlize .) }}
+            {{ $href := print ("/tags/") (urlize .) }}
             <a class="tag" href="{{ $href }}">{{ . }}</a>
         </div>
     </div>

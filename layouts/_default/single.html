@@ -15,7 +15,7 @@
         {{ with .PrevInSection }}
         <div class="card">
             <div class="card-content">
-                <a href="{{ .Permalink }}">Previous : {{ .Title }}</a>
+                <a href="{{ .RelPermalink }}">Previous : {{ .Title }}</a>
                 <div>{{ .Summary }}</div>
             </div>
         </div>
@@ -27,7 +27,7 @@
         {{ with .NextInSection }}
         <div class="card">
             <div class="card-content">
-                <a href="{{ .Permalink }}">Next : {{ .Title }}</a>
+                <a href="{{ .RelPermalink }}">Next : {{ .Title }}</a>
                 <div>{{ .Summary }}</div>
             </div>
         </div>
