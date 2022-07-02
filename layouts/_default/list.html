@@ -9,7 +9,7 @@
 <div class="columns is-multiline">
 
     {{ range .Pages.ByPublishDate.Reverse }}
-    <div class="column is-12">
+    <div class="column is-full">
         {{ partial "pagecard.html" . }}
     </div>
     {{ end }}

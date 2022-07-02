@@ -1,5 +1,8 @@
 {{ $dateTime := .PublishDate.Format "2006-01-02" }}
 {{ $dateFormat := .Site.Params.dateFormat | default "2006-01-02" }}
+{{ if .Params.yearOnly }}
+{{ $dateFormat = "2006" }}
+{{ end }}
 
 <div class="field is-grouped is-grouped-multiline">
     {{ if .PublishDate }}
