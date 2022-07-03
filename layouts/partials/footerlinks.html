@@ -1,0 +1,23 @@
+<div>
+
+    {{ range .Site.Params.iconLinks }}
+    <a href="{{ .url }}" target="_blank">
+        {{ if .brandIcon }}
+        <span class="icon is-large">
+            <i class="fa-brands fa-{{ .brandIcon }} fa-2x"></i>
+        </span>
+        {{ else if .icon }}
+        <span class="icon is-large">
+            <i class="fa-solid fa-{{ .icon }} fa-2x"></i>
+        </span>
+        {{ end }}
+    </a>
+    {{ end }}
+
+</div>
+
+<div>
+    {{ range .Site.Params.textLinks }}
+    <a class="button is-small" href="{{ .url }}" target="_blank">{{ .name }}</a>
+    {{ end }}
+</div>

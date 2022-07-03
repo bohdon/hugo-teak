@@ -1,9 +1,9 @@
 <div class="container footer pt-5 mt-5 mb-0">
     <div class="content">
-        <div>
-            <a></a>
-        </div>
-        <div class="has-text-primary">
+
+        {{ partial "footerlinks.html" . }}
+
+        <div class="has-text-primary mt-2">
             {{ .Site.Copyright }} | Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> and <a
                 href="https://github.com/bohdon/hugo-teak" target="_blank">Teak</a> | Deployed through <a
                 href="https://www.netlify.com/" target="_blank">Netlify</a> and <a href="https://www.netlifycms.org/"
