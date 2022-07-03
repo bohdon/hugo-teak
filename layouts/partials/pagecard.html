@@ -11,7 +11,18 @@
     {{ end }}
 
     <div class="card-content">
-        <h4 class="title is-4 mb-3"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h4>
+        <h4 class="title is-4 mb-3">
+            <a href="{{ .RelPermalink }}">
+                <span class="icon">
+                    {{ $icon := "fa-regular fa-file-lines"}}
+                    {{ if eq .Type "work" }}
+                    {{ $icon = "fa-solid fa-photo-film"}}
+                    {{ end }}
+                    <i class="{{ $icon }}"></i>
+                </span>
+                {{ .LinkTitle }}
+            </a>
+        </h4>
 
         {{ partial "metadata.html" . }}
 

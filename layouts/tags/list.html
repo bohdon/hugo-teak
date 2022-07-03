@@ -18,9 +18,11 @@
 {{ if eq .Kind "taxonomy" }}
 {{/* list of tags */}}
 <div class="box">
-    {{ range .Pages }}
-    <a class="tag is-medium" href="{{ .RelPermalink }}">{{ .Title }}</a>
-    {{ end }}
+    <div class="tags">
+        {{ range .Pages }}
+        <a class="tag is-medium" href="{{ .RelPermalink }}">{{ .Title }}</a>
+        {{ end }}
+    </div>
 </div>
 
 {{ else }}
@@ -28,22 +30,17 @@
 <div class="columns is-multiline">
 
     {{ range .Pages }}
+
+    {{ if eq .Type "links" }}
     <div class="column is-3">
-        <article class="box">
-            {{ $link := .RelPermalink }}
-            {{ if .Params.Link }}
-            {{ $link = .Params.Link }}
-            {{ end }}
-            <div class="is-uppercase has-text-primary mb-2">{{ .Type }} /</div>
-            <h5 class="title is-5 mb-3">
-                <a href="{{ $link }}" {{if .Params.Link }}target="_blank" {{ end }}>{{ .LinkTitle }}</a>
-            </h5>
-            <div class="content">
-                {{ .Summary }}
-            </div>
-            {{ partial "metadata.html" . }}
-        </article>
+        {{ partial "linkcard.html" . }}
     </div>
+    {{ else }}
+    <div class="column is-6">
+        {{ partial "pagecard.html" . }}
+    </div>
+    {{ end }}
+
     {{ end }}
 
 </div>
