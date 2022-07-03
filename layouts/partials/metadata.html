@@ -5,6 +5,14 @@
 {{ end }}
 
 <div class="field is-grouped is-grouped-multiline">
+    {{ if .Params.draft }}
+    <div class="control">
+        <div class="tags">
+            <div class="tag field is-small is-primary">Draft</div>
+        </div>
+    </div>
+    {{ end }}
+
     {{ if .PublishDate }}
     <time class="control" datetime="{{ $dateTime }}">{{ .PublishDate.Format $dateFormat }}</time>
     {{ end }}

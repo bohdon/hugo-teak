@@ -3,17 +3,21 @@
     {{ if .Params.Image }}
     <div class="card-image">
         <figure class="image is-1by1">
-            <img src="/img/{{ .Params.Image }}">
+            <a href="{{ .RelPermalink }}">
+                <img src="{{ .Params.Image }}">
+            </a>
         </figure>
     </div>
     {{ end }}
 
     <div class="card-content">
-        <h4 class="title is-4 mb-2"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h4>
-        <div class="content mt-3">
+        <h4 class="title is-4 mb-3"><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h4>
+
+        {{ partial "metadata.html" . }}
+
+        <div class="content is-size-7-touch is-size-6-tablet">
             {{ .Summary }}
         </div>
-        {{ partial "metadata.html" . }}
     </div>
 
 </div>
