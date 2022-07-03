@@ -13,7 +13,7 @@
         <h4 class="title is-4">Latest Notes</h4>
         <div class="columns is-multiline">
 
-            {{ range (where .Site.RegularPages.ByDate "Section" "notes") }}
+            {{ range (where .Site.RegularPages.ByDate.Reverse "Section" "notes") }}
             <div class="column is-full">
                 {{ partial "pagecard.html" . }}
             </div>
@@ -26,7 +26,7 @@
         <h4 class="title is-4">Latest Links</h4>
         <div class="columns is-multiline">
 
-            {{ range (where .Site.RegularPages.ByDate "Section" "links") }}
+            {{ range (where .Site.RegularPages.ByDate.Reverse "Section" "links") }}
             <div class="column is-half">
                 {{ partial "linkcard.html" . }}
             </div>
