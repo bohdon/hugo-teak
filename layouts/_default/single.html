@@ -3,7 +3,7 @@
 
 <div class="content">
 
-    <div class="card is-horizontal mb-5">
+    <div class="card is-horizontal mb-5 {{ if eq .Type "notes" }}notes-card{{ end }}{{ if eq .Type "work" }}work-card{{ end }}">
 
         {{ if .Params.Image }}
         <div class="card-image">

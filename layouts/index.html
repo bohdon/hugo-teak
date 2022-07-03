@@ -9,25 +9,23 @@
 <div class="columns">
 
     {{/* first column, recent notes */}}
-    <div class="column is-half">
-        <h4 class="title is-4">Latest Notes</h4>
+    <div class="column is-full">
+        <h4 class="title is-4 has-text-primary is-uppercase">Latest Notes</h4>
         <div class="columns is-multiline">
 
-            {{ range (where .Site.RegularPages.ByDate.Reverse "Section" "notes") }}
+            {{ range first 3 (where .Site.RegularPages.ByDate.Reverse "Section" "notes") }}
             <div class="column is-full">
                 {{ partial "pagecard.html" . }}
             </div>
             {{ end }}
 
         </div>
-    </div>
 
-    <div class="column is-half">
-        <h4 class="title is-4">Latest Links</h4>
+        <h4 class="title is-4 has-text-primary is-uppercase">Latest Links</h4>
         <div class="columns is-multiline">
 
-            {{ range (where .Site.RegularPages.ByDate.Reverse "Section" "links") }}
-            <div class="column is-full">
+            {{ range first 4 (where .Site.RegularPages.ByDate.Reverse "Section" "links") }}
+            <div class="column is-half">
                 {{ partial "linkcard.html" . }}
             </div>
             {{ end }}
