@@ -9,8 +9,12 @@
     {{ $title := print .Site.Title " | " .Title }} {{ if .IsHome }} {{ $title = .Site.Title }} {{ end }}
     <title>{{ $title }}</title>
 
+    {{ if .Site.Params.FontAwesomeScript }}
+    <script src="{{ .Site.Params.fontAwesomeScript }}" crossorigin="anonymous"></script>
+    {{ end }}
+
     {{ if .IsHome }}
-    {{/*  TODO: Add setting to optionally enable netlify cms  */}}
+    {{/* TODO: Add setting to optionally enable netlify cms */}}
     <!-- Include the script that enables Netlify Identity on this page. -->
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     {{ end }}

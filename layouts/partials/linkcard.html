@@ -4,8 +4,16 @@
         {{ if .Params.Link }}
         {{ $link = .Params.Link }}
         {{ end }}
-        <h5 class="title is-5 mb-0"><a href="{{ $link }}" {{if .Params.Link }}target="_blank" {{ end }}>{{ .LinkTitle }}
-                ></a></h5>
+
+        <h5 class="title is-5 mb-0">
+            <a href="{{ $link }}" {{if .Params.Link }}target="_blank" {{ end }}>
+                <span class="icon">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </span>
+                {{ .LinkTitle }}
+            </a>
+        </h5>
+
         <div class="content mt-3">
             {{ .Content }}
         </div>
