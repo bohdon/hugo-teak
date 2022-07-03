@@ -20,18 +20,30 @@
                     {{ end }}
                 </a>
                 {{ end }}
+
+                {{/* show search menu item when hidden on the right */}}
+                <span class="is-hidden-desktop">
+                    <span class="m-1">|</span>
+                    <span class="icon">
+                        <a class="has-text-primary" href="/search">
+                            <i class="fa-regular fa-magnifying-glass"></i>
+                        </a>
+                    </span>
+                </span>
             </p>
 
             <div class="navbar-menu">
                 <div class="navbar-end pr-3">
 
+                    {{/* search */}}
                     <span class="icon">
                         <a class="has-text-primary" href="/search">
                             <i class="fa-regular fa-magnifying-glass fa-lg"></i>
                         </a>
                     </span>
 
-                    <div class="subtitle has-text-primary is-hidden-mobile pl-2">
+                    {{/* site title */}}
+                    <div class="subtitle has-text-primary  pl-2">
                         {{ .Site.Title }}
                     </div>
                 </div>
