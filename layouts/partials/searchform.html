@@ -1,0 +1,54 @@
+<div class="box">
+    <form id="search" class="search" role="search">
+        <input type="search" id="search-input" class="input search-input" placeholder="Search">
+    </form>
+    <div class="subtitle mt-3 search-result-msg">Enter a search term</div>
+</div>
+
+{{/* template to instance for each search result */}}
+<template id="search-result" hidden>
+
+    <div class="column is-full">
+
+        <div class="card is-horizontal">
+
+            <div class="card-image">
+                <figure class="image is-1by1">
+                    <a class="entry-image-link">
+                        <img class="entry-image">
+                    </a>
+                </figure>
+            </div>
+
+            <div class="card-content">
+                <h4 class="title page-title mb-3 is-size-4-tablet is-size-5-touch">
+                    <a class="entry-title-link">
+                        <span class="icon">
+                            <i class="entry-icon"></i>
+                        </span>
+                        <span class="entry-title-text">
+                            {Page Title}
+                        </span>
+                    </a>
+                </h4>
+
+                {{/* TODO: support metadata in search results */}}
+                {{/* {{ partial "metadata.html" . }} */}}
+
+                <div class="entry-summary-text content is-size-6-tablet is-size-7-touch">
+                    {Summary}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</template>
+
+
+{{/* where the search contents will be inserted */}}
+<div class="search-result-container mt-4">
+    <div class="columns is-multiline main-inner">
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
