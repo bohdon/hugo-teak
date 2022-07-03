@@ -1,16 +1,21 @@
-<div class="container box pt-3 mt-5 mb-0">
-    <div class="is-size-3 has-text-primary">
-        <a {{ if not .IsHome }}class="has-text-primary"{{ end }} href="/">{{ .Site.Title }}</a>
-    </div>
-    <p class="subtitle">
+<div class="container box pt-3 mt-3 mb-0">
+    <p class="subtitle mt-2">
         {{ $current := . }}
         {{/* list of main menu items */}}
         {{ range $key, $menu := .Site.Menus.main }}
         {{ $active := or ($current.IsMenuCurrent "main" .) ($current.HasMenuCurrent "main" .)}}
         {{ $active = or $active (and (eq .Name "Tags") (eq $current.Section "tags")) }}
-        {{/*  add separator between items  */}}
+        {{/* add separator between items */}}
         {{ if ne $key 0 }}<span class="m-1">|</span>{{ end }}
-        <a class="is-uppercase {{ if not $active }}has-text-primary{{ end }}" href="{{ .URL }}">{{ .Name }}</a>
+        <a class="is-uppercase {{ if not $active }}has-text-primary{{ end }}" href="{{ .URL }}">
+            {{ if .Pre }}
+            <span class="icon">
+                <i class="{{ .Pre }}"></i>
+            </span>
+            {{ else }}
+            {{ .Name }}
+            {{ end }}
+        </a>
         {{ end }}
     </p>
 </div>
