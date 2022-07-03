@@ -11,7 +11,7 @@
     {{ end }}
 
     <div class="card-content">
-        <h4 class="title is-4 mb-3">
+        <h4 class="title mb-3 is-size-4-tablet is-size-5-touch">
             <a href="{{ .RelPermalink }}">
                 <span class="icon">
                     {{ $icon := "fa-regular fa-file-lines"}}
@@ -26,7 +26,7 @@
 
         {{ partial "metadata.html" . }}
 
-        <div class="content is-size-7-touch is-size-6-tablet">
+        <div class="content is-size-6-tablet is-size-7-touch">
             {{ .Summary }}
         </div>
     </div>

@@ -1,12 +1,19 @@
 {{ define "main" }}
 
 {{ if eq .Kind "term" }}
+
+{{ if eq .Type "tags" }}
+{{/* The tag being shown */}}
+{{ $tag := .Site.Taxonomies.tags.Get .Title }}
+
 <div class="box">
     <div class="tags has-addons">
-        <a class="tag is-medium">{{ .Title }}</a>
+        <a class="tag is-medium">{{ .Title }} ({{ $tag.Count }})</a>
         <a class="tag is-medium is-delete is-danger is-light" href=".."></a>
     </div>
 </div>
+{{ end }}
+
 {{ end }}
 
 {{ if .Content }}
@@ -19,8 +26,8 @@
 {{/* list of tags */}}
 <div class="box">
     <div class="tags">
-        {{ range .Pages }}
-        <a class="tag is-medium" href="{{ .RelPermalink }}">{{ .Title }}</a>
+        {{ range .Site.Taxonomies.tags.ByCount }}
+        <a class="tag is-medium" href="{{ .Page.RelPermalink }}">{{ .Name }} ({{ .Count }})</a>
         {{ end }}
     </div>
 </div>
@@ -32,11 +39,11 @@
     {{ range .Pages }}
 
     {{ if eq .Type "links" }}
-    <div class="column is-3">
+    <div class="column is-half">
         {{ partial "linkcard.html" . }}
     </div>
     {{ else }}
-    <div class="column is-6">
+    <div class="column is-full">
         {{ partial "pagecard.html" . }}
     </div>
     {{ end }}

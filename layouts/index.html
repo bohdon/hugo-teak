@@ -27,7 +27,7 @@
         <div class="columns is-multiline">
 
             {{ range (where .Site.RegularPages.ByDate.Reverse "Section" "links") }}
-            <div class="column is-half">
+            <div class="column is-full">
                 {{ partial "linkcard.html" . }}
             </div>
             {{ end }}
