@@ -10,18 +10,29 @@
 
     {{/* first column, recent notes */}}
     <div class="column is-full">
-        <h4 class="title is-4 has-text-primary is-uppercase">Latest Notes</h4>
+        <h4 class="title is-4 has-text-primary is-uppercase">Recent Notes</h4>
         <div class="columns is-multiline">
 
-            {{ range first 3 (where .Site.RegularPages.ByDate.Reverse "Section" "notes") }}
+            {{ range first 4 (where .Site.RegularPages.ByDate.Reverse "Section" "notes") }}
             <div class="column is-full">
                 {{ partial "pagecard.html" (dict "context" .) }}
             </div>
             {{ end }}
 
+            <div class="column is-full">
+                <a class="button is-primary is-fullwidth" href="/notes">
+                    <span class="icon">
+                        <i class="fa-solid fa-memo"></i>
+                    </span>
+                    <span>
+                        More notes
+                    </span>
+                </a>
+            </div>
+
         </div>
 
-        <h4 class="title is-4 has-text-primary is-uppercase">Latest Links</h4>
+        <h4 class="title is-4 has-text-primary is-uppercase">Recent Links</h4>
         <div class="columns is-multiline">
 
             {{ range first 4 (where .Site.RegularPages.ByDate.Reverse "Section" "links") }}
@@ -29,6 +40,17 @@
                 {{ partial "linkcard.html" . }}
             </div>
             {{ end }}
+
+            <div class="column is-full">
+                <a class="button is-info is-fullwidth" href="/links">
+                    <span class="icon">
+                        <i class="fa-solid fa-bookmark"></i>
+                    </span>
+                    <span>
+                        More links
+                    </span>
+                </a>
+            </div>
 
         </div>
     </div>

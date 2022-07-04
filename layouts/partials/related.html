@@ -1,0 +1,14 @@
+{{/* get related pages in same section */}}
+{{ $section := where .Site.RegularPages "Section" .Section }}
+{{ $related := $section.Related . | first 4 }}
+
+{{ with $related }}
+<h4 class="title is-4">Related</h4>
+<div class="columns is-multiline">
+    {{ range . }}
+    <div class="column is-half">
+        {{ partial "pagecard.html" (dict "context" . "IsSmall" true "NoMetadata" true) }}
+    </div>
+    {{ end }}
+</div>
+{{ end }}

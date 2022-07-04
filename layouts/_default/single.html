@@ -10,9 +10,12 @@
 </div>
 
 <div class="notification mt-6 mb-6 is-clearfix">
+    {{/* show published date, but not for work */}}
+    {{ if ne .Type "work" }}
     <span class="is-italic has-text-primary">
         Published on {{ .Date.Format "Jan 2, 2006" }}
     </span>
+    {{ end }}
     <button onclick="goToTop()" class="button is-primary is-outlined is-pulled-right">
         <span class="icon-text">
             <span class="icon">
@@ -25,6 +28,12 @@
     </button>
 </div>
 
+{{ if eq .Type "work" }}
+{{/* show next/prev for work */}}
 {{ partial "nextprev.html" . }}
+{{ else }}
+{{/* show related content for notes */}}
+{{ partial "related.html" . }}
+{{ end }}
 
 {{ end }}
