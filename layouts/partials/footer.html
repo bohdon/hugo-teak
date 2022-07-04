@@ -12,6 +12,10 @@
                     href="https://github.com/bohdon/hugo-teak" target="_blank">Teak</a> | Deployed through <a
                     href="https://www.netlify.com/" target="_blank">Netlify</a> and <a
                     href="https://www.netlifycms.org/" target="_blank">Netlify CMS</a>
+                {{ if .Site.Params.plausibleDomain }}
+                | Analytics by <a href="https://plausible.io/{{ .Site.Params.plausibleDomain }}"
+                    target="_blank">Plausible.io</a>
+                {{ end }}
             </p>
         </div>
     </div>
