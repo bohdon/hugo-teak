@@ -1,0 +1,22 @@
+<div class="columns">
+    {{/* previous page link */}}
+    <div class="column">
+        {{ with .PrevInSection }}
+        <div class="subtitle">Previous</div>
+        {{ partial "pagecard.html" (dict "context" . "IsSmall" true "NoMetadata" true) }}
+        {{ end }}
+    </div>
+
+    <div class="column is-1">
+    </div>
+
+    {{/* next page link */}}
+    <div class="column">
+        {{ with .NextInSection }}
+        <div class="subtitle">Next</div>
+        {{ partial "pagecard.html" (dict "context" . "IsSmall" true "NoMetadata" true) }}
+        {{ else }}
+        {{ end }}
+    </div>
+
+</div>

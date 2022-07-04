@@ -1,34 +1,63 @@
-<div class="card is-horizontal {{ if eq .Type "notes" }}notes-card{{ end }}{{ if eq .Type "work" }}work-card{{ end }}">
+{{ $noSummary := default false .NoSummary }}
+{{ $noLink := default false .NoLink }}
+{{ $noMetadata := default false .NoMetadata }}
+{{ $isSmall := default false .IsSmall }}
 
-    {{ if .Params.Image }}
+{{ $cardClass := "" }}
+{{ $titleIcon := "" }}
+
+{{/* notes */}}
+{{ if eq .context.Type "notes" }}
+{{ $cardClass = "notes-card" }}
+{{ $titleIcon = "fa-solid fa-memo"}}
+{{ end }}
+
+{{/* work */}}
+{{ if eq .context.Type "work" }}
+{{ $cardClass = "work-card" }}
+{{ $titleIcon = "fa-solid fa-photo-film"}}
+{{ end }}
+
+
+<div class="card is-horizontal {{ $cardClass }}">
+
+    {{ if .context.Params.Image }}
     <div class="card-image">
         <figure class="image is-1by1">
-            <a href="{{ .RelPermalink }}">
-                <img src="{{ .Params.Image }}">
+            <a href="{{ .context.RelPermalink }}" {{if $noLink }}style="pointer-events: none" {{ end }}>
+                <img src="{{ .context.Params.Image }}">
             </a>
         </figure>
     </div>
     {{ end }}
 
     <div class="card-content">
-        <h4 class="title mb-3 is-size-4-tablet is-size-5-touch">
-            <a href="{{ .RelPermalink }}">
+        {{ if $isSmall }}
+        <h4 class="title mb-3 is-size-5">
+        {{ else }}
+        <h4 class="title mb-3 is-size-4-tablet is-size-5-touch is-size-4">
+        {{ end }}
+            <a href="{{ .context.RelPermalink }}" {{if $noLink }}style="pointer-events: none" {{ end }}>
                 <span class="icon">
-                    {{ $icon := "fa-solid fa-memo"}}
-                    {{ if eq .Type "work" }}
-                    {{ $icon = "fa-solid fa-photo-film"}}
-                    {{ end }}
-                    <i class="{{ $icon }}"></i>
+                    <i class="{{ $titleIcon }}"></i>
                 </span>
-                {{ .LinkTitle }}
+                {{ .context.LinkTitle }}
             </a>
         </h4>
 
-        {{ partial "metadata.html" . }}
+        {{ if not $noMetadata }}
+        {{ partial "metadata.html" .context }}
+        {{ end }}
 
+        {{ if not $noSummary }}
+        {{ if $isSmall }}
+        <div class="content is-size-7">
+        {{ else }}
         <div class="content is-size-6-tablet is-size-7-touch">
-            {{ .Summary }}
+        {{ end }}
+            {{ .context.Summary }}
         </div>
+        {{ end }}
     </div>
 
 </div>

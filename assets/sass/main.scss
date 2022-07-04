@@ -62,11 +62,13 @@ $link-hover: $turquoise;
 $link-hover-border: $link-hover;
 $link-active: $grey-lighter;
 $link-active-border: $grey-lighter;
+$link-focus: $grey-lighter;
+$link-focus-border: $grey-darker-bis;
 $light: $grey;
 $dark: $grey-darker;
 $scheme-main: $grey-darker;
-$scheme-main-bis: $black-ter;
-$scheme-main-ter: $black-bis;
+$scheme-main-bis: $black-bis;
+$scheme-main-ter: $black-ter;
 $scheme-invert: $black;
 $scheme-invert-bis: $black-bis;
 $scheme-invert-ter: $black-ter;
@@ -82,6 +84,7 @@ $pre: $text;
 $pre: $background;
 
 // bulma component variables
+$notification-background-color: $black-ter;
 $card-content-background-color: $grey-darker-bis;
 $navbar-item-hover-color: $link-hover;
 $navbar-dropdown-item-hover-color: $link-hover;

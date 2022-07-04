@@ -1,57 +1,30 @@
 {{ define "main" }}
 
+{{/* page header card */}}
+<div class="mb-5">
+    {{ partial "pagecard.html" (dict "context" . "NoSummary" true "NoLink" true) }}
+</div>
 
 <div class="content">
-
-    <div class="card is-horizontal mb-5 {{ if eq .Type "notes" }}notes-card{{ end }}{{ if eq .Type "work" }}work-card{{ end }}">
-
-        {{ if .Params.Image }}
-        <div class="card-image">
-            <img src="{{ .Params.Image }}">
-        </div>
-        {{ end }}
-
-        <div class="card-content">
-            <h2 class="title is-4 mb-3">
-                <span class="icon">
-                    {{ $icon := "fa-solid fa-memo"}}
-                    {{ if eq .Type "work" }}
-                    {{ $icon = "fa-solid fa-photo-film"}}
-                    {{ end }}
-                    <i class="{{ $icon }}"></i>
-                </span>
-                {{ .Title }}
-            </h2>
-            {{ partial "metadata.html" . }}
-        </div>
-    </div>
-
     {{ .Content }}
 </div>
 
-<div class="columns">
-    {{/* previous page link */}}
-    <div class="column">
-        {{ with .PrevInSection }}
-        <div class="card">
-            <div class="card-content">
-                <a href="{{ .RelPermalink }}">Previous : {{ .Title }}</a>
-                <div>{{ .Summary }}</div>
-            </div>
-        </div>
-        {{ end }}
-    </div>
-
-    {{/* next page link */}}
-    <div class="column">
-        {{ with .NextInSection }}
-        <div class="card">
-            <div class="card-content">
-                <a href="{{ .RelPermalink }}">Next : {{ .Title }}</a>
-                <div>{{ .Summary }}</div>
-            </div>
-        </div>
-        {{ end }}
-    </div>
+<div class="notification mt-6 mb-6 is-clearfix">
+    <span class="is-italic has-text-primary">
+        Published on {{ .Date.Format "Jan 2, 2006" }}
+    </span>
+    <button onclick="goToTop()" class="button is-primary is-outlined is-pulled-right">
+        <span class="icon-text">
+            <span class="icon">
+                <i class="fa-regular fa-chevron-up"></i>
+            </span>
+            <span>
+                Top
+            </span>
+        </span>
+    </button>
 </div>
+
+{{ partial "nextprev.html" . }}
+
 {{ end }}
