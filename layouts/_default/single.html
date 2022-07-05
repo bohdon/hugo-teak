@@ -5,6 +5,12 @@
     {{ partial "pagecard.html" (dict "context" . "NoSummary" true "NoLink" true) }}
 </div>
 
+{{ if ge .ReadingTime 5 }}
+<div class="notification">
+    Reading time: {{ .ReadingTime }} minutes
+</div>
+{{ end }}
+
 <div class="content">
     {{ .Content }}
 </div>
