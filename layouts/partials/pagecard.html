@@ -26,6 +26,11 @@
         <figure class="image is-1by1">
             <a href="{{ .context.RelPermalink }}" {{if $noLink }}style="pointer-events: none" {{ end }}>
                 <img src="{{ .context.Params.Image }}">
+                {{ if .context.Params.ImageIcon }}
+                <span class="icon image-icon-centered">
+                    <i class="{{ .context.Params.ImageIcon }} is-size-2 is-size-4-mobile is-size-1-desktop"></i>
+                </span>
+                {{ end }}
             </a>
         </figure>
     </div>
