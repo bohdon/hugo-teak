@@ -3,19 +3,27 @@
 {{ $link = .Params.Link }}
 {{ end }}
 
-<div class="card">
+<div class="card is-horizontal link-card">
 
-    {{ if .Params.Image }}
+    {{ if or .Params.Image .Params.ImageIcon }}
     <div class="card-image">
-        <figure class="image">
-            <a href="{{ $link }}" {{if .Params.Link }}target="_blank" {{ end }}>
+        <a class="anchor-block" href="{{ $link }}" {{if .Params.Link }}target="_blank" {{ end }}>
+            {{ if .Params.Image }}
+            <figure class="image">
                 <img src="{{ .Params.Image }}">
-            </a>
-        </figure>
+            </figure>
+            {{ end }}
+            {{ if .Params.ImageIcon }}
+            <span class="icon image-icon-centered">
+                <i
+                class="{{ .Params.ImageIcon }} is-size-2 is-size-4-mobile is-size-1-desktop"></i>
+            </span>
+            {{ end }}
+        </a>
     </div>
     {{ end }}
 
-    <div class="card-content link-card">
+    <div class="card-content">
         <h5 class="title mb-3 is-size-5">
             <a href="{{ $link }}" {{if .Params.Link }}target="_blank" {{ end }}>
                 <span class="icon">
