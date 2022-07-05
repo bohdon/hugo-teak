@@ -21,18 +21,21 @@
 
 <div class="card is-horizontal {{ $cardClass }}">
 
-    {{ if .context.Params.Image }}
-    <div class="card-image">
-        <figure class="image is-1by1">
-            <a href="{{ .context.RelPermalink }}" {{if $noLink }}style="pointer-events: none" {{ end }}>
+    {{ if or (.context.Params.Image) (.context.Params.ImageIcon) }}
+    {{/* show image */}}
+    <div class="card-image" {{ if .context.Params.Color }}style="background-color: {{ .context.Params.Color }};"{{ end }}>
+        <a class="anchor-block" href="{{ .context.RelPermalink }}" {{if $noLink }}style="pointer-events: none" {{ end }}>
+            <figure class="image is-1by1">
+                {{ if .context.Params.Image }}
                 <img src="{{ .context.Params.Image }}">
-                {{ if .context.Params.ImageIcon }}
-                <span class="icon image-icon-centered">
-                    <i class="{{ .context.Params.ImageIcon }} is-size-2 is-size-4-mobile is-size-1-desktop"></i>
-                </span>
                 {{ end }}
-            </a>
-        </figure>
+            </figure>
+            {{ if .context.Params.ImageIcon }}
+            <span class="icon image-icon-centered">
+                <i class="{{ .context.Site.Params.ImageIconStyle }} {{ .context.Params.ImageIcon }} is-size-2 is-size-4-mobile is-size-1-desktop"></i>
+            </span>
+            {{ end }}
+        </a>
     </div>
     {{ end }}
 
