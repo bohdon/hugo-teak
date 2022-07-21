@@ -10,7 +10,7 @@
 
     {{/* first column, recent notes */}}
     <div class="column is-full">
-        <h4 class="title is-4 has-text-primary is-uppercase">Recent Notes</h4>
+        <h4 class="subtitle is-4 has-text-primary">recent notes...</h4>
         <div class="columns is-multiline">
 
             {{ range first 4 (where .Site.RegularPages.ByDate.Reverse "Section" "notes") }}
@@ -32,7 +32,7 @@
 
         </div>
 
-        <h4 class="title is-4 has-text-primary is-uppercase">Recent Links</h4>
+        <h4 class="subtitle is-4 has-text-primary">recent links...</h4>
         <div class="columns is-multiline">
 
             {{ range first 4 (where .Site.RegularPages.ByDate.Reverse "Section" "links") }}

@@ -10,7 +10,7 @@
                 {{ $active = or $active (and (eq .Name "Tags") (eq $current.Section "tags")) }}
                 {{/* add separator between items */}}
                 {{ if ne $key 0 }}<span class="m-1">|</span>{{ end }}
-                <a class="is-uppercase {{ if not $active }}has-text-primary{{ end }}" href="{{ .URL }}">
+                <a class="is-lowercase {{ if not $active }}has-text-primary{{ end }}" href="{{ .URL }}">
                     {{ if .Pre }}
                     <span class="icon">
                         <i class="{{ .Pre }}"></i>

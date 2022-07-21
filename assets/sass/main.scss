@@ -1,29 +1,32 @@
 @charset "utf-8";
 
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@350;400&display=swap');
 
 @import "../../../../node_modules/bulma/sass/utilities/functions.sass";
 
 $test: hsl(308, 100%, 50%);
 
 // new colors
+$scheme-main-hue: 26;
+$scheme-main-sat: 5%;
+$scheme-main-sat-high: 10%;
 $teal-dark: hsl(173, 31%, 45%);
-$grey-darker-bis: hsl(26, 5%, 25%);
-$grey-darker-ter: hsl(26, 5%, 28%);
+$grey-darker-bis: hsl($scheme-main-hue, $scheme-main-sat, 25%);
+$grey-darker-ter: hsl($scheme-main-hue, $scheme-main-sat, 28%);
 
 // bulma global variables
-$black: hsl(26, 5%, 9%);
-$black-bis: hsl(26, 5%, 11%);
-$black-ter: hsl(26, 5%, 17%);
-$grey-darker: hsl(26, 5%, 21.5%);
-$grey-dark: hsl(26, 7%, 42%);
-$grey: hsl(32, 7%, 56%);
-$grey-light: hsl(32, 18%, 64%);
-$grey-lighter: hsl(32, 13%, 71%);
-$grey-lightest: hsl(0, 0%, 93%);
-$white-ter: hsl(0, 0%, 93%);
-$white-bis: hsl(0, 0%, 98%);
-$white: hsl(0, 0%, 100%);
+$black: hsl($scheme-main-hue, $scheme-main-sat, 9%);
+$black-bis: hsl($scheme-main-hue, $scheme-main-sat, 11%);
+$black-ter: hsl($scheme-main-hue, $scheme-main-sat, 17%);
+$grey-darker: hsl($scheme-main-hue, $scheme-main-sat, 21.5%);
+$grey-dark: hsl($scheme-main-hue, $scheme-main-sat, 42%);
+$grey: hsl($scheme-main-hue, $scheme-main-sat, 56%);
+$grey-light: hsl($scheme-main-hue, $scheme-main-sat-high, 64%);
+$grey-lighter: hsl($scheme-main-hue, $scheme-main-sat-high, 71%);
+$grey-lightest: hsl($scheme-main-hue, $scheme-main-sat, 93%);
+$white-ter: hsl($scheme-main-hue, $scheme-main-sat, 93%);
+$white-bis: hsl($scheme-main-hue, $scheme-main-sat, 98%);
+$white: hsl($scheme-main-hue, $scheme-main-sat, 100%);
 $orange: hsl(14, 80%, 53%);
 $yellow: hsl(44, 72%, 50%);
 $green: hsl(88, 46%, 46%);
@@ -33,11 +36,16 @@ $blue: hsl(192, 46%, 50%);
 $purple: hsl(278, 54%, 56%);
 $red: hsl(7, 46%, 48%);
 $family-sans-serif: "Rubik", sans-serif;
-$weight-light: 400;
-$weight-normal: 400;
+$weight-light: 300;
+$weight-normal: 350;
 $weight-medium: 400;
 $weight-semibold: 400;
 $weight-bold: 400;
+$radius-small: 2px;
+$radius: 2px;
+$radius-large: 2px;
+$radius-rare: 0.25rem;
+$shadow: 0;
 
 // bulma derived variables
 $primary: $grey-dark;
@@ -86,22 +94,20 @@ $pre: $background;
 // bulma component variables
 $notification-background-color: $black-ter;
 $card-content-background-color: $grey-darker-bis;
+$card-radius: $radius;
 $navbar-item-hover-color: $link-hover;
 $navbar-dropdown-item-hover-color: $link-hover;
 $panel-heading-background-color: $grey-darker-bis;
 $panel-block-hover-background-color: $grey-darker-bis;
 $pagination-current-background-color: $grey-dark;
 $pagination-current-border-color: $grey-dark;
+$tag-radius: $radius-rare;
 
 
 @import "../../../../node_modules/bulma/bulma.sass";
 
-.button, .tag {
+.tag {
     text-transform: uppercase;
-}
-
-.title {
-    font-weight: $weight-normal;
 }
 
 .input, .select select {
@@ -119,7 +125,6 @@ a.has-text-primary:hover, a.has-text-link:hover {
 .content blockquote {
     background-color: $grey-darker-bis;
     border-color: $grey-dark;
-    border-radius: $radius-small;
 }
 
 $blockquote-bg-alpha-adjust: -0.85;
@@ -176,7 +181,7 @@ pre, code {
 }
 
 code, pre {
-    border-radius: $radius;
+    border-radius: $radius-rare;
 }
 
 .content div.highlight:not(:last-child) {
@@ -210,8 +215,8 @@ code, pre {
                 object-position: center;
 
                 &:first-child {
-                    border-top-left-radius: $radius;
-                    border-bottom-left-radius: $radius;
+                    border-top-left-radius: $card-radius;
+                    border-bottom-left-radius: $card-radius;
                     border-top-right-radius: 0;
                     border-bottom-right-radius: 0;
                 }
@@ -229,8 +234,8 @@ code, pre {
             }
 
             &:last-child {
-                border-top-right-radius: $radius;
-                border-bottom-right-radius: $radius;
+                border-top-right-radius: $card-radius;
+                border-bottom-right-radius: $card-radius;
             }
         }
     }
