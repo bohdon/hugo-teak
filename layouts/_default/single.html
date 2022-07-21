@@ -15,31 +15,39 @@
     {{ .Content }}
 </div>
 
-<div class="notification mt-6 mb-6 is-clearfix">
-    {{/* show published date, but not for work */}}
-    {{ if ne .Type "work" }}
-    <span class="is-italic has-text-primary">
-        Published on {{ .Date.Format "Jan 2, 2006" }}
-    </span>
-    {{ end }}
-    <button onclick="goToTop()" class="button is-pulled-right">
-        <span class="icon-text">
-            <span class="icon">
-                <i class="fa-regular fa-chevron-up"></i>
-            </span>
-            <span>
-                top
-            </span>
-        </span>
-    </button>
-</div>
-
-{{ if eq .Type "work" }}
-{{/* show next/prev for work */}}
-{{ partial "nextprev.html" . }}
-{{ else }}
-{{/* show related content for notes */}}
-{{ partial "related.html" . }}
 {{ end }}
 
+{{ define "pre-footer" }}
+<div class="container pre-footer mt-6">
+    <div class="is-clearfix">
+        {{/* show published date, but not for work */}}
+        {{ if ne .Type "work" }}
+        <span class="is-italic has-text-primary">
+            Published on {{ .Date.Format "Jan 2, 2006" }}
+        </span>
+        {{ end }}
+        <button onclick="goToTop()" class="button is-pulled-right">
+            <span class="icon-text">
+                <span class="icon">
+                    <i class="fa-regular fa-chevron-up"></i>
+                </span>
+                <span>
+                    top
+                </span>
+            </span>
+        </button>
+    </div>
+
+    <div class="mb-6 mt-6"></div>
+
+    <div>
+        {{ if eq .Type "work" }}
+        {{/* show next/prev for work */}}
+        {{ partial "nextprev.html" . }}
+        {{ else }}
+        {{/* show related content for notes */}}
+        {{ partial "related.html" . }}
+        {{ end }}
+    </div>
+</div>
 {{ end }}

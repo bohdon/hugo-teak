@@ -110,6 +110,18 @@ $tag-radius: $radius-rare;
 
 @import "../../../../node_modules/bulma/bulma.sass";
 
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+}
+
+article {
+    flex: 1 0 auto;
+}
+
 .tag {
     text-transform: uppercase;
 }
@@ -120,6 +132,11 @@ $tag-radius: $radius-rare;
 
 .box {
     background-color: $grey-darker-bis;
+}
+
+.pre-footer {
+    background-color: $black-ter;
+    padding: $box-padding;
 }
 
 a.has-text-primary:hover, a.has-text-link:hover {

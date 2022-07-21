@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html>
-{{- partial "head.html" . -}}
+{{ partial "head.html" . }}
 
 <body>
-    {{- partial "header.html" . -}}
+    <header>
+        {{ partial "header.html" . }}
+    </header>
 
-    <section class="section pt-5">
+    <article class="section pt-5">
         <div class="container">
-            {{- block "main" . }}{{- end }}
+            {{ block "main" . }}{{ end }}
         </div>
-    </section>
+    </article>
 
-    {{- partial "footer.html" . -}}
+    <footer>
+        {{ block "pre-footer" . }}{{ end }}
+        {{ partial "footer.html" . }}
+    </footer>
 </body>
 
 </html>

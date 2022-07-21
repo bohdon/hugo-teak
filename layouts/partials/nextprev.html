@@ -2,7 +2,7 @@
     {{/* previous page link */}}
     <div class="column">
         {{ with .PrevInSection }}
-        <div class="subtitle">Previous</div>
+        <div class="subtitle">previous</div>
         {{ partial "pagecard.html" (dict "context" . "IsSmall" true "NoMetadata" true) }}
         {{ end }}
     </div>
@@ -13,7 +13,7 @@
     {{/* next page link */}}
     <div class="column">
         {{ with .NextInSection }}
-        <div class="subtitle">Next</div>
+        <div class="subtitle">next</div>
         {{ partial "pagecard.html" (dict "context" . "IsSmall" true "NoMetadata" true) }}
         {{ else }}
         {{ end }}
