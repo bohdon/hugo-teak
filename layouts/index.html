@@ -1,5 +1,21 @@
 {{ define "main" }}
 
+<div class="columns is-multiline">
+    <div class="column is-narrow">
+        <img class="image" style="height: 94px" src="/img/site-icon.png">
+    </div>
+    <div class="column">
+        <h1 class="title is-3">
+            {{ .Site.Params.WelcomeTitle }}
+        </h1>
+        <p class="subtitle" style="max-width: 600px">
+            {{ .Site.Params.WelcomeMessage }}
+        </p>
+    </div>
+</div>
+
+<div class="m-6"></div>
+
 {{ if .Content }}
 <div class="content">
     {{ .Content }}
