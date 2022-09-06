@@ -7,12 +7,17 @@
 $test: hsl(308, 100%, 50%);
 
 // new colors
-$scheme-main-hue: 26;
-$scheme-main-sat: 5%;
-$scheme-main-sat-high: 10%;
-$teal-dark: hsl(173, 31%, 45%);
+$scheme-main-hue: 22;
+$scheme-main-sat: 3%;
+$scheme-main-sat-high: 5%;
+$teal-dark: hsl(164, 26%, 45%);
 $grey-darker-bis: hsl($scheme-main-hue, $scheme-main-sat, 25%);
 $grey-darker-ter: hsl($scheme-main-hue, $scheme-main-sat, 28%);
+
+// content colors
+$content-notes-color: hsl($scheme-main-hue, $scheme-main-sat-high, 36%);
+$content-links-color: $teal-dark;
+$content-work-color: hsl(20, 2%, 12%);
 
 // bulma global variables
 $black: hsl($scheme-main-hue, $scheme-main-sat, 9%);
@@ -30,7 +35,7 @@ $white: hsl($scheme-main-hue, $scheme-main-sat, 100%);
 $orange: hsl(14, 80%, 53%);
 $yellow: hsl(44, 72%, 50%);
 $green: hsl(88, 46%, 46%);
-$turquoise: hsl(170, 33%, 49%);
+$turquoise: hsl(164, 26%, 50%);
 $cyan: hsl(207, 61%, 53%);
 $blue: hsl(192, 46%, 50%);
 $purple: hsl(278, 54%, 56%);
@@ -265,15 +270,15 @@ code, pre {
 $card-border-width: 0.65rem;
 
 .link-card {
-    border-left: $card-border-width solid hsl(159, 16%, 47%);
+    border-left: $card-border-width solid $content-links-color;
 }
 
 .notes-card {
-    border-left: $card-border-width solid hsl(32, 7%, 36%);
+    border-left: $card-border-width solid $content-notes-color;
 }
 
 .work-card {
-    border-left: $card-border-width solid hsl(20, 2%, 12%);
+    border-left: $card-border-width solid $content-work-color;
 }
 
 .card-image {
