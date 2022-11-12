@@ -15,9 +15,10 @@ $grey-darker-bis: hsl($scheme-main-hue, $scheme-main-sat, 25%);
 $grey-darker-ter: hsl($scheme-main-hue, $scheme-main-sat, 28%);
 
 // content colors
-$content-notes-color: hsl($scheme-main-hue, $scheme-main-sat-high, 36%);
+$content-docs-color: hsl($scheme-main-hue, $scheme-main-sat-high, 36%);
 $content-links-color: $teal-dark;
-$content-work-color: hsl(20, 2%, 12%);
+$content-tools-color: hsl(4, 40%, 35%);
+$content-creative-color: hsl(20, 2%, 12%);
 
 // bulma global variables
 $black: hsl($scheme-main-hue, $scheme-main-sat, 9%);
@@ -269,16 +270,20 @@ code, pre {
 
 $card-border-width: 0.65rem;
 
-.link-card {
+.links-card {
     border-left: $card-border-width solid $content-links-color;
 }
 
-.notes-card {
-    border-left: $card-border-width solid $content-notes-color;
+.docs-card {
+    border-left: $card-border-width solid $content-docs-color;
 }
 
-.work-card {
-    border-left: $card-border-width solid $content-work-color;
+.tools-card {
+    border-left: $card-border-width solid $content-tools-color;
+}
+
+.creative-card {
+    border-left: $card-border-width solid $content-creative-color;
 }
 
 .card-image {

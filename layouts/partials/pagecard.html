@@ -6,15 +6,22 @@
 {{ $cardClass := "" }}
 {{ $titleIcon := "" }}
 
-{{/* notes */}}
-{{ if eq .context.Type "notes" }}
-{{ $cardClass = "notes-card" }}
+{{/* TODO: use site settings */}}
+{{/* docs */}}
+{{ if eq .context.Type "docs" }}
+{{ $cardClass = "docs-card" }}
 {{ $titleIcon = "fa-solid fa-memo"}}
 {{ end }}
 
-{{/* work */}}
-{{ if eq .context.Type "work" }}
-{{ $cardClass = "work-card" }}
+{{/* tools */}}
+{{ if eq .context.Type "tools" }}
+{{ $cardClass = "tools-card" }}
+{{ $titleIcon = "fa-solid fa-screwdriver-wrench"}}
+{{ end }}
+
+{{/* creative */}}
+{{ if eq .context.Type "creative" }}
+{{ $cardClass = "creative-card" }}
 {{ $titleIcon = "fa-solid fa-photo-film"}}
 {{ end }}
 

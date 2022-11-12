@@ -17,24 +17,24 @@
 
 <div class="columns">
 
-    {{/* first column, recent notes */}}
+    {{/* first column, recent docs */}}
     <div class="column is-full">
-        <h4 class="subtitle is-4 has-text-primary">recent notes...</h4>
+        <h4 class="subtitle is-4 has-text-primary">recent docs...</h4>
         <div class="columns is-multiline">
 
-            {{ range first 4 (where .Site.RegularPages.ByDate.Reverse "Section" "notes") }}
+            {{ range first 4 (where .Site.RegularPages.ByDate.Reverse "Section" "docs") }}
             <div class="column is-full">
                 {{ partial "pagecard.html" (dict "context" .) }}
             </div>
             {{ end }}
 
             <div class="column is-full">
-                <a class="button is-primary is-fullwidth" href="/notes">
+                <a class="button is-primary is-fullwidth" href="/docs">
                     <span class="icon">
                         <i class="fa-solid fa-memo"></i>
                     </span>
                     <span>
-                        More notes
+                        More docs
                     </span>
                 </a>
             </div>

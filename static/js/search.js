@@ -7,6 +7,16 @@ window.addEventListener("DOMContentLoaded", function(event)
   var form = document.getElementById("search");
   var input = document.getElementById("search-input");
 
+  // TODO: expose non-link types via site settings some how
+  var knownTypes = ['links', 'docs', 'tools', 'creative'];
+
+  // icons per page type
+  var icons = new Map();
+  icons.set('links', ['fa-regular', 'fa-arrow-up-right']);
+  icons.set('docs', ['fa-solid', 'fa-memo']);
+  icons.set('tools', ['fa-solid', 'fa-screwdriver-wrench']);
+  icons.set('creative', ['fa-solid', 'fa-photo-film']);
+
   form.addEventListener("submit", function(event)
   {
     event.preventDefault();
@@ -107,20 +117,6 @@ window.addEventListener("DOMContentLoaded", function(event)
 
     document.title = title.textContent;
 
-    var knownTypes = ['links', 'notes', 'work'];
-
-    // card classes per page type
-    var cardClasses = new Map();
-    cardClasses.set('links', ['link-card']);
-    cardClasses.set('notes', ['notes-card']);
-    cardClasses.set('work', ['work-card']);
-
-    // icons per page type
-    var icons = new Map();
-    icons.set('links', ['fa-regular', 'fa-arrow-up-right']);
-    icons.set('notes', ['fa-solid', 'fa-memo']);
-    icons.set('work', ['fa-solid', 'fa-photo-film']);
-
     var template = document.getElementById("search-result");
     for (var result of results)
     {
@@ -137,7 +133,7 @@ window.addEventListener("DOMContentLoaded", function(event)
 
       // Fill out search result template, adjust as needed.
       var element = template.content.cloneNode(true);
-      element.querySelector(".card").classList.add(...cardClasses.get(entryType));
+      element.querySelector(".card").classList.add(entryType + "-card");
       if (doc.image) {
         // set card image
         element.querySelector(".entry-image-link").href = uri;
@@ -150,8 +146,8 @@ window.addEventListener("DOMContentLoaded", function(event)
       element.querySelector(".entry-icon").classList.add(...icons.get(entryType));
       element.querySelector(".entry-title-link").href = uri;
 
+      // ensure 'links' open in new tab
       if (entryType == 'links') {
-        element.querySelector(".column").classList.add("is-half");
         element.querySelector(".entry-title-link").setAttribute('target', '_blank');
       }
 

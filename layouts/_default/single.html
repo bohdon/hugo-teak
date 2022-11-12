@@ -20,8 +20,8 @@
 {{ define "pre-footer" }}
 <div class="container pre-footer mt-6">
     <div class="is-clearfix">
-        {{/* show published date, but not for work */}}
-        {{ if ne .Type "work" }}
+        {{/* show published date, but not for tools or creative */}}
+        {{ if and (ne .Type "tools") (ne .Type "creative") }}
         <span class="is-italic has-text-primary">
             Published on {{ .Date.Format "Jan 2, 2006" }}
         </span>
@@ -41,11 +41,11 @@
     <div class="mb-6 mt-6"></div>
 
     <div>
-        {{ if eq .Type "work" }}
-        {{/* show next/prev for work */}}
+        {{ if or (eq .Type "tools") (eq .Type "creative") }}
+        {{/* show next/prev for tools and creative */}}
         {{ partial "nextprev.html" . }}
         {{ else }}
-        {{/* show related content for notes */}}
+        {{/* show related content for docs */}}
         {{ partial "related.html" . }}
         {{ end }}
     </div>
