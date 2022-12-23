@@ -19,29 +19,27 @@
 
     {{/* first column, recent docs */}}
     <div class="column is-full">
-        <h4 class="subtitle is-4 has-text-primary">recent docs...</h4>
         <div class="columns is-multiline">
 
             {{ range first 4 (where .Site.RegularPages.ByDate.Reverse "Section" "docs") }}
-            <div class="column is-full">
+            <div class="column is-half">
                 {{ partial "pagecard.html" (dict "context" .) }}
             </div>
             {{ end }}
 
-            <div class="column is-full">
-                <a class="button is-primary is-fullwidth" href="/docs">
+            <div class="column ">
+                <a class="button is-primary " href="/docs">
                     <span class="icon">
                         <i class="fa-solid fa-memo"></i>
                     </span>
                     <span>
-                        More docs
+                        View more docs...
                     </span>
                 </a>
             </div>
 
         </div>
 
-        <h4 class="subtitle is-4 has-text-primary">recent links...</h4>
         <div class="columns is-multiline">
 
             {{ range first 4 (where .Site.RegularPages.ByDate.Reverse "Section" "links") }}
@@ -50,13 +48,13 @@
             </div>
             {{ end }}
 
-            <div class="column is-full">
-                <a class="button is-info is-fullwidth" href="/links">
+            <div class="column">
+                <a class="button is-info" href="/links">
                     <span class="icon">
                         <i class="fa-solid fa-bookmark"></i>
                     </span>
                     <span>
-                        More links
+                        View more links...
                     </span>
                 </a>
             </div>

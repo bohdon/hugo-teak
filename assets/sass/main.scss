@@ -47,9 +47,9 @@ $weight-normal: 400;
 $weight-medium: 400;
 $weight-semibold: 500;
 $weight-bold: 600;
-$radius-small: 2px;
-$radius: 2px;
-$radius-large: 2px;
+$radius-small: 3px;
+$radius: 3px;
+$radius-large: 3px;
 $radius-rare: 0.25rem;
 $shadow: 0;
 
@@ -98,12 +98,14 @@ $pre: $text;
 $pre: $background;
 
 // bulma component variables
+$column-gap: 0.5rem;
 $notification-background-color: $black-ter;
 $button-border-color: none;
 $button-hover-border-color: none;
 $button-active-border-color: none;
 $button-focus-border-color: none;
 $card-content-background-color: $grey-darker-bis;
+$card-content-padding: 1rem;
 $card-radius: $radius;
 $navbar-item-hover-color: $link-hover;
 $navbar-dropdown-item-hover-color: $link-hover;

@@ -47,11 +47,7 @@
     {{ end }}
 
     <div class="card-content">
-        {{ if $isSmall }}
         <h4 class="title mb-3 is-size-5">
-        {{ else }}
-        <h4 class="title mb-3 is-size-4-tablet is-size-5-touch is-size-4">
-        {{ end }}
             <a href="{{ .context.RelPermalink }}" {{if $noLink }}style="pointer-events: none" {{ end }}>
                 <span class="icon">
                     <i class="{{ $titleIcon }}"></i>
@@ -65,11 +61,7 @@
         {{ end }}
 
         {{ if not $noSummary }}
-        {{ if $isSmall }}
-        <div class="content is-size-7">
-        {{ else }}
-        <div class="content is-size-6-tablet is-size-7-touch">
-        {{ end }}
+        <div class="content">
             {{ .context.Summary }}
         </div>
         {{ end }}
