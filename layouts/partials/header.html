@@ -1,16 +1,22 @@
+{{ $current := . }}
 <section class="section pt-3 pb-0">
     <div class="container">
-        <nav class="navbar mt-3 mb-0" role="navigation" aria-label="main navigation">
+        <nav id="navbar" class="navbar is-transparent" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand is-size-5">
 
-            <p class="subtitle mb-0">
-                {{ $current := . }}
-                {{/* list of main menu items */}}
-                {{ range $key, $menu := .Site.Menus.main }}
+                {{/* site logo */}}
+                <a class="navbar-item" href="/">
+                    <img src="{{ .Site.Params.logo }}">
+                </a>
+
+
+                {{/* show just the active page on mobile */}}
+                {{ range $menu := .Site.Menus.main }}
                 {{ $active := or ($current.IsMenuCurrent "main" .) ($current.HasMenuCurrent "main" .)}}
                 {{ $active = or $active (and (eq .Name "Tags") (eq $current.Section "tags")) }}
-                {{/* add separator between items */}}
-                {{ if ne $key 0 }}<span class="m-1">|</span>{{ end }}
-                <a class="is-lowercase {{ if not $active }}has-text-primary{{ end }}" href="{{ .URL }}">
+                {{ if $active }}
+                <a class="navbar-item navbar-mobile-item is-lowercase is-tab {{ if $active }}is-active{{ end }}"
+                    href="{{ .URL }}">
                     {{ if .Pre }}
                     <span class="icon">
                         <i class="{{ .Pre }}"></i>
@@ -20,34 +26,57 @@
                     {{ end }}
                 </a>
                 {{ end }}
+                {{ end }}
 
-                {{/* show search menu item when hidden on the right */}}
-                <span class="is-hidden-desktop">
-                    <span class="m-1">|</span>
-                    <span class="icon">
-                        <a class="has-text-primary" href="/search">
-                            <i class="fa-regular fa-magnifying-glass"></i>
+                {{/* put inactive pages in a dropdown */}}
+                <div class="navbar-item navbar-mobile-item has-dropdown is-hoverable">
+                    <a class="navbar-link is-arrowless">
+                        <i class="fa-solid fa-ellipsis"></i>
+                    </a>
+
+                    <div class="navbar-dropdown is-size-5">
+                        {{ range $menu := .Site.Menus.main }}
+                        {{ $active := or ($current.IsMenuCurrent "main" .) ($current.HasMenuCurrent "main" .)}}
+                        {{ $active = or $active (and (eq .Name "Tags") (eq $current.Section "tags")) }}
+                        {{ if not $active }}
+                        <a class="navbar-item navbar-mobile-item is-lowercase is-tab {{ if $active }}is-active{{ end }}"
+                            href="{{ .URL }}">
+                            <span class="icon">
+                                <i class="{{ .Pre }}"></i>
+                            </span>
+                            <span class="pl-2">
+                                {{ .Name }}
+                            </span>
                         </a>
-                    </span>
-                </span>
-            </p>
-
-            <div class="navbar-menu">
-                <div class="navbar-end pr-3">
-
-                    {{/* search */}}
-                    <span class="icon">
-                        <a class="has-text-primary" href="/search">
-                            <i class="fa-regular fa-magnifying-glass fa-lg"></i>
-                        </a>
-                    </span>
-
-                    {{/* site title */}}
-                    <div class="subtitle has-text-primary  pl-2">
-                        {{ .Site.Title }}
+                        {{ end }}
+                        {{ end }}
                     </div>
+                </div>
+            </div>
 
-                    <img class="image is-32x32 ml-2" style="top: -3px;" src="/img/site-icon.png">
+            <div id="navbarMain" class="navbar-menu is-size-5">
+                <div class="navbar-start">
+                    {{/* list of main menu items */}}
+                    {{ range $menu := .Site.Menus.main }}
+                    {{ $active := or ($current.IsMenuCurrent "main" .) ($current.HasMenuCurrent "main" .)}}
+                    {{ $active = or $active (and (eq .Name "Tags") (eq $current.Section "tags")) }}
+                    <a class="navbar-item is-lowercase is-tab {{ if $active }}is-active{{ end }}" href="{{ .URL }}">
+                        {{ if .Pre }}
+                        <span class="icon">
+                            <i class="{{ .Pre }}"></i>
+                        </span>
+                        {{ else }}
+                        {{ .Name }}
+                        {{ end }}
+                    </a>
+                    {{ end }}
+                </div>
+
+                <div class="navbar-end">
+                    {{/* site title */}}
+                    <span class="navbar-item has-text-primary">
+                        {{ .Site.Title }}
+                    </span>
                 </div>
             </div>
         </nav>
