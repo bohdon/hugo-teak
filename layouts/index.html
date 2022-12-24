@@ -28,12 +28,12 @@
             {{ end }}
 
             <div class="column ">
-                <a class="button is-primary " href="/docs">
+                <a class="button" href="/docs">
                     <span class="icon">
                         <i class="fa-solid fa-memo"></i>
                     </span>
                     <span>
-                        View more docs...
+                        More Docs...
                     </span>
                 </a>
             </div>
@@ -44,17 +44,17 @@
 
             {{ range first 4 (where .Site.RegularPages.ByDate.Reverse "Section" "links") }}
             <div class="column is-half">
-                {{ partial "linkcard.html" . }}
+                {{ partial "linkcard.html" (dict "context" .) }}
             </div>
             {{ end }}
 
             <div class="column">
-                <a class="button is-info" href="/links">
+                <a class="button" href="/links">
                     <span class="icon">
                         <i class="fa-solid fa-bookmark"></i>
                     </span>
                     <span>
-                        View more links...
+                        More Links...
                     </span>
                 </a>
             </div>

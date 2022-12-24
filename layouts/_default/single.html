@@ -1,9 +1,15 @@
 {{ define "main" }}
 
 {{/* page header card */}}
+{{ if eq .Type "links" }}
+<div class="mb-5">
+    {{ partial "linkcard.html" (dict "context" . "NoSummary" true) }}
+</div>
+{{ else }}
 <div class="mb-5">
     {{ partial "pagecard.html" (dict "context" . "NoSummary" true "NoLink" true) }}
 </div>
+{{ end }}
 
 {{ if ge .ReadingTime 5 }}
 <div class="notification">

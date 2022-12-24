@@ -1,22 +1,25 @@
-{{ $link := .RelPermalink }}
-{{ if .Params.Link }}
-{{ $link = .Params.Link }}
+{{ $noSummary := default false .NoSummary }}
+{{ $noTags := default false .NoTags }}
+
+{{ $link := .context.RelPermalink }}
+{{ if .context.Params.Link }}
+{{ $link = .context.Params.Link }}
 {{ end }}
 
 <div class="card is-horizontal links-card">
 
-    {{ if or .Params.Image .Params.ImageIcon }}
+    {{ if or .context.Params.Image .context.Params.ImageIcon }}
     <div class="card-image">
         <a class="anchor-block" href="{{ $link }}" {{if .Params.Link }}target="_blank" {{ end }}>
-            {{ if .Params.Image }}
+            {{ if .context.Params.Image }}
             <figure class="image">
-                <img src="{{ .Params.Image }}">
+                <img src="{{ .context.Params.Image }}">
             </figure>
             {{ end }}
-            {{ if .Params.ImageIcon }}
+            {{ if .context.Params.ImageIcon }}
             <span class="icon image-icon-centered">
                 <i
-                class="{{ .Params.ImageIcon }} is-size-2 is-size-4-mobile is-size-1-desktop"></i>
+                class="{{ .context.Params.ImageIcon }} is-size-2 is-size-4-mobile is-size-1-desktop"></i>
             </span>
             {{ end }}
         </a>
@@ -29,14 +32,18 @@
                 <span class="icon">
                     <i class="fa-regular fa-arrow-up-right"></i>
                 </span>
-                {{ .LinkTitle }}
+                {{ .context.LinkTitle }}
             </a>
         </h5>
 
+        {{ if not $noSummary }}
         <div class="content">
-            {{ .Content }}
+            {{ .context.Content }}
         </div>
+        {{ end }}
 
-        {{ partial "tags.html" . }}
+        {{ if not $noTags }}
+        {{ partial "tags.html" .context }}
+        {{ end }}
     </div>
 </div>
