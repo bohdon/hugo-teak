@@ -10,7 +10,7 @@
 
     {{ range .Pages.ByPublishDate.Reverse }}
     <div class="column is-half">
-        {{ partial "pagecard.html" (dict "context" .) }}
+        {{ partial "pagecard.html" (dict "context" . "NoTags" true) }}
     </div>
     {{ end }}
 

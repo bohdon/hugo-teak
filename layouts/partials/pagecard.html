@@ -1,6 +1,6 @@
 {{ $noSummary := default false .NoSummary }}
 {{ $noLink := default false .NoLink }}
-{{ $noMetadata := default false .NoMetadata }}
+{{ $noTags := default false .NoTags }}
 {{ $isSmall := default false .IsSmall }}
 
 {{ $cardClass := "" }}
@@ -47,23 +47,26 @@
     {{ end }}
 
     <div class="card-content">
-        <h4 class="title mb-3 is-size-5">
+        <h5 class="title mb-2 is-size-5">
             <a href="{{ .context.RelPermalink }}" {{if $noLink }}style="pointer-events: none" {{ end }}>
                 <span class="icon">
                     <i class="{{ $titleIcon }}"></i>
                 </span>
                 {{ .context.LinkTitle }}
             </a>
-        </h4>
-
-        {{ if not $noMetadata }}
-        {{ partial "metadata.html" .context }}
-        {{ end }}
+            {{ if .context.Params.draft }}
+            <span class="tag is-primary">Draft</span>
+            {{ end }}
+        </h5>
 
         {{ if not $noSummary }}
         <div class="content">
             {{ .context.Summary }}
         </div>
+        {{ end }}
+
+        {{ if not $noTags }}
+        {{ partial "tags.html" .context }}
         {{ end }}
     </div>
 

@@ -3,7 +3,7 @@
     <div class="column">
         {{ with .PrevInSection }}
         <div class="subtitle">previous</div>
-        {{ partial "pagecard.html" (dict "context" . "IsSmall" true "NoMetadata" true) }}
+        {{ partial "pagecard.html" (dict "context" . "IsSmall" true "NoTags" true) }}
         {{ end }}
     </div>
 
@@ -14,7 +14,7 @@
     <div class="column">
         {{ with .NextInSection }}
         <div class="subtitle">next</div>
-        {{ partial "pagecard.html" (dict "context" . "IsSmall" true "NoMetadata" true) }}
+        {{ partial "pagecard.html" (dict "context" . "IsSmall" true "NoTags" true) }}
         {{ else }}
         {{ end }}
     </div>

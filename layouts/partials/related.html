@@ -7,7 +7,7 @@
 <div class="columns is-multiline">
     {{ range . }}
     <div class="column is-half">
-        {{ partial "pagecard.html" (dict "context" . "IsSmall" true "NoMetadata" true) }}
+        {{ partial "pagecard.html" (dict "context" . "IsSmall" true "NoTags" true) }}
     </div>
     {{ end }}
 </div>

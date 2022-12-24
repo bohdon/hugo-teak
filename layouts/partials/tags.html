@@ -1,0 +1,8 @@
+<div class="tags">
+    {{ with .Params.Tags }}
+    {{ range . }}
+    {{ $href := print ("/tags/") (urlize .) }}
+    <a class="tag is-lowercase" href="{{ $href }}">{{ . }}</a>
+    {{ end }}
+    {{ end }}
+</div>
