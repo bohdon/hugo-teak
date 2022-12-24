@@ -1,22 +1,24 @@
-<div class="container footer pt-5">
-    <div class="">
+<div class="footer pt-5">
+    <div class="container">
+        <div class="columns">
 
-        {{ partial "footerlinks.html" . }}
+            {{ partial "footerlinks.html" . }}
 
-        <div class="has-text-primary mt-2">
-            <p>
-                {{ .Site.Copyright }} | <a href="/about">About me</a>
-            </p>
-            <p class="is-size-7 mt-2">
-                Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> and <a
-                    href="https://github.com/bohdon/hugo-teak" target="_blank">Teak</a> | Deployed through <a
-                    href="https://www.netlify.com/" target="_blank">Netlify</a> and <a
-                    href="https://www.netlifycms.org/" target="_blank">Netlify CMS</a>
-                {{ if .Site.Params.plausibleDomain }}
-                | Analytics by <a href="https://plausible.io/{{ .Site.Params.plausibleDomain }}"
-                    target="_blank">Plausible.io</a>
-                {{ end }}
-            </p>
+            <div class="column has-text-primary pt-0">
+                <p>
+                    {{ .Site.Copyright }} | <a href="/about">About me</a>
+                </p>
+                <p class="is-size-7 mt-2">
+                    Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> and <a
+                        href="https://github.com/bohdon/hugo-teak" target="_blank">Teak</a> | Deployed through <a
+                        href="https://www.netlify.com/" target="_blank">Netlify</a> and <a
+                        href="https://www.netlifycms.org/" target="_blank">Netlify CMS</a>
+                    {{ if .Site.Params.plausibleDomain }}
+                    | Analytics by <a href="https://plausible.io/{{ .Site.Params.plausibleDomain }}"
+                        target="_blank">Plausible.io</a>
+                    {{ end }}
+                </p>
+            </div>
         </div>
     </div>
 </div>

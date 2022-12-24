@@ -24,36 +24,38 @@
 {{ end }}
 
 {{ define "pre-footer" }}
-<div class="container pre-footer mt-6">
-    <div class="is-clearfix">
-        {{/* show published date, but not for tools or creative */}}
-        {{ if and (ne .Type "tools") (ne .Type "creative") }}
-        <span class="is-italic has-text-primary">
-            Published on {{ .Date.Format "Jan 2, 2006" }}
-        </span>
-        {{ end }}
-        <button onclick="goToTop()" class="button is-pulled-right">
-            <span class="icon-text">
-                <span class="icon">
-                    <i class="fa-regular fa-chevron-up"></i>
-                </span>
-                <span>
-                    top
-                </span>
+<div class="pre-footer mt-6">
+    <div class="container">
+        <div class="is-clearfix">
+            {{/* show published date, but not for tools or creative */}}
+            {{ if and (ne .Type "tools") (ne .Type "creative") }}
+            <span class="is-italic has-text-primary">
+                Published on {{ .Date.Format "Jan 2, 2006" }}
             </span>
-        </button>
-    </div>
+            {{ end }}
+            <button onclick="goToTop()" class="button is-pulled-right">
+                <span class="icon-text">
+                    <span class="icon">
+                        <i class="fa-regular fa-chevron-up"></i>
+                    </span>
+                    <span>
+                        top
+                    </span>
+                </span>
+            </button>
+        </div>
 
-    <div class="mb-6 mt-6"></div>
+        <div class="mb-6 mt-6"></div>
 
-    <div>
-        {{ if or (eq .Type "tools") (eq .Type "creative") }}
-        {{/* show next/prev for tools and creative */}}
-        {{ partial "nextprev.html" . }}
-        {{ else }}
-        {{/* show related content for docs */}}
-        {{ partial "related.html" . }}
-        {{ end }}
+        <div>
+            {{ if or (eq .Type "tools") (eq .Type "creative") }}
+            {{/* show next/prev for tools and creative */}}
+            {{ partial "nextprev.html" . }}
+            {{ else }}
+            {{/* show related content for docs */}}
+            {{ partial "related.html" . }}
+            {{ end }}
+        </div>
     </div>
 </div>
 {{ end }}
