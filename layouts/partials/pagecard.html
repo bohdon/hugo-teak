@@ -1,6 +1,10 @@
 {{ $noSummary := default false .NoSummary }}
 {{ $noLink := default false .NoLink }}
+{{ $noDate := default false .NoDate }}
 {{ $noTags := default false .NoTags }}
+{{ $isLargeCard := default false .IsLargeCard }}
+
+{{ $link := .context.RelPermalink }}
 
 {{ $cardClass := "" }}
 {{ $titleIcon := "" }}
@@ -10,6 +14,12 @@
 {{ if eq .context.Type "docs" }}
 {{ $cardClass = "docs-card" }}
 {{ $titleIcon = "fa-solid fa-memo"}}
+{{ end }}
+
+{{/* links */}}
+{{ if eq .context.Type "links" }}
+{{ $cardClass = "links-card" }}
+{{ $titleIcon = "fa-solid fa-bookmark"}}
 {{ end }}
 
 {{/* tools */}}
@@ -22,16 +32,17 @@
 {{ if eq .context.Type "creative" }}
 {{ $cardClass = "creative-card" }}
 {{ $titleIcon = "fa-solid fa-photo-film"}}
+{{ $isLargeCard = true }}
 {{ end }}
 
 
-<div class="card is-horizontal {{ $cardClass }}">
+<div class="card {{ if not $isLargeCard }} is-horizontal {{ end }} {{ $cardClass }}">
 
     {{ if or (.context.Params.Image) (.context.Params.ImageIcon) }}
     {{/* show image */}}
-    <div class="card-image" {{ if .context.Params.Color }}style="background-color: {{ .context.Params.Color }};"{{ end }}>
-        <a class="anchor-block" href="{{ .context.RelPermalink }}" {{if $noLink }}style="pointer-events: none" {{ end }}>
-            <figure class="image is-1by1">
+    <div class="card-image">
+        <a class="anchor-block" href="{{ $link }}" {{if $noLink }}style="pointer-events: none" {{ end }}>
+            <figure class="image {{ if $isLargeCard }} is-3by1 {{ else }} is-1by1 {{ end }}">
                 {{ if .context.Params.Image }}
                 <img src="{{ .context.Params.Image }}">
                 {{ end }}
@@ -45,9 +56,9 @@
     </div>
     {{ end }}
 
-    <div class="card-content">
+    <div class="card-content overflow-parent">
         <h5 class="title mb-2 is-size-5">
-            <a href="{{ .context.RelPermalink }}" {{if $noLink }}style="pointer-events: none" {{ end }}>
+            <a href="{{ $link }}" {{if $noLink }}style="pointer-events: none" {{ end }}>
                 <span class="icon">
                     <i class="{{ $titleIcon }}"></i>
                 </span>
@@ -58,10 +69,23 @@
             {{ end }}
         </h5>
 
+        {{ if .context.Params.Link }}
+        <a class="link-url mb-1" href="{{ .context.Params.Link }}" target="_blank">
+            <span class="icon">
+                <i class="fa-solid fa-arrow-up-right"></i>
+            </span>
+            {{ strings.TrimPrefix "https://" .context.Params.Link }}
+        </a>
+        {{ end }}
+
         {{ if not $noSummary }}
         <div class="content">
             {{ .context.Summary }}
         </div>
+        {{ end }}
+
+        {{ if not $noDate }}
+        {{ partial "date.html" .context }}
         {{ end }}
 
         {{ if not $noTags }}

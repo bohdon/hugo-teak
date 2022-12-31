@@ -9,8 +9,8 @@
 <div class="columns is-multiline">
 
     {{ range .Pages }}
-    <div class="column is-half">
-        {{ partial "pagecard.html" (dict "context" . "NoDate" true "NoTags" true) }}
+    <div class="column is-full">
+        {{ partial "pagecard.html" (dict "context" . "NoTags" true) }}
     </div>
     {{ end }}
 

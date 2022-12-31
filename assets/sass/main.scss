@@ -108,7 +108,6 @@ $button-active-border-color: none;
 $button-focus-border-color: none;
 $card-content-background-color: $grey-darker-bis;
 $card-content-padding: 1rem;
-$card-radius: $radius;
 $navbar-item-hover-color: $link-hover;
 $navbar-dropdown-item-hover-color: $link-hover;
 $panel-heading-background-color: $grey-darker-bis;
@@ -130,6 +129,17 @@ body {
 
 article {
     flex: 1 0 auto;
+}
+
+.overflow-parent {
+    min-width: 0;
+}
+
+.link-url {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .column .card {
@@ -156,13 +166,6 @@ article {
 a.has-text-primary:hover, a.has-text-link:hover {
     color: $link-hover !important;
 }
-
-.content blockquote {
-    background-color: $grey-darker-bis;
-    border-color: $grey-dark;
-}
-
-$blockquote-bg-alpha-adjust: -0.85;
 
 // keep consistent left margin on desktop and mobile
 .navbar-brand {
@@ -216,48 +219,73 @@ $blockquote-bg-alpha-adjust: -0.85;
     }
 }
 
-.content blockquote.is-primary {
-    background-color: adjust-color($primary, $alpha: $blockquote-bg-alpha-adjust);
-    color: $primary;
-    border-color: $primary;
-}
+$blockquote-bg-alpha-adjust: -0.85;
 
-.content blockquote.is-link {
-    background-color: adjust-color($link, $alpha: $blockquote-bg-alpha-adjust);
-    color: $link;
-    border-color: $link;
-}
+.content {
 
-.content blockquote.is-info {
-    background-color: adjust-color($info, $alpha: $blockquote-bg-alpha-adjust);
-    color: $info;
-    border-color: $info;
-}
+    blockquote {
+        background-color: $grey-darker-bis;
+        border-color: $grey-dark;
 
-.content blockquote.is-success {
-    background-color: adjust-color($success, $alpha: $blockquote-bg-alpha-adjust);
-    color: $success;
-    border-color: $success;
-}
+        .is-primary {
+            background-color: adjust-color($primary, $alpha: $blockquote-bg-alpha-adjust);
+            color: $primary;
+            border-color: $primary;
+        }
 
-.content blockquote.is-warning {
-    background-color: adjust-color($warning, $alpha: $blockquote-bg-alpha-adjust);
-    color: $warning;
-    border-color: $warning;
-}
+        .is-link {
+            background-color: adjust-color($link, $alpha: $blockquote-bg-alpha-adjust);
+            color: $link;
+            border-color: $link;
+        }
 
-.content blockquote.is-danger {
-    background-color: adjust-color($danger, $alpha: $blockquote-bg-alpha-adjust);
-    color: $danger;
-    border-color: $danger;
-}
+        .is-info {
+            background-color: adjust-color($info, $alpha: $blockquote-bg-alpha-adjust);
+            color: $info;
+            border-color: $info;
+        }
 
-.content blockquote {
-    strong, code {
-        color: unset;
+        .is-success {
+            background-color: adjust-color($success, $alpha: $blockquote-bg-alpha-adjust);
+            color: $success;
+            border-color: $success;
+        }
+
+        .is-warning {
+            background-color: adjust-color($warning, $alpha: $blockquote-bg-alpha-adjust);
+            color: $warning;
+            border-color: $warning;
+        }
+
+        .is-danger {
+            background-color: adjust-color($danger, $alpha: $blockquote-bg-alpha-adjust);
+            color: $danger;
+            border-color: $danger;
+        }
+
+        strong, code {
+            color: unset;
+        }
+    }
+
+    // youtube embeds, add some bottom padding to match other content
+    .yt, .vimeo {
+        position: relative;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+        margin-bottom: 1rem;
+
+        iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
     }
 }
-
 
 @import "syntax/_syntax-theme-teak.scss";
 
@@ -277,6 +305,17 @@ code, pre {
 
 .card {
 
+    .card-image {
+        img {
+            object-fit: cover;
+            object-position: center;
+        }
+    }
+
+    .content:not(:last-child) {
+        margin-bottom: 0.5rem;
+    }
+
     &.is-horizontal {
         flex-direction: row;
         display: flex;
@@ -285,7 +324,7 @@ code, pre {
         flex-shrink: 1;
 
         .card-image {
-            flex: 0.5;
+            flex: 0.75;
             flex-shrink: 1;
 
             .image {
@@ -298,8 +337,6 @@ code, pre {
 
             img {
                 height: 100%;
-                object-fit: cover;
-                object-position: center;
 
                 &:first-child {
                     border-top-left-radius: $card-radius;

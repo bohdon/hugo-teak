@@ -10,7 +10,7 @@
 
     {{ range .Pages }}
     <div class="column is-half">
-        {{ partial "linkcard.html" (dict "context" . "NoTags" true) }}
+        {{ partial "pagecard.html" (dict "context" . "NoDate" true "NoTags" true "NoSummary" true) }}
     </div>
     {{ end }}
 

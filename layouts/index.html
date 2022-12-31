@@ -44,7 +44,7 @@
 
             {{ range first 4 (where .Site.RegularPages.ByDate.Reverse "Section" "links") }}
             <div class="column is-half">
-                {{ partial "linkcard.html" (dict "context" .) }}
+                {{ partial "pagecard.html" (dict "context" .) }}
             </div>
             {{ end }}
 
