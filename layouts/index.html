@@ -19,6 +19,7 @@
 
     {{/* first column, recent docs */}}
     <div class="column is-full">
+        {{ if (where .Site.RegularPages "Section" "docs") }}
         <div class="columns is-multiline">
 
             {{ range first 4 (where .Site.RegularPages.ByDate.Reverse "Section" "docs") }}
@@ -39,7 +40,9 @@
             </div>
 
         </div>
+        {{ end }}
 
+        {{ if (where .Site.RegularPages "Section" "links") }}
         <div class="columns is-multiline">
 
             {{ range first 4 (where .Site.RegularPages.ByDate.Reverse "Section" "links") }}
@@ -60,6 +63,7 @@
             </div>
 
         </div>
+        {{ end }}
     </div>
 
 </div>
