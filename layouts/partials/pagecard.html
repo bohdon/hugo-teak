@@ -1,11 +1,22 @@
+{{/*  don't display a page summary  */}}
 {{ $noSummary := default false .NoSummary }}
+{{/*  don't make the title a link  */}}
 {{ $noLink := default false .NoLink }}
+{{/*  dont display the page date  */}}
 {{ $noDate := default false .NoDate }}
 {{ $noTags := default false .NoTags }}
+{{/*  display the card with a 3by1 image instead of 1by1  */}}
 {{ $isLargeCard := default false .IsLargeCard }}
 {{ $vFill := default true .VFill }}
 
+{{ $noPageLink := false }}
 {{ $link := .context.RelPermalink }}
+
+{{ if eq .context.Type "tools" }}
+    {{/*  don't make the title link to the page itself, instead only use the `link` param if available  */}}
+    {{ $noPageLink = true}}
+    {{ $link = .context.Params.Link }}
+{{ end }}
 
 {{ $cardClass := "" }}
 {{ $titleIcon := "" }}
@@ -40,7 +51,7 @@
 <div class="card {{ if $vFill }} vfill {{ end }} {{ if not $isLargeCard }} is-horizontal {{ end }} {{ $cardClass }}">
 
     {{ if or (.context.Params.Image) (.context.Params.ImageIcon) }}
-    {{/* show image */}}
+    {{/* show `image` or `imageIcon`, either 3by1 or 1by1 */}}
     <div class="card-image">
         <a class="anchor-block" href="{{ $link }}" {{if $noLink }}style="pointer-events: none" {{ end }}>
             <figure class="image {{ if $isLargeCard }} is-3by1 {{ else }} is-1by1 {{ end }}">
@@ -57,9 +68,13 @@
     </div>
     {{ end }}
 
+    {{/*  card contents  */}}
     <div class="card-content overflow-parent">
+
+        {{/*  card title  */}}
         <h5 class="title mb-2 is-size-5">
-            <a href="{{ $link }}" {{if $noLink }}style="pointer-events: none" {{ end }}>
+            {{ $titleLinkTarget := (cond $noPageLink "_blank" "_self") }}
+            <a href="{{ $link }}" {{if or (not $link) $noLink }}style="pointer-events: none" {{ end }} target="{{ $titleLinkTarget }}">
                 <span class="icon">
                     <i class="{{ $titleIcon }}"></i>
                 </span>

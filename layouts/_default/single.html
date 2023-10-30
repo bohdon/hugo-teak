@@ -2,7 +2,12 @@
 
 {{/* header card */}}
 <div class="mb-5">
-    {{ partial "pagecard.html" (dict "context" . "NoSummary" true "NoLink" true) }}
+    {{ if or (eq .Type "tools") }}
+        {{/*  display tools page cards with full summary and links, since they are not designed to have their own pages  */}}
+        {{ partial "pagecard.html" (dict "context" . ) }}
+    {{ else }}
+        {{ partial "pagecard.html" (dict "context" . "NoSummary" true "NoLink" true) }}
+    {{ end }}
 </div>
 
 {{ if ge .ReadingTime 5 }}
