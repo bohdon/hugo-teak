@@ -3,6 +3,7 @@
 {{ $noDate := default false .NoDate }}
 {{ $noTags := default false .NoTags }}
 {{ $isLargeCard := default false .IsLargeCard }}
+{{ $vFill := default true .VFill }}
 
 {{ $link := .context.RelPermalink }}
 
@@ -36,7 +37,7 @@
 {{ end }}
 
 
-<div class="card {{ if not $isLargeCard }} is-horizontal {{ end }} {{ $cardClass }}">
+<div class="card {{ if $vFill }} vfill {{ end }} {{ if not $isLargeCard }} is-horizontal {{ end }} {{ $cardClass }}">
 
     {{ if or (.context.Params.Image) (.context.Params.ImageIcon) }}
     {{/* show image */}}

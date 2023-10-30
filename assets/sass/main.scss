@@ -142,8 +142,12 @@ article {
     text-overflow: ellipsis;
 }
 
-.column .card {
-    height: 100%;
+.column {
+    .card {
+        &.vfill {
+            height: 100%;
+        }
+    }
 }
 
 .tag.is-transparent {
