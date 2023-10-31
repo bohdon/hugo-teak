@@ -98,75 +98,47 @@
 
         {{ $titleSize := (cond $isPageHeader "is-size-3" (cond $isLargeCard "is-size-4" "is-size-5")) }}
 
-        {{/*  card title  */}}
-        {{/*  {{ if and $externalLinkOnly $externalLink }}  */}}
+        {{/*  main link, either to the page or external link if using externalLinkOnly  */}}
+        <a class="text-scan-anchor subtle-link-anchor" href="{{ $mainLink }}" target="{{ $mainLinkTarget }}" {{if not $mainLink }} style="pointer-events: none" {{ end }}>
 
-            {{/*  main link, either to the page or external link if using externalLinkOnly  */}}
-            <a class="link-text" href="{{ $mainLink }}" target="{{ $mainLinkTarget }}" {{if not $mainLink }} style="pointer-events: none" {{ end }}>
-
-                {{ if not $noTitle }}
-                <h5 class="has-text-weight-semibold {{ $titleSize }}">
-                    <span class="link-text-display">
-                        {{ if and $titleIcon (not $noTitleIcon) }}
-                        <span class="icon">
-                            <i class="{{ $titleIcon }}"></i>
-                        </span>
-                        {{ end }}
-                        {{ .context.LinkTitle }}
-                        {{ if .context.Params.draft }}
-                        <span class="tag is-primary">Draft</span>
-                        {{ end }}
-                    </span>
-                </h5>
+            {{/*  card title  */}}
+            {{ if not $noTitle }}
+            <h5 class="has-text-weight-semibold {{ $titleSize }}">
+                {{ if and $titleIcon (not $noTitleIcon) }}
+                <span class="icon">
+                    <i class="{{ $titleIcon }}"></i>
+                </span>
                 {{ end }}
-
-                {{ if $externalLinkOnly }}
-
-                    {{/*  nest the external link inside this same anchor, otherwise as a new anchor below  */}}
-                    {{/*  {{ if $externalLink }}
-                    <div class="link-url mt-1">
-                        <span class="icon">
-                            <i class="fa-solid fa-arrow-up-right"></i>
-                        </span>
-                        {{ strings.TrimPrefix "https://" $externalLink }}
-                    </div>
-                    {{ end }}  */}}
+                {{ .context.LinkTitle }}
+                {{ if .context.Params.draft }}
+                <span class="tag is-primary">Draft</span>
                 {{ end }}
-
-            {{/*  show external link with its own anchor (if separate from main link)  */}}
-            {{ if and $externalLink (not $externalLinkOnly) }}
-            <a href="{{ $externalLink }}" target="_blank">
-                <div class="link-url mt-1">
-                    <span class="icon">
-                        <i class="fa-solid fa-arrow-up-right"></i>
-                    </span>
-                    {{ strings.TrimPrefix "https://" $externalLink }}
-                </div>
-            </a>
+            </h5>
             {{ end }}
 
-            {{/*  main content which contains summary, and swaps to showing link on hover  */}}
-            <div class="link-text-content">
-                {{ if not $noSummary }}
-                <div class="content mt-1 link-text-default">
-                    {{ .context.Summary }}
-                </div>
-                {{ end }}
+            {{ if not $noSummary }}
+            <div class="content mt-1 mb-2">
+                {{ .context.Summary }}
+            </div>
+            {{ end }}
 
-                {{ if $externalLinkOnly }}
-                <div class="link-text-hover mt-1">
-                    <div class="text-scan-hover">
+            {{/*  show external link with its own anchor (if separate from main link)  */}}
+            {{ if $externalLink }}
+                {{ if not $externalLinkOnly }}
+                <a href="{{ $externalLink }}" target="_blank">
+                {{ end }}
+                    <div class="subtle-link text-scan-hover mb-3">
                         <span class="text-scan">
                             <span class="icon">
                                 <i class="fa-solid fa-arrow-up-right"></i>
                             </span>
-                            {{/*  {{ strings.TrimPrefix "https://" $externalLink }}  */}}
-                            {{ $externalLink }}
+                            {{ strings.TrimPrefix "https://" $externalLink }}
                         </span>
                     </div>
-                </div>
+                {{ if not $externalLinkOnly }}
+                </a>
                 {{ end }}
-            </div>
+            {{ end }}
         </a>
 
         {{ if not $noDate }}
