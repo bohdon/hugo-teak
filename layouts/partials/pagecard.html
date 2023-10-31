@@ -9,9 +9,12 @@
 {{/*  dont display the page date  */}}
 {{ $noDate := default false .NoDate }}
 {{ $noTags := default false .NoTags }}
-{{/*  display the card with a 3by1 image instead of 1by1  */}}
+{{/*  display the card vertically with a large image  */}}
 {{ $isLargeCard := default false .IsLargeCard }}
+{{/*  ensure the card fills available vertical space  */}}
 {{ $vFill := default true .VFill }}
+{{/*  fill the full width of the viewport  */}}
+{{ $isFullWidth := default false .IsFullWidth }}
 
 {{/*
     for tools and links pages, don't make the title link to the page itself,
@@ -51,16 +54,31 @@
 {{ $isLargeCard = true }}
 {{ end }}
 
+{{/*  build list of card classes  */}}
+{{ $cardClasses := (slice $cardClass) }}
+{{ if $vFill }}
+    {{ $cardClasses = append "vfill" $cardClasses }}
+{{ end }}
+{{ if not $isLargeCard }}
+    {{ $cardClasses = append "is-horizontal" $cardClasses }}
+{{ end }}
+{{ if $isFullWidth }}
+    {{ $cardClasses = append "full-width" $cardClasses }}
+{{ end }}
+{{ $cardClasses = delimit $cardClasses " " }}
 
-<div class="card {{ if $vFill }} vfill {{ end }} {{ if not $isLargeCard }} is-horizontal {{ end }} {{ $cardClass }}">
+<div class="card {{ $cardClasses }}">
 
     {{ if or (.context.Params.Image) (.context.Params.ImageIcon) }}
-    {{/* show `image` or `imageIcon`, either 3by1 or 1by1 */}}
+    {{/* show `image` or `imageIcon`, either 2by1 or 1by1 */}}
     <div class="card-image">
         <a class="anchor-block" href="{{ $imageLink }}" {{if not $imageLink }} style="pointer-events: none" {{ end }} target="{{ $imageLinkTarget }}">
-            <figure class="image {{ if $isLargeCard }} is-3by1 {{ else }} is-1by1 {{ end }}">
+            <figure class="image {{ if $isLargeCard }} is-2by1 {{ else }} is-1by1 {{ end }}">
                 {{ if .context.Params.Image }}
                 <img src="{{ .context.Params.Image }}">
+                {{ end }}
+                {{ if .context.Params.Video }}
+                {{ partial "video.html" (dict "URL" .context.Params.Video "HoverPlay" true) }}
                 {{ end }}
                 {{ if .context.Params.ImageIcon }}
                 <span class="icon image-icon-centered">

@@ -14,7 +14,9 @@
 {{ if (where .Site.RegularPages "Section" "creative") }}
 
     {{ range first 2 (where .Site.RegularPages.ByDate.Reverse "Section" "creative") }}
-        {{ partial "pagecard.html" (dict "context" . "NoTags" true "NoExternalLink" true "NoSummary" true "NoDate" true "NoTitle" true) }}
+        {{ partial "pagecard.html"
+            (dict "context" . "IsFullWidth" true "NoTags" true "NoExternalLink" true
+            "NoSummary" true "NoDate" true "NoTitle" true) }}
         <div class="p-4"></div>
     {{ end }}
 

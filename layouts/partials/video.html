@@ -1,0 +1,10 @@
+{{ $autoPlay := default true .AutoPlay }}
+{{ $hoverPlay := default false .HoverPlay }}
+
+{{ if $hoverPlay }}
+    {{ $autoPlay = false }}
+{{ end }}
+
+<video {{ if $hoverPlay }}class="thumb-hover"{{end}} {{ if $autoPlay }}data-autoplay autoplay {{end}}webkit-playsinline playsinline loop muted data-object-fit="cover">
+    <source src="{{ .URL }}" type="video/mp4">
+</video>

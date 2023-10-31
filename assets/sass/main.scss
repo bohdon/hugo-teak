@@ -427,12 +427,42 @@ $card-border-width: 0.3rem;
     background-color: $black-ter;
 }
 
+// makes an element the full width of the viewport regardless of parent size
+.full-width {
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc((100vw - 100%) / -2);
+}
+
 .image-icon-centered {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: $link;
+}
+
+.image video {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center;
+}
+
+.thumb-hover {
+    opacity: 0;
+    transition: opacity .25s;
+
+    &:hover {
+        opacity: 1;
+    }
 }
 
 .anchor-block {
