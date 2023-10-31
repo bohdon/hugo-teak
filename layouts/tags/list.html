@@ -1,33 +1,23 @@
 {{ define "main" }}
 
-{{/* show the current tag, if any */}}
+{{/*  determine the current tag, if one is selected  */}}
+{{ $currentTag := "" }}
 {{ if eq .Kind "term" }}
-    {{ if eq .Type "tags" }}
-        {{ $tag := .Site.Taxonomies.tags.Get .Title }}
-
-        <div class="box">
-            <div class="tags has-addons">
-                <a class="tag is-medium">{{ .Title }} ({{ $tag.Count }})</a>
-                <a class="tag is-medium is-delete is-danger is-light" href=".."></a>
-            </div>
-        </div>
-    {{ end }}
+    {{ $currentTag = .Data.Term }}
 {{ end }}
 
-{{ if eq .Kind "taxonomy" }}
-
-    {{/* show list of all tags for selection */}}
-    <div class="box">
-        <div class="tags">
-            {{ range $tag, $tagPages := .Site.Taxonomies.tags }}
-            <a class="tag is-medium" href="{{ .Page.RelPermalink }}">
-                {{ $tag }} ({{ .Count }})
-            </a>
-            {{ end }}
-        </div>
+{{/* show list of all tags for selection */}}
+<div class="box">
+    <div class="tags">
+        {{ range $tag, $tagPages := .Site.Taxonomies.tags }}
+        <a class="tag is-medium {{ if eq $tag $currentTag }}is-primary{{ end }}" href="{{ .Page.RelPermalink }}">
+            {{ $tag }} ({{ .Count }})
+        </a>
+        {{ end }}
     </div>
+</div>
 
-{{ else }}
+{{ if eq .Kind "term" }}
 
     {{/* show list of pages for the current tag, grouped by section */}}
     {{ range $section := .Site.Sections }}
