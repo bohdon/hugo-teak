@@ -49,7 +49,7 @@ $weight-semibold: 500;
 $weight-bold: 600;
 $radius-small: 3px;
 $radius: 3px;
-$radius-large: 3px;
+$radius-large: 6px;
 $radius-rare: 0.25rem;
 $shadow: 0;
 
@@ -101,6 +101,10 @@ $pre: $background;
 $column-gap: 0.5rem;
 $navbar-breakpoint: 769px;
 $navbar-tab-hover-border-bottom-color: $link-hover;
+$navbar-item-hover-color: $link-hover;
+$navbar-dropdown-boxed-shadow: none;
+$navbar-dropdown-item-hover-color: $link-hover;
+$navbar-background-color: $black-ter;
 $notification-background-color: $black-ter;
 $button-border-color: none;
 $button-hover-border-color: none;
@@ -108,8 +112,6 @@ $button-active-border-color: none;
 $button-focus-border-color: none;
 $card-content-background-color: $grey-darker-bis;
 $card-content-padding: 1rem;
-$navbar-item-hover-color: $link-hover;
-$navbar-dropdown-item-hover-color: $link-hover;
 $panel-heading-background-color: $grey-darker-bis;
 $panel-block-hover-background-color: $grey-darker-bis;
 $pagination-current-background-color: $grey-dark;
@@ -186,9 +188,28 @@ a.has-text-primary:hover, a.has-text-link:hover {
     color: $link-hover !important;
 }
 
-// keep consistent left margin on desktop and mobile
-.navbar-brand {
-    margin-left: -0.75rem;
+.navbar {
+    box-shadow: $navbar-dropdown-boxed-shadow;
+
+    .container {
+        // keep same padding as .section
+        @include mobile {
+            padding: 0 1.5rem;
+        }
+        @include tablet-only {
+            padding: 0 1.5rem;
+        }
+    }
+}
+
+.navbar {
+    .navbar-brand {
+        margin-left: 0 !important;
+
+        .navbar-item {
+            padding-left: 0;
+        }
+    }
 }
 
 // enable navbar dropdowns even at small screen widths
