@@ -119,6 +119,21 @@ $tag-radius: $radius-rare;
 
 @import "../../../../node_modules/bulma/bulma.sass";
 
+html {
+    @include mobile {
+        font-size: $body-size * 0.8;
+    }
+    @include tablet {
+        font-size: $body-size * 0.85;
+    }
+    @include desktop {
+        font-size: $body-size * 0.9;
+    }
+    @include widescreen {
+        font-size: $body-size;
+    }
+}
+
 body {
     min-height: 100vh;
     display: flex;
