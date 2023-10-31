@@ -1,3 +1,5 @@
+{{/*  don't display a page title  */}}
+{{ $noTitle := default false .NoTitle }}
 {{/*  don't display a page summary  */}}
 {{ $noSummary := default false .NoSummary }}
 {{/*  don't make the title a link  */}}
@@ -23,7 +25,7 @@
 {{/*  set links to use (or not use)  */}}
 {{ $externalLink := (cond $noExternalLink nil .context.Params.Link) }}
 {{ $pageLink := (cond (or $noLink $externalLinkOnly) nil .context.RelPermalink) }}
-{{ $imageLink := or $pageLink $externalLink }}
+{{ $imageLink := (cond $externalLinkOnly $externalLink $pageLink) }}
 {{ $imageLinkTarget := (cond (eq $imageLink $externalLink) "_blank" "_self") }}
 
 
@@ -71,12 +73,14 @@
     {{ end }}
 
     {{/*  card contents  */}}
+    {{ if not (and (and (and $noTitle $noSummary) (and $noExternalLink $noDate)) $noTags) }}
     <div class="card-content overflow-parent">
 
         {{/*  card title  */}}
         {{ if and $externalLinkOnly $externalLink }}
             {{/*  one big link including title and link url text  */}}
             <a href="{{ $externalLink }}" target="_blank">
+                {{ if not $noTitle }}
                 <h5 class="has-text-weight-semibold is-size-5">
                     {{/*  <a>  */}}
                         <span class="icon">
@@ -88,6 +92,7 @@
                     <span class="tag is-primary">Draft</span>
                     {{ end }}
                 </h5>
+                {{ end }}
                 {{ if $externalLink }}
                 <div class="link-url mt-1">
                     <span class="icon">
@@ -99,6 +104,7 @@
             </a>
         {{ else }}
             {{/*  separate links for title and external link  */}}
+            {{ if not $noTitle }}
             <h5 class="has-text-weight-semibold is-size-5">
                 <a href="{{ $pageLink }}" {{if not $pageLink }} style="pointer-events: none" {{ end }}>
                     <span class="icon">
@@ -110,6 +116,7 @@
                 <span class="tag is-primary">Draft</span>
                 {{ end }}
             </h5>
+            {{ end }}
             {{ if $externalLink }}
             <a href="{{ $externalLink }}" target="_blank">
                 <div class="link-url mt-1">
@@ -136,5 +143,6 @@
         {{ partial "tags.html" .context }}
         {{ end }}
     </div>
+    {{ end }}
 
 </div>

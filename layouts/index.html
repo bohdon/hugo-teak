@@ -1,13 +1,6 @@
 {{ define "main" }}
 
-<h1 class="title is-3">
-    {{ .Site.Params.WelcomeTitle }}
-</h1>
-<p class="subtitle">
-    {{ .Site.Params.WelcomeMessage }}
-</p>
-
-<div class="m-6"></div>
+<div class="p-5"></div>
 
 {{ if .Content }}
 <div class="content">
@@ -15,56 +8,74 @@
 </div>
 {{ end }}
 
-<div class="columns">
+<div class="p-5"></div>
 
-    {{/* first column, recent docs */}}
-    <div class="column is-full">
-        {{ if (where .Site.RegularPages "Section" "docs") }}
-        <div class="columns is-multiline">
+{{/*  recent creative work  */}}
+{{ if (where .Site.RegularPages "Section" "creative") }}
 
-            {{ range first 4 (where .Site.RegularPages.ByDate.Reverse "Section" "docs") }}
-            <div class="column is-half">
-                {{ partial "pagecard.html" (dict "context" .) }}
-            </div>
-            {{ end }}
+    {{ range first 2 (where .Site.RegularPages.ByDate.Reverse "Section" "creative") }}
+        {{ partial "pagecard.html" (dict "context" . "NoTags" true "NoExternalLink" true "NoSummary" true "NoDate" true "NoTitle" false) }}
+        <div class="p-4"></div>
+    {{ end }}
 
-            <div class="column ">
-                <a class="button" href="/docs">
-                    <span class="icon">
-                        <i class="fa-solid fa-memo"></i>
-                    </span>
-                    <span>
-                        More Docs...
-                    </span>
-                </a>
-            </div>
+    <a class="button subtitle" href="/creative">
+        <span class="icon">
+            <i class="fa-solid fa-memo"></i>
+        </span>
+        <span>
+            More Work...
+        </span>
+    </a>
+{{ end }}
 
-        </div>
-        {{ end }}
+<div class="p-5"></div>
 
-        {{ if (where .Site.RegularPages "Section" "links") }}
-        <div class="columns is-multiline">
+{{/*  recent docs  */}}
+{{ if (where .Site.RegularPages "Section" "docs") }}
+<div class="columns is-multiline">
 
-            {{ range first 4 (where .Site.RegularPages.ByDate.Reverse "Section" "links") }}
-            <div class="column is-half">
-                {{ partial "pagecard.html" (dict "context" .) }}
-            </div>
-            {{ end }}
+    {{ range first 4 (where .Site.RegularPages.ByDate.Reverse "Section" "docs") }}
+    <div class="column is-half">
+        {{ partial "pagecard.html" (dict "context" .) }}
+    </div>
+    {{ end }}
 
-            <div class="column">
-                <a class="button" href="/links">
-                    <span class="icon">
-                        <i class="fa-solid fa-bookmark"></i>
-                    </span>
-                    <span>
-                        More Links...
-                    </span>
-                </a>
-            </div>
-
-        </div>
-        {{ end }}
+    <div class="column ">
+        <a class="button" href="/docs">
+            <span class="icon">
+                <i class="fa-solid fa-memo"></i>
+            </span>
+            <span>
+                More Docs...
+            </span>
+        </a>
     </div>
 
 </div>
+{{ end }}
+
+{{/*  recently added links  */}}
+{{ if (where .Site.RegularPages "Section" "links") }}
+<div class="columns is-multiline">
+
+    {{ range first 4 (where .Site.RegularPages.ByDate.Reverse "Section" "links") }}
+    <div class="column is-half">
+        {{ partial "pagecard.html" (dict "context" .) }}
+    </div>
+    {{ end }}
+
+    <div class="column">
+        <a class="button" href="/links">
+            <span class="icon">
+                <i class="fa-solid fa-bookmark"></i>
+            </span>
+            <span>
+                More Links...
+            </span>
+        </a>
+    </div>
+
+</div>
+{{ end }}
+
 {{ end }}
