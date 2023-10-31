@@ -34,9 +34,7 @@
     {{/*  use custom .title if available, otherwise just titlecase the category  */}}
     {{ $categoryTitle := default (replace $category.category "-" " " | title) $category.title}}
 
-    <div class="content">
-        <h2 class="title">{{ $categoryTitle}}</h3>
-    </div>
+    <h3 class="title is-3">{{ $categoryTitle}}</h3>
 
     <div class="columns is-multiline">
         {{ range $pages }}
@@ -52,15 +50,13 @@
 {{ $uncategorizedPages := where .Pages.ByTitle "Params.categories" nil }}
 
 {{ if $uncategorizedPages }}
-    <div class="content">
-        <h3 class="title">{{ default "Uncategorized" .Params.uncategorizedTitle }}</h3>
+    <h3 class="title is-3">{{ default "Uncategorized" .Params.uncategorizedTitle }}</h3>
 
-        {{ range $uncategorizedPages }}
-            <div class="column is-half">
-                {{ partial "pagecard.html" (dict "context" . "NoTags" true) }}
-            </div>
-        {{ end }}
-    </div>
+    {{ range $uncategorizedPages }}
+        <div class="column is-half">
+            {{ partial "pagecard.html" (dict "context" . "NoTags" true) }}
+        </div>
+    {{ end }}
 {{ end }}
 
 {{ end }}

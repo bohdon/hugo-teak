@@ -1,61 +1,57 @@
 {{ define "main" }}
 
-<div class="content">
+{{/* show the current tag, if any */}}
+{{ if eq .Kind "term" }}
+    {{ if eq .Type "tags" }}
+        {{ $tag := .Site.Taxonomies.tags.Get .Title }}
 
-    {{/* show the current tag, if any */}}
-    {{ if eq .Kind "term" }}
-        {{ if eq .Type "tags" }}
-            {{ $tag := .Site.Taxonomies.tags.Get .Title }}
-
-            <div class="box">
-                <div class="tags has-addons">
-                    <a class="tag is-medium">{{ .Title }} ({{ $tag.Count }})</a>
-                    <a class="tag is-medium is-delete is-danger is-light" href=".."></a>
-                </div>
-            </div>
-        {{ end }}
-    {{ end }}
-
-    {{ if eq .Kind "taxonomy" }}
-
-        {{/* show list of all tags for selection */}}
         <div class="box">
-            <div class="tags">
-                {{ range $tag, $tagPages := .Site.Taxonomies.tags }}
-                <a class="tag is-medium" href="{{ .Page.RelPermalink }}">
-                    {{ $tag }} ({{ .Count }})
-                </a>
-                {{ end }}
+            <div class="tags has-addons">
+                <a class="tag is-medium">{{ .Title }} ({{ $tag.Count }})</a>
+                <a class="tag is-medium is-delete is-danger is-light" href=".."></a>
             </div>
         </div>
+    {{ end }}
+{{ end }}
 
-    {{ else }}
+{{ if eq .Kind "taxonomy" }}
 
-        {{/* show list of pages for the current tag, grouped by section */}}
-        {{ range $section := .Site.Sections }}
-            {{ $pages := where $.Pages "Type" $section.Type }}
-            {{ if not $pages }}
-                {{ continue }}
+    {{/* show list of all tags for selection */}}
+    <div class="box">
+        <div class="tags">
+            {{ range $tag, $tagPages := .Site.Taxonomies.tags }}
+            <a class="tag is-medium" href="{{ .Page.RelPermalink }}">
+                {{ $tag }} ({{ .Count }})
+            </a>
             {{ end }}
+        </div>
+    </div>
 
-            <h2 class="title">{{ title $section.Type }}</h2>
+{{ else }}
 
-            <div class="columns is-multiline">
-                {{ range where $.Pages "Type" $section.Type }}
-                    <div class="column is-half">
-                        {{ partial "pagecard.html" (dict "context" .) }}
-                    </div>
-                {{ end }}
-            </div>
-
+    {{/* show list of pages for the current tag, grouped by section */}}
+    {{ range $section := .Site.Sections }}
+        {{ $pages := where $.Pages "Type" $section.Type }}
+        {{ if not $pages }}
+            {{ continue }}
         {{ end }}
 
+        <h3 class="title is-3">{{ title $section.Type }}</h3>
+
+        <div class="columns is-multiline">
+            {{ range where $.Pages "Type" $section.Type }}
+                <div class="column is-half">
+                    {{ partial "pagecard.html" (dict "context" .) }}
+                </div>
+            {{ end }}
+        </div>
+
     {{ end }}
 
-    {{ if .Content }}
-        {{ .Content }}
-    {{ end }}
+{{ end }}
 
-</div>
+{{ if .Content }}
+    {{ .Content }}
+{{ end }}
 
 {{ end }}
