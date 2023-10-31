@@ -12,7 +12,7 @@
 {{ $noPageLink := false }}
 {{ $link := .context.RelPermalink }}
 
-{{ if eq .context.Type "tools" }}
+{{ if or (eq .context.Type "tools") (eq .context.Type "links") }}
     {{/*  don't make the title link to the page itself, instead only use the `link` param if available  */}}
     {{ $noPageLink = true}}
     {{ $link = .context.Params.Link }}
