@@ -1,74 +1,31 @@
 {{ $current := . }}
 
-<nav id="navbar" class="navbar is-fixed-top is-transparent" role="navigation" aria-label="main navigation">
-    <div class="container">
-        <div class="navbar-brand is-size-5">
+<header>
+    <nav id="navbar" class="navbar is-fixed-top is-transparent" role="navigation" aria-label="main navigation">
+        <div class="container">
+            <div class="navbar-brand is-size-5">
 
-            {{/* site logo */}}
-            <div class="navbar-brand">
-                <a class="navbar-item" href="/">
-                    <img src="{{ .Site.Params.logo }}">
-                    <span class="ml-3">
-                        {{ .Site.Title }}
-                    </span>
-                </a>
-            </div>
-
-            <div class="navbar-item">
-                |
-            </div>
-
-            {{/* show just the active page on mobile */}}
-            {{ range $menu := .Site.Menus.main }}
-            {{ $active := or ($current.IsMenuCurrent "main" .) ($current.HasMenuCurrent "main" .)}}
-            {{ $active = or $active (and (eq .Name "Tags") (eq $current.Section "tags")) }}
-            {{ if $active }}
-            <a class="navbar-item navbar-mobile-item is-lowercase is-tab {{ if $active }}is-active{{ end }}"
-                href="{{ .URL }}">
-                {{ if .Pre }}
-                <span class="icon">
-                    <i class="{{ .Pre }}"></i>
-                </span>
-                {{ else }}
-                {{ .Name }}
-                {{ end }}
-            </a>
-            {{ end }}
-            {{ end }}
-
-            {{/* put inactive pages in a dropdown */}}
-            <div class="navbar-item navbar-mobile-item has-dropdown is-hoverable">
-                <a class="navbar-link is-arrowless">
-                    <i class="fa-solid fa-ellipsis"></i>
-                </a>
-
-                <div class="navbar-dropdown is-size-5">
-                    {{ range $menu := .Site.Menus.main }}
-                    {{ $active := or ($current.IsMenuCurrent "main" .) ($current.HasMenuCurrent "main" .)}}
-                    {{ $active = or $active (and (eq .Name "Tags") (eq $current.Section "tags")) }}
-                    {{ if not $active }}
-                    <a class="navbar-item navbar-mobile-item is-lowercase is-tab {{ if $active }}is-active{{ end }}"
-                        href="{{ .URL }}">
-                        <span class="icon">
-                            <i class="{{ .Pre }}"></i>
-                        </span>
-                        <span class="pl-2">
-                            {{ .Name }}
+                {{/* site logo */}}
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="/">
+                        <img src="{{ .Site.Params.logo }}">
+                        <span class="ml-3">
+                            {{ .Site.Title }}
                         </span>
                     </a>
-                    {{ end }}
-                    {{ end }}
                 </div>
-            </div>
-        </div>
 
-        <div id="navbarMain" class="navbar-menu is-size-5">
-            <div class="navbar-start">
-                {{/* list of main menu items */}}
+                <div class="navbar-item">
+                    |
+                </div>
+
+                {{/* show just the active page on mobile */}}
                 {{ range $menu := .Site.Menus.main }}
                 {{ $active := or ($current.IsMenuCurrent "main" .) ($current.HasMenuCurrent "main" .)}}
                 {{ $active = or $active (and (eq .Name "Tags") (eq $current.Section "tags")) }}
-                <a class="navbar-item is-lowercase is-tab {{ if $active }}is-active{{ end }}" href="{{ .URL }}">
+                {{ if $active }}
+                <a class="navbar-item navbar-mobile-item is-lowercase is-tab {{ if $active }}is-active{{ end }}"
+                    href="{{ .URL }}">
                     {{ if .Pre }}
                     <span class="icon">
                         <i class="{{ .Pre }}"></i>
@@ -78,7 +35,52 @@
                     {{ end }}
                 </a>
                 {{ end }}
+                {{ end }}
+
+                {{/* put inactive pages in a dropdown */}}
+                <div class="navbar-item navbar-mobile-item has-dropdown is-hoverable">
+                    <a class="navbar-link is-arrowless">
+                        <i class="fa-solid fa-ellipsis"></i>
+                    </a>
+
+                    <div class="navbar-dropdown is-size-5">
+                        {{ range $menu := .Site.Menus.main }}
+                        {{ $active := or ($current.IsMenuCurrent "main" .) ($current.HasMenuCurrent "main" .)}}
+                        {{ $active = or $active (and (eq .Name "Tags") (eq $current.Section "tags")) }}
+                        {{ if not $active }}
+                        <a class="navbar-item navbar-mobile-item is-lowercase is-tab {{ if $active }}is-active{{ end }}"
+                            href="{{ .URL }}">
+                            <span class="icon">
+                                <i class="{{ .Pre }}"></i>
+                            </span>
+                            <span class="pl-2">
+                                {{ .Name }}
+                            </span>
+                        </a>
+                        {{ end }}
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+
+            <div id="navbarMain" class="navbar-menu is-size-5">
+                <div class="navbar-start">
+                    {{/* list of main menu items */}}
+                    {{ range $menu := .Site.Menus.main }}
+                    {{ $active := or ($current.IsMenuCurrent "main" .) ($current.HasMenuCurrent "main" .)}}
+                    {{ $active = or $active (and (eq .Name "Tags") (eq $current.Section "tags")) }}
+                    <a class="navbar-item is-lowercase is-tab {{ if $active }}is-active{{ end }}" href="{{ .URL }}">
+                        {{ if .Pre }}
+                        <span class="icon">
+                            <i class="{{ .Pre }}"></i>
+                        </span>
+                        {{ else }}
+                        {{ .Name }}
+                        {{ end }}
+                    </a>
+                    {{ end }}
+                </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
+</header>

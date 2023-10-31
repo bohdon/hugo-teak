@@ -3,9 +3,7 @@
 {{ partial "head.html" . }}
 
 <body>
-    <header>
-        {{ partial "header.html" . }}
-    </header>
+    {{ partial "header.html" . }}
 
     <article class="section pt-5">
         <div class="container">
@@ -13,10 +11,8 @@
         </div>
     </article>
 
-    <footer>
-        {{ block "pre-footer" . }}{{ end }}
-        {{ partial "footer.html" . }}
-    </footer>
+    {{ block "pre-footer" . }}{{ end }}
+    {{ partial "footer.html" . }}
 </body>
 
 </html>
