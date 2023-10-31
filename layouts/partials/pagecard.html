@@ -11,10 +11,15 @@
 {{ $noTags := default false .NoTags }}
 {{/*  display the card vertically with a large image  */}}
 {{ $isLargeCard := default false .IsLargeCard }}
+{{/*  enlarge the title for use at the top of a page  */}}
+{{ $isPageHeader := default false .IsPageHeader }}
 {{/*  ensure the card fills available vertical space  */}}
 {{ $vFill := default true .VFill }}
 {{/*  fill the full width of the viewport  */}}
 {{ $isFullWidth := default false .IsFullWidth }}
+{{/*  don't display a page type icon next to the title  */}}
+{{ $noTitleIcon := default false .NoTitleIcon }}
+
 
 {{/*
     for tools and links pages, don't make the title link to the page itself,
@@ -28,8 +33,9 @@
 {{/*  set links to use (or not use)  */}}
 {{ $externalLink := (cond $noExternalLink nil .context.Params.Link) }}
 {{ $pageLink := (cond (or $noLink $externalLinkOnly) nil .context.RelPermalink) }}
-{{ $imageLink := (cond $externalLinkOnly $externalLink $pageLink) }}
-{{ $imageLinkTarget := (cond (eq $imageLink $externalLink) "_blank" "_self") }}
+{{/*  determine the link to use for title and image  */}}
+{{ $mainLink := (cond $externalLinkOnly $externalLink $pageLink) }}
+{{ $mainLinkTarget := (cond (eq $mainLink $externalLink) "_blank" "_self") }}
 
 
 {{/* TODO: use site settings to determine card class and icon */}}
@@ -38,7 +44,6 @@
 
 {{ if eq .context.Type "docs" }}
 {{ $cardClass = "docs-card" }}
-{{ $titleIcon = "fa-solid fa-memo"}}
 
 {{ else if eq .context.Type "links" }}
 {{ $cardClass = "links-card" }}
@@ -46,12 +51,9 @@
 
 {{ else if eq .context.Type "tools" }}
 {{ $cardClass = "tools-card" }}
-{{ $titleIcon = "fa-solid fa-screwdriver-wrench"}}
 
 {{ else if eq .context.Type "creative" }}
 {{ $cardClass = "creative-card" }}
-{{ $titleIcon = "fa-solid fa-photo-film"}}
-{{ $isLargeCard = true }}
 {{ end }}
 
 {{/*  build list of card classes  */}}
@@ -72,7 +74,7 @@
     {{ if or (.context.Params.Image) (.context.Params.ImageIcon) }}
     {{/* show `image` or `imageIcon`, either 2by1 or 1by1 */}}
     <div class="card-image">
-        <a class="anchor-block" href="{{ $imageLink }}" {{if not $imageLink }} style="pointer-events: none" {{ end }} target="{{ $imageLinkTarget }}">
+        <a class="anchor-block" href="{{ $mainLink }}" target="{{ $mainLinkTarget }}" {{if not $mainLink }} style="pointer-events: none" {{ end }}>
             <figure class="image {{ if $isLargeCard }} is-2by1 {{ else }} is-1by1 {{ end }}">
                 {{ if .context.Params.Image }}
                 <img src="{{ .context.Params.Image }}">
@@ -81,7 +83,7 @@
                 {{ partial "video.html" (dict "URL" .context.Params.Video "HoverPlay" true) }}
                 {{ end }}
                 {{ if .context.Params.ImageIcon }}
-                <span class="icon image-icon-centered">
+                <span class="icon image-icon-centered has-text-primary">
                     <i class="{{ .context.Params.ImageIcon }} is-size-2 is-size-4-mobile is-size-1-desktop"></i>
                 </span>
                 {{ end }}
@@ -94,48 +96,45 @@
     {{ if not (and (and (and $noTitle $noSummary) (and $noExternalLink $noDate)) $noTags) }}
     <div class="card-content overflow-parent">
 
+        {{ $titleSize := (cond $isPageHeader "is-size-3" (cond $isLargeCard "is-size-4" "is-size-5")) }}
+
         {{/*  card title  */}}
-        {{ if and $externalLinkOnly $externalLink }}
-            {{/*  one big link including title and link url text  */}}
-            <a href="{{ $externalLink }}" target="_blank">
+        {{/*  {{ if and $externalLinkOnly $externalLink }}  */}}
+
+            {{/*  main link, either to the page or external link if using externalLinkOnly  */}}
+            <a class="link-text" href="{{ $mainLink }}" target="{{ $mainLinkTarget }}" {{if not $mainLink }} style="pointer-events: none" {{ end }}>
+
                 {{ if not $noTitle }}
-                <h5 class="has-text-weight-semibold is-size-5">
-                    {{/*  <a>  */}}
+                <h5 class="has-text-weight-semibold {{ $titleSize }}">
+                    <span class="link-text-display">
+                        {{ if and $titleIcon (not $noTitleIcon) }}
                         <span class="icon">
                             <i class="{{ $titleIcon }}"></i>
                         </span>
+                        {{ end }}
                         {{ .context.LinkTitle }}
-                    {{/*  </a>  */}}
-                    {{ if .context.Params.draft }}
-                    <span class="tag is-primary">Draft</span>
-                    {{ end }}
+                        {{ if .context.Params.draft }}
+                        <span class="tag is-primary">Draft</span>
+                        {{ end }}
+                    </span>
                 </h5>
                 {{ end }}
-                {{ if $externalLink }}
-                <div class="link-url mt-1">
-                    <span class="icon">
-                        <i class="fa-solid fa-arrow-up-right"></i>
-                    </span>
-                    {{ strings.TrimPrefix "https://" $externalLink }}
-                </div>
+
+                {{ if $externalLinkOnly }}
+
+                    {{/*  nest the external link inside this same anchor, otherwise as a new anchor below  */}}
+                    {{/*  {{ if $externalLink }}
+                    <div class="link-url mt-1">
+                        <span class="icon">
+                            <i class="fa-solid fa-arrow-up-right"></i>
+                        </span>
+                        {{ strings.TrimPrefix "https://" $externalLink }}
+                    </div>
+                    {{ end }}  */}}
                 {{ end }}
-            </a>
-        {{ else }}
-            {{/*  separate links for title and external link  */}}
-            {{ if not $noTitle }}
-            <h5 class="has-text-weight-semibold is-size-5">
-                <a href="{{ $pageLink }}" {{if not $pageLink }} style="pointer-events: none" {{ end }}>
-                    <span class="icon">
-                        <i class="{{ $titleIcon }}"></i>
-                    </span>
-                    {{ .context.LinkTitle }}
-                </a>
-                {{ if .context.Params.draft }}
-                <span class="tag is-primary">Draft</span>
-                {{ end }}
-            </h5>
-            {{ end }}
-            {{ if $externalLink }}
+
+            {{/*  show external link with its own anchor (if separate from main link)  */}}
+            {{ if and $externalLink (not $externalLinkOnly) }}
             <a href="{{ $externalLink }}" target="_blank">
                 <div class="link-url mt-1">
                     <span class="icon">
@@ -145,13 +144,30 @@
                 </div>
             </a>
             {{ end }}
-        {{ end }}
 
-        {{ if not $noSummary }}
-        <div class="content mt-1">
-            {{ .context.Summary }}
-        </div>
-        {{ end }}
+            {{/*  main content which contains summary, and swaps to showing link on hover  */}}
+            <div class="link-text-content">
+                {{ if not $noSummary }}
+                <div class="content mt-1 link-text-default">
+                    {{ .context.Summary }}
+                </div>
+                {{ end }}
+
+                {{ if $externalLinkOnly }}
+                <div class="link-text-hover mt-1">
+                    <div class="text-scan-hover">
+                        <span class="text-scan">
+                            <span class="icon">
+                                <i class="fa-solid fa-arrow-up-right"></i>
+                            </span>
+                            {{/*  {{ strings.TrimPrefix "https://" $externalLink }}  */}}
+                            {{ $externalLink }}
+                        </span>
+                    </div>
+                </div>
+                {{ end }}
+            </div>
+        </a>
 
         {{ if not $noDate }}
         {{ partial "date.html" .context }}

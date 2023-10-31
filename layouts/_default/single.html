@@ -4,9 +4,9 @@
 <div class="mb-5">
     {{ if or (eq .Type "tools") }}
         {{/*  display tools page cards with full summary and links, since they are not designed to have their own pages  */}}
-        {{ partial "pagecard.html" (dict "context" . ) }}
+        {{ partial "pagecard.html" (dict "context" . "IsPageHeader" true) }}
     {{ else }}
-        {{ partial "pagecard.html" (dict "context" . "NoSummary" true "NoLink" true) }}
+        {{ partial "pagecard.html" (dict "context" . "IsPageHeader" true "NoSummary" true "NoLink" true) }}
     {{ end }}
 </div>
 

@@ -152,13 +152,6 @@ article {
     min-width: 0;
 }
 
-.link-url {
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 .column {
     .card {
         &.vfill {
@@ -469,4 +462,75 @@ $card-border-width: 0.3rem;
     display: block;
     width: 100%;
     height: 100%;
+}
+
+.text-scan-hover {
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+
+    span.text-scan {
+        display: inline-block;
+        position: relative;
+        overflow: visible;
+        min-width: 100%;
+    }
+
+    &:hover {
+        span.text-scan {
+            animation: text-scan 3s infinite alternate ease-in-out;
+        }
+    }
+}
+
+.link-text {
+
+    .link-text-content {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .link-text-default {
+        opacity: 1;
+        transition: opacity .15s;
+    }
+
+    .link-text-hover {
+        opacity: 0;
+        transition: opacity .15s;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    &:hover {
+        .link-text-default {
+            opacity: 0;
+        }
+
+        .link-text-hover {
+            opacity: 1;
+            min-width: 100%;
+
+            // run the text-scan animation when any of the content is hovered
+            span.text-scan {
+                animation: text-scan 3s infinite alternate ease-in-out;
+            }
+        }
+    }
+}
+
+@keyframes text-scan {
+    0%,
+    10% {
+        transform: translateX(0%);
+        left: 0%;
+    }
+    90%,
+    100% {
+        transform: translateX(-100%);
+        left: 100%;
+    }
 }
