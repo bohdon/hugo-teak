@@ -1,0 +1,33 @@
+{{/*
+    Default footer at the bottom of regular pages. Shows a 'back-to-top' button
+    and links to related or next/prev pages.
+*/}}
+
+<div class="pre-footer mt-6">
+    <div class="container">
+
+        <div class="has-text-centered">
+
+            <button onclick="goToTop()" class="button pl-6 pr-6">
+                <span class="icon-text">
+                    <span class="icon">
+                        <i class="fa-regular fa-chevron-up"></i>
+                    </span>
+                    <span>
+                        top
+                    </span>
+                </span>
+            </button>
+        </div>
+
+        <div class="mt-5 mb-5">
+            {{ if or (eq .Type "tools") (eq .Type "creative") }}
+            {{/* show next/prev for tools and creative */}}
+            {{ partial "nextprev.html" . }}
+            {{ else }}
+            {{/* show related content for docs */}}
+            {{ partial "related.html" . }}
+            {{ end }}
+        </div>
+    </div>
+</div>

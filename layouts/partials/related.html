@@ -3,7 +3,6 @@
 {{ $related := $section.Related . | first 4 }}
 
 {{ with $related }}
-<div class="subtitle">related</div>
 <div class="columns is-multiline">
     {{ range . }}
     <div class="column is-half">

@@ -37,17 +37,17 @@
 {{ $mainLink := (cond $externalLinkOnly $externalLink $pageLink) }}
 {{ $mainLinkTarget := (cond (eq $mainLink $externalLink) "_blank" "_self") }}
 
+{{/*  show an icon if the main link is external  */}}
+{{ $titleIcon := (cond $externalLinkOnly "fa-sharp fa-solid fa-arrow-up-right" nil) }}
 
-{{/* TODO: use site settings to determine card class and icon */}}
+{{/* TODO: use site settings to determine card class */}}
 {{ $cardClass := "" }}
-{{ $titleIcon := "" }}
 
 {{ if eq .context.Type "docs" }}
 {{ $cardClass = "docs-card" }}
 
 {{ else if eq .context.Type "links" }}
 {{ $cardClass = "links-card" }}
-{{ $titleIcon = "fa-solid fa-bookmark"}}
 
 {{ else if eq .context.Type "tools" }}
 {{ $cardClass = "tools-card" }}
@@ -57,7 +57,10 @@
 {{ end }}
 
 {{/*  build list of card classes  */}}
-{{ $cardClasses := (slice $cardClass) }}
+{{ $cardClasses := (slice) }}
+{{ if and $cardClass (not $isFullWidth) }}
+    {{ $cardClasses = append $cardClass $cardClasses }}
+{{ end }}
 {{ if $vFill }}
     {{ $cardClasses = append "vfill" $cardClasses }}
 {{ end }}
@@ -99,7 +102,7 @@
         {{ $titleSize := (cond $isPageHeader "is-size-3" (cond $isLargeCard "is-size-4" "is-size-5")) }}
 
         {{/*  main link, either to the page or external link if using externalLinkOnly  */}}
-        <a class="text-scan-anchor subtle-link-anchor" href="{{ $mainLink }}" target="{{ $mainLinkTarget }}" {{if not $mainLink }} style="pointer-events: none" {{ end }}>
+        <a class="text-scan-anchor flicker-link-anchor" href="{{ $mainLink }}" target="{{ $mainLinkTarget }}" {{if not $mainLink }} style="pointer-events: none" {{ end }}>
 
             {{/*  card title  */}}
             {{ if not $noTitle }}
@@ -127,11 +130,14 @@
                 {{ if not $externalLinkOnly }}
                 <a href="{{ $externalLink }}" target="_blank">
                 {{ end }}
-                    <div class="subtle-link text-scan-hover mb-3">
+                    <div class="flicker-link text-scan-hover mb-3">
                         <span class="text-scan">
+                            {{ if not $externalLinkOnly }}
+                            {{/*  show independent arrow icon to indicate external link  */}}
                             <span class="icon">
-                                <i class="fa-solid fa-arrow-up-right"></i>
+                                <i class="fa-sharp fa-solid fa-arrow-up-right"></i>
                             </span>
+                            {{ end }}
                             {{ strings.TrimPrefix "https://" $externalLink }}
                         </span>
                     </div>

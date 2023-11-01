@@ -1,0 +1,24 @@
+{{/*
+    Adds links to the next and previous pages as page cards.
+*/}}
+
+<div class="columns">
+
+    {{/* previous page link */}}
+    <div class="column">
+        {{ with .PrevInSection }}
+        {{/*  <div class="subtitle">previous</div>  */}}
+        {{ partial "pagecard.html" (dict "context" . "IsSmall" true "NoTags" true "VFill" false) }}
+        {{ end }}
+    </div>
+
+    {{/* next page link */}}
+    <div class="column">
+        {{ with .NextInSection }}
+        {{/*  <div class="subtitle">next</div>  */}}
+        {{ partial "pagecard.html" (dict "context" . "IsSmall" true "NoTags" true "VFill" false) }}
+        {{ else }}
+        {{ end }}
+    </div>
+
+</div>

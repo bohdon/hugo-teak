@@ -112,6 +112,7 @@ $button-active-border-color: none;
 $button-focus-border-color: none;
 $card-content-background-color: $grey-darker-bis;
 $card-content-padding: 1rem;
+$card-radius: $radius-rare;
 $panel-heading-background-color: $grey-darker-bis;
 $panel-block-hover-background-color: $grey-darker-bis;
 $pagination-current-background-color: $grey-dark;
@@ -259,6 +260,7 @@ $blockquote-bg-alpha-adjust: -0.85;
     blockquote {
         background-color: $grey-darker-bis;
         border-color: $grey-dark;
+        border-radius: $radius-small;
 
         .is-primary {
             background-color: adjust-color($primary, $alpha: $blockquote-bg-alpha-adjust);
@@ -318,6 +320,11 @@ $blockquote-bg-alpha-adjust: -0.85;
             border: 0;
         }
     }
+
+    // add some border radius to images
+    img {
+        border-radius: $radius-small;
+    }
 }
 
 @import "syntax/_syntax-theme-teak.scss";
@@ -357,7 +364,7 @@ code, pre {
         flex-shrink: 1;
 
         .card-image {
-            flex: 0.75;
+            flex: .75;
             flex-shrink: 1;
 
             .image {
@@ -396,25 +403,42 @@ code, pre {
             }
         }
     }
+
+    $card-border-width: 0.3rem;
+
+    &, &.is-horizontal {
+        &.links-card {
+            border-left: $card-border-width solid $content-links-color;
+        }
+
+        &.docs-card {
+            border-left: $card-border-width solid $content-docs-color;
+        }
+
+        &.tools-card {
+            border-left: $card-border-width solid $content-tools-color;
+        }
+
+        &.creative-card {
+            border-left: $card-border-width solid $content-creative-color;
+        }
+
+        .card-content:first-child {
+            // border radius is placed by the color borders above
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        &.links-card, &.docs-card, &.tools-card, &.creative-card {
+            .card-image:first-child img {
+                // border radius is placed by the color borders above
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+        }
+    }
 }
 
-$card-border-width: 0.3rem;
-
-.links-card {
-    border-left: $card-border-width solid $content-links-color;
-}
-
-.docs-card {
-    border-left: $card-border-width solid $content-docs-color;
-}
-
-.tools-card {
-    border-left: $card-border-width solid $content-tools-color;
-}
-
-.creative-card {
-    border-left: $card-border-width solid $content-creative-color;
-}
 
 .card-image {
     background-color: $black-ter;
@@ -425,6 +449,16 @@ $card-border-width: 0.3rem;
     width: 100vw;
     max-width: 100vw;
     margin-left: calc((100vw - 100%) / -2);
+
+    &.card, & .card {
+        .card-image:first-child img {
+            border-radius: 0;
+        }
+
+        .card-content:last-child {
+            border-radius: 0;
+        }
+    }
 }
 
 .image-icon-centered {
@@ -486,16 +520,15 @@ $card-border-width: 0.3rem;
     }
 }
 
-.subtle-link-anchor {
+.flicker-link-anchor {
 
-    .subtle-link {
+    .flicker-link {
         opacity: 0.4;
-        // transition: opacity .15s;
 
     }
 
     &:hover {
-        .subtle-link {
+        .flicker-link {
             opacity: 1;
             animation: flicker-on .75s;
         }
@@ -531,8 +564,11 @@ $card-border-width: 0.3rem;
     26% {
         opacity: .4;
     }
+    40% {
+        opacity: .7;
+    }
     60% {
-        opacity: .6;
+        opacity: .8;
     }
     100% {
         opacity: 1;
