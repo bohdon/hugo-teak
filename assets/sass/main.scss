@@ -447,6 +447,17 @@ code, pre {
     .card-image {
         background-color: $black-ter;
     }
+
+    &.full-width {
+        .card-content {
+            @include touch {
+                padding-left: 2rem;
+            }
+            @include desktop {
+                padding-left: 3rem;
+            }
+        }
+    }
 }
 
 .hero {
