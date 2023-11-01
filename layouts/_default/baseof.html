@@ -1,15 +1,20 @@
+{{/*  remove padding from the top of the page allowing full bleed images or heros  */}}
+{{ $isFullBleed := default .IsHome .Params.IsFullBleed }}
+
 <!DOCTYPE html>
-<html class="has-navbar-fixed-top">
+<html>
 {{ partial "head.html" . }}
 
-<body>
+<body {{if not $isFullBleed }}class="has-navbar-fixed-top"{{ end }}>
     {{ partial "header.html" . }}
 
-    <article class="section pt-5">
-        <div class="container">
-            {{ block "main" . }}{{ end }}
-        </div>
-    </article>
+    <main role="main">
+        <article class="section {{ if $isFullBleed }}pt-0{{ end }}">
+            <div class="container">
+                {{ block "main" . }}{{ end }}
+            </div>
+        </article>
+    </main>
 
     {{ block "pre-footer" . }}{{ end }}
     {{ partial "footer.html" . }}

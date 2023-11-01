@@ -4,8 +4,6 @@
 
 @import "../../../../node_modules/bulma/sass/utilities/functions.sass";
 
-$test: hsl(308, 100%, 50%);
-
 // new colors
 $scheme-main-hue: 22;
 $scheme-main-sat: 3%;
@@ -104,7 +102,7 @@ $navbar-tab-hover-border-bottom-color: $link-hover;
 $navbar-item-hover-color: $link-hover;
 $navbar-dropdown-boxed-shadow: none;
 $navbar-dropdown-item-hover-color: $link-hover;
-$navbar-background-color: $black-ter;
+$navbar-background-color: $scheme-main-ter;
 $notification-background-color: $black-ter;
 $button-border-color: none;
 $button-hover-border-color: none;
@@ -184,6 +182,14 @@ a.has-text-primary:hover, a.has-text-link:hover {
 
 .navbar {
     box-shadow: $navbar-dropdown-boxed-shadow;
+
+    &.is-transparent {
+        transition: all 0.25s;
+
+        &:not(.scrolled) {
+            background: transparent;
+        }
+    }
 
     .container {
         // keep same padding as .section
@@ -437,11 +443,48 @@ code, pre {
             }
         }
     }
+
+    .card-image {
+        background-color: $black-ter;
+    }
 }
 
+.hero {
+    // force full-width, like the full-width class below
+    width: 100vw;
+    max-width: 100vw;
+    margin-left: calc((100vw - 100%) / -2);
 
-.card-image {
-    background-color: $black-ter;
+    // support absolute positioned content relative to the hero
+    &.has-background {
+        position: relative;
+        overflow: hidden;
+    }
+
+    &.is-fullheight,
+    &.is-fullheight-with-navbar {
+        .hero-body > .container {
+            // some padding to accomodate mobile bottom toolbars
+            margin-bottom: 7rem;
+        }
+    }
+}
+
+.background-image,
+.background-video {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    position: absolute;
+    pointer-events: none;
+    overflow: hidden;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+
+    &.is-transparent {
+        opacity: 0.5;
+    }
 }
 
 // makes an element the full width of the viewport regardless of parent size

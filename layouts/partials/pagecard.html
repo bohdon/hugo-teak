@@ -72,9 +72,12 @@
 {{ end }}
 {{ $cardClasses = delimit $cardClasses " " }}
 
+{{/*  set video to use, if any  */}}
+{{ $video := (cond (and (ne .context.Params.Video nil) (not $isPageHeader)) .context.Params.Video nil) }}
+
 <div class="card {{ $cardClasses }}">
 
-    {{ if or (.context.Params.Image) (.context.Params.ImageIcon) }}
+    {{ if or (.context.Params.Image) (.context.Params.ImageIcon) $video }}
     {{/* show `image` or `imageIcon`, either 2by1 or 1by1 */}}
     <div class="card-image">
         <a class="anchor-block" href="{{ $mainLink }}" target="{{ $mainLinkTarget }}" {{if not $mainLink }} style="pointer-events: none" {{ end }}>
@@ -82,8 +85,8 @@
                 {{ if .context.Params.Image }}
                 <img src="{{ .context.Params.Image }}">
                 {{ end }}
-                {{ if .context.Params.Video }}
-                {{ partial "video.html" (dict "URL" .context.Params.Video "HoverPlay" true) }}
+                {{ if $video }}
+                {{ partial "video.html" (dict "URL" $video "HoverPlay" true) }}
                 {{ end }}
                 {{ if .context.Params.ImageIcon }}
                 <span class="icon image-icon-centered has-text-primary">
@@ -96,7 +99,7 @@
     {{ end }}
 
     {{/*  card contents  */}}
-    {{ if not (and (and (and $noTitle $noSummary) (and $noExternalLink $noDate)) $noTags) }}
+    {{ if not (and $noTitle $noSummary $noExternalLink $noDate $noTags) }}
     <div class="card-content overflow-parent">
 
         {{ $titleSize := (cond $isPageHeader "is-size-3" (cond $isLargeCard "is-size-4" "is-size-5")) }}

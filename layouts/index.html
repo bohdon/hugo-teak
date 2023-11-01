@@ -1,14 +1,26 @@
 {{ define "main" }}
 
-<div class="p-5"></div>
-
-{{ if .Content }}
-<div class="content">
-    {{ .Content }}
+<div class="hero is-black is-fullheight has-background">
+    {{ if .Params.HeroBackground }}
+    <img class="background-image is-transparent" src="{{ .Params.HeroBackground }}">
+    {{ end }}
+    {{ if .Params.HeroVideo }}
+    <video class="background-video" data-autoplay autoplay webkit-playsinline playsinline loop muted data-object-fit="cover">
+        <source src="{{ .Params.HeroVideo }}" type="video/mp4">
+    </video>
+    {{ end }}
+    <div class="hero-body">
+        <div class="container is-align-self-flex-end">
+            {{/*  allow _index.md to display custom text  */}}
+            {{ .Content }}
+            <div class="has-text-centered">
+                <i class="fa-thin fa-chevron-down is-size-1"></i>
+            </div>
+        </div>
+    </div>
 </div>
-{{ end }}
 
-<div class="p-5"></div>
+<div class="p-6"></div>
 
 {{/*  recent creative work  */}}
 {{ if (where .Site.RegularPages "Section" "creative") }}
@@ -20,9 +32,9 @@
         <div class="p-4"></div>
     {{ end }}
 
-    <a class="button subtitle" href="/creative">
+    <a class="button subtitle m-4" href="/creative">
         <span class="icon">
-            <i class="fa-solid fa-memo"></i>
+            <i class="fa-sharp fa-solid fa-photo-film"></i>
         </span>
         <span>
             More Work...
@@ -43,9 +55,9 @@
     {{ end }}
 
     <div class="column ">
-        <a class="button" href="/docs">
+        <a class="button subtitle m-4" href="/docs">
             <span class="icon">
-                <i class="fa-solid fa-memo"></i>
+                <i class="fa-sharp fa-solid  fa-memo"></i>
             </span>
             <span>
                 More Docs...
@@ -67,9 +79,9 @@
     {{ end }}
 
     <div class="column">
-        <a class="button" href="/links">
+        <a class="button subtitle m-4" href="/links">
             <span class="icon">
-                <i class="fa-solid fa-bookmark"></i>
+                <i class="fa-sharp fa-solid fa-bookmark"></i>
             </span>
             <span>
                 More Links...
