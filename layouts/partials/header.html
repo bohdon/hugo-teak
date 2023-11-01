@@ -34,7 +34,7 @@
                 {{ $active := or ($current.IsMenuCurrent "main" .) ($current.HasMenuCurrent "main" .)}}
                 {{ $active = or $active (and (eq .Name "Tags") (eq $current.Section "tags")) }}
                 {{ if $active }}
-                <a class="navbar-item navbar-mobile-item is-lowercase is-tab {{ if $active }}is-active{{ end }}"
+                <a class="navbar-item navbar-mobile-item is-lowercase is-tab pl-3 {{ if $active }}is-active{{ end }}"
                     href="{{ .URL }}">
                     {{ if .Pre }}
                     <span class="icon">
@@ -73,7 +73,7 @@
                 </div>
             </div>
 
-            <div id="navbarMain" class="navbar-menu is-size-5">
+            <div class="navbar-menu is-size-5">
                 <div class="navbar-start">
                     {{/* list of main menu items */}}
                     {{ range $menu := .Site.Menus.main }}
