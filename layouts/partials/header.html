@@ -1,7 +1,17 @@
 {{ $current := . }}
+{{ $isFullBleed := default .IsHome .Params.IsFullBleed }}
+
+{{ $navbarClasses := (slice) }}
+
+{{/*  make navbar transparent for full bleed (and opaque after scrolling)  */}}
+{{ if $isFullBleed }}
+    {{ $navbarClasses = append "is-transparent" $navbarClasses }}
+{{ end }}
+
+{{ $navbarClasses = delimit $navbarClasses " " }}
 
 <header>
-    <nav id="navbar" class="navbar is-fixed-top is-transparent" role="navigation" aria-label="main navigation">
+    <nav id="navbar" class="navbar is-fixed-top {{ $navbarClasses }}" role="navigation" aria-label="main navigation">
         <div class="container">
             <div class="navbar-brand is-size-5">
 
