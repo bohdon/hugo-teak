@@ -1,8 +1,8 @@
 {{ define "main" }}
 
 <div class="hero is-black is-fullheight has-background">
-    {{ if .Params.HeroBackground }}
-    <img class="background-image is-transparent" src="{{ .Params.HeroBackground }}">
+    {{ if .Params.HeroImage }}
+    <img class="background-image is-transparent" src="{{ .Params.HeroImage }}">
     {{ end }}
     {{ if .Params.HeroVideo }}
     <video class="background-video" data-autoplay autoplay webkit-playsinline playsinline loop muted data-object-fit="cover">
