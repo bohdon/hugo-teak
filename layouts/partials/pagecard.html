@@ -77,7 +77,7 @@
 {{ if and (eq .context.Type "links") (not $imageIcon) (not .context.Params.Image) }}
     {{/*  always set an image icon for links, using first letter as a fallback  */}}
     {{ $firstLetter := lower (substr .context.LinkTitle 0 1) }}
-    {{ $imageIcon = printf "fa-sharp fa-thin fa-%s" $firstLetter }}
+    {{ $imageIcon = printf "fa-sharp fa-light fa-%s" $firstLetter }}
 {{ end }}
 
 {{/*  set video to use, if any  */}}
