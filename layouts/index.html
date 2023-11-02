@@ -68,28 +68,4 @@
 </div>
 {{ end }}
 
-{{/*  recently added links  */}}
-{{ if (where .Site.RegularPages "Section" "links") }}
-<div class="columns is-multiline">
-
-    {{ range first 4 (where .Site.RegularPages.ByDate.Reverse "Section" "links") }}
-    <div class="column is-half">
-        {{ partial "pagecard.html" (dict "context" .) }}
-    </div>
-    {{ end }}
-
-    <div class="column">
-        <a class="button subtitle m-4" href="/links">
-            <span class="icon">
-                <i class="fa-sharp fa-solid fa-bookmark"></i>
-            </span>
-            <span>
-                More Links...
-            </span>
-        </a>
-    </div>
-
-</div>
-{{ end }}
-
 {{ end }}
