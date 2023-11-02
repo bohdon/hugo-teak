@@ -74,7 +74,7 @@
 
 {{/*  set the image icon, automatically if applicable  */}}
 {{ $imageIcon := .context.Params.ImageIcon }}
-{{ if and (eq .context.Type "links") (not $imageIcon) (not .context.Params.Image) }}
+{{ if and (in (slice "links" "docs") .context.Type) (not $imageIcon) (not .context.Params.Image) }}
     {{/*  always set an image icon for links, using first letter as a fallback  */}}
     {{ $firstLetter := lower (substr .context.LinkTitle 0 1) }}
     {{ $imageIcon = printf "fa-sharp fa-light fa-%s" $firstLetter }}

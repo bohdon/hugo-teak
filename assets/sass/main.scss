@@ -647,3 +647,10 @@ code, pre {
         }
     }
 }
+
+@include mobile {
+    .columns.is-reversed-mobile {
+        flex-direction: column-reverse;
+        display: flex;
+    }
+}
