@@ -89,7 +89,7 @@
     {{/* show `image` or `imageIcon`, either 2by1 or 1by1 */}}
     <div class="card-image">
         <a class="anchor-block" href="{{ $mainLink }}" target="{{ $mainLinkTarget }}" {{if not $mainLink }} style="pointer-events: none" {{ end }}>
-            <figure class="image {{ if $isLargeCard }} is-2by1 {{ else }} is-1by1 {{ end }}">
+            <figure class="image {{ if $isLargeCard }} is-3by1 is-2by1-mobile {{ else }} is-1by1 {{ end }}">
                 {{ if .context.Params.Image }}
                 <img src="{{ .context.Params.Image }}">
                 {{ end }}

@@ -20,26 +20,38 @@
     </div>
 </div>
 
-<div class="p-6"></div>
-
 {{/*  recent creative work  */}}
 {{ if (where .Site.RegularPages "Section" "creative") }}
+<div class="hero is-dark">
 
-    {{ range first 2 (where .Site.RegularPages.ByDate.Reverse "Section" "creative") }}
-        {{ partial "pagecard.html"
-            (dict "context" . "IsLargeCard" true "IsFullWidth" true "NoTags" true "NoExternalLink" true
-            "NoSummary" true "NoDate" true "NoTitle" true) }}
-        <div class="p-4"></div>
-    {{ end }}
+        <div class="p-6"></div>
 
-    <a class="button subtitle m-4" href="/creative">
-        <span class="icon">
-            <i class="fa-sharp fa-solid fa-photo-film"></i>
-        </span>
-        <span>
-            More Work...
-        </span>
-    </a>
+        <div class="hero-body pl-0 pr-0">
+
+            {{ range first 2 (where .Site.RegularPages.ByDate.Reverse "Section" "creative") }}
+                {{ partial "pagecard.html"
+                    (dict "context" . "IsLargeCard" true "IsFullWidth" true "NoTags" true "NoExternalLink" true
+                    "NoSummary" true "NoDate" true "NoTitle" true) }}
+                <div class="p-4"></div>
+            {{ end }}
+
+            <div class="section">
+                <div class="container">
+                    <div class="column">
+                        <a class="button subtitle is-ghost has-text-link m-4" href="/creative">
+                            <span class="icon">
+                                <i class="fa-sharp fa-light fa-photo-film"></i>
+                            </span>
+                            <span class="ml-3">
+                                More Work...
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+</div>
 {{ end }}
 
 <div class="p-5"></div>
@@ -54,8 +66,8 @@
     </div>
     {{ end }}
 
-    <div class="column ">
-        <a class="button subtitle m-4" href="/docs">
+    <div class="column">
+        <a class="button subtitle is-ghost has-text-link m-4" href="/docs">
             <span class="icon">
                 <i class="fa-sharp fa-solid  fa-memo"></i>
             </span>
