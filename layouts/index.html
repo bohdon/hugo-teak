@@ -1,6 +1,6 @@
 {{ define "main" }}
 
-<div class="hero is-black is-fullheight has-background">
+<div id="cover-1" class="hero is-black is-fullheight has-background">
     {{ if .Params.HeroImage }}
     <img class="background-image is-transparent" src="{{ .Params.HeroImage }}">
     {{ end }}
@@ -14,7 +14,9 @@
             {{/*  allow _index.md to display custom text  */}}
             {{ .Content }}
             <div class="has-text-centered">
-                <i class="fa-thin fa-chevron-down is-size-1"></i>
+                <a onclick="scrollDownOnePage('#cover-1')">
+                    <i class="fa-thin fa-chevron-down is-size-1"></i>
+                </a>
             </div>
         </div>
     </div>

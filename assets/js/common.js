@@ -4,6 +4,14 @@ function goToTop() {
   document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
 }
 
+/** Scroll down by the window's height. */
+function scrollDownOnePage(elementQuery) {
+  var element = document.querySelector(elementQuery);
+  var rect = element.getBoundingClientRect();
+  var targetY = rect.bottom + window.scrollY;
+  window.scrollTo({ top: targetY, behavior: "smooth" });
+}
+
 /** Set up videos with .thumb-hover class to play on mouse enter. */
 function initHoverVideos() {
   const videos = document.querySelectorAll(
