@@ -72,12 +72,20 @@
 {{ end }}
 {{ $cardClasses = delimit $cardClasses " " }}
 
+{{/*  set the image icon, automatically if applicable  */}}
+{{ $imageIcon := .context.Params.ImageIcon }}
+{{ if and (eq .context.Type "links") (not $imageIcon) (not .context.Params.Image) }}
+    {{/*  always set an image icon for links, using first letter as a fallback  */}}
+    {{ $firstLetter := lower (substr .context.LinkTitle 0 1) }}
+    {{ $imageIcon = printf "fa-sharp fa-thin fa-%s" $firstLetter }}
+{{ end }}
+
 {{/*  set video to use, if any  */}}
 {{ $video := (cond (and (ne .context.Params.Video nil) (not $isPageHeader)) .context.Params.Video nil) }}
 
 <div class="card {{ $cardClasses }}">
 
-    {{ if or (.context.Params.Image) (.context.Params.ImageIcon) $video }}
+    {{ if or .context.Params.Image $imageIcon $video }}
     {{/* show `image` or `imageIcon`, either 2by1 or 1by1 */}}
     <div class="card-image">
         <a class="anchor-block" href="{{ $mainLink }}" target="{{ $mainLinkTarget }}" {{if not $mainLink }} style="pointer-events: none" {{ end }}>
@@ -88,9 +96,9 @@
                 {{ if $video }}
                 {{ partial "video.html" (dict "URL" $video "HoverPlay" true) }}
                 {{ end }}
-                {{ if .context.Params.ImageIcon }}
+                {{ if $imageIcon }}
                 <span class="icon image-icon-centered has-text-primary">
-                    <i class="{{ .context.Params.ImageIcon }} is-size-2 is-size-4-mobile is-size-1-desktop"></i>
+                    <i class="{{ $imageIcon }} is-size-2 is-size-4-mobile is-size-1-desktop"></i>
                 </span>
                 {{ end }}
             </figure>
