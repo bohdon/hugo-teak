@@ -22,6 +22,96 @@
     </div>
 </div>
 
+{{/*  spacer  */}}
+<div class="p-6"></div>
+
+{{/*  recent docs  */}}
+{{ if (where .Site.RegularPages "Section" "docs") }}
+<div class="columns is-reversed-mobile">
+
+    <div class="column">
+        {{ range first 3 (where .Site.RegularPages.ByDate.Reverse "Section" "docs") }}
+        <div class="column">
+            {{ partial "pagecard.html" (dict "context" .) }}
+        </div>
+        {{ end }}
+
+        <div class="has-text-centered">
+            <a class="button is-size-4 has-text-primary">
+                ...
+            </a>
+        </div>
+    </div>
+
+    <div class="column">
+        <div class="pb-3">
+            <a class="button is-size-4 is-light is-outlined" href="/docs">
+                <i class="fa-sharp fa-solid fa-chevron-right is-size-5 mr-3"></i>
+                /docs
+            </a>
+        </div>
+        <div class="pb-4 pl-6">
+            <a class="button is-size-4 is-light is-outlined" href="/tags">
+                <i class="fa-sharp fa-solid fa-tags is-size-5 mr-3"></i>
+                /tags
+            </a>
+        </div>
+
+        <div class="content is-size-5">
+            {{ .Params.DocsCopy | markdownify }}
+        </div>
+    </div>
+
+</div>
+{{ end }}
+
+{{/*  spacer  */}}
+<div class="p-6"></div>
+
+{{/*  blurb about links  */}}
+{{ if $.Params.LinksCopy }}
+<div class="columns is-reversed-mobile pt-6 notification">
+    <div class="column is-6 has-text-right">
+        <div class="content is-size-5">
+            {{ .Params.LinksCopy | markdownify }}
+        </div>
+    </div>
+    <div class="column is-3 has-text-right">
+        <a class="button is-size-4 is-light is-outlined" href="/links">
+            <i class="fa-sharp fa-solid fa-chevron-right is-size-5 mr-3"></i>
+            /links
+        </a>
+    </div>
+    <div class="column is-3">
+    </div>
+</div>
+{{ end }}
+
+{{/*  spacer  */}}
+<div class="p-6"></div>
+
+{{/*  blurb about tools  */}}
+{{ if .Params.ToolsCopy }}
+<div class="columns">
+    <div class="column is-3">
+    </div>
+    <div class="column is-3">
+        <a class="button is-size-4 is-light is-outlined" href="/tools">
+            <i class="fa-sharp fa-solid fa-chevron-right is-size-5 mr-3"></i>
+            /tools
+        </a>
+    </div>
+    <div class="column is-6">
+        <div class="content is-size-5">
+            {{ .Params.ToolsCopy | markdownify }}
+        </div>
+    </div>
+</div>
+{{ end }}
+
+{{/*  spacer  */}}
+<div class="p-6"></div>
+
 {{/*  recent creative work  */}}
 {{ if (where .Site.RegularPages "Section" "creative") }}
 <div class="hero is-dark">
@@ -66,90 +156,5 @@
 </div>
 {{ end }}
 
-{{/*  spacer  */}}
-<div class="p-6"></div>
-
-{{/*  blurb about tools  */}}
-{{ if .Params.ToolsCopy }}
-<div class="columns">
-    <div class="column is-3">
-    </div>
-    <div class="column is-3">
-        <a class="button is-size-4 is-light is-outlined" href="/tools">
-            <i class="fa-sharp fa-solid fa-chevron-right is-size-5 mr-3"></i>
-            /tools
-        </a>
-    </div>
-    <div class="column is-6">
-        <div class="content is-size-5">
-            {{ .Params.ToolsCopy | markdownify }}
-        </div>
-    </div>
-</div>
-{{ end }}
-
-<div class="p-6"></div>
-
-{{/*  blurb about links  */}}
-{{ if $.Params.LinksCopy }}
-<div class="columns is-reversed-mobile pt-6 notification">
-    <div class="column is-6 has-text-right">
-        <div class="content is-size-5">
-            {{ .Params.LinksCopy | markdownify }}
-        </div>
-    </div>
-    <div class="column is-3 has-text-right">
-        <a class="button is-size-4 is-light is-outlined" href="/links">
-            <i class="fa-sharp fa-solid fa-chevron-right is-size-5 mr-3"></i>
-            /links
-        </a>
-    </div>
-    <div class="column is-3">
-    </div>
-</div>
-{{ end }}
-
-{{/*  spacer  */}}
-<div class="p-6"></div>
-
-{{/*  recent docs  */}}
-{{ if (where .Site.RegularPages "Section" "docs") }}
-<div class="columns is-reversed-mobile">
-
-    <div class="column">
-        {{ range first 3 (where .Site.RegularPages.ByDate.Reverse "Section" "docs") }}
-        <div class="column">
-            {{ partial "pagecard.html" (dict "context" .) }}
-        </div>
-        {{ end }}
-
-        <div class="has-text-centered">
-            <a class="button is-size-4 has-text-primary">
-                ...
-            </a>
-        </div>
-    </div>
-
-    <div class="column">
-        <div class="pb-3">
-            <a class="button is-size-4 is-light is-outlined" href="/docs">
-                <i class="fa-sharp fa-solid fa-chevron-right is-size-5 mr-3"></i>
-                /docs
-            </a>
-        </div>
-        <div class="pb-4 pl-6">
-            <a class="button is-size-4 is-light is-outlined" href="/tags">
-                <i class="fa-sharp fa-solid fa-tags is-size-5 mr-3"></i>
-                /tags
-            </a>
-        </div>
-
-        <div class="content is-size-5">
-            {{ .Params.DocsCopy | markdownify }}
-        </div>
-    </div>
-
-</div>
-{{ end }}
 
 {{ end }}
