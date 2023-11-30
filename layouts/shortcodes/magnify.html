@@ -1,5 +1,5 @@
 <figure class="img-magnifier-container">
-    <img id="magnifyImg" src="{{ .Get "src" | safeURL }}" alt="{{ .Get "alt" }}">
+    <img id="magnifyImg" src="{{ .Get "src" | safeURL }}" alt="{{ .Get "alt" }}" draggable="false">
     {{ with .Get "caption" }}
     <figcaption>{{ . }}</figcaption>
     {{ end }}

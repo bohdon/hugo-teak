@@ -69,8 +69,8 @@ function magnify(img, zoom, e) {
   glass.style.backgroundSize =
     img.width * zoom + "px " + img.height * zoom + "px";
 
-  var glassHalfHeight = glass.offsetWidth / 2;
-  var glassHalfWidth = glass.offsetHeight / 2;
+  var glassHalfWidth = glass.offsetWidth / 2;
+  var glassHalfHeight = glass.offsetHeight / 2;
   var glassOffsetY = -(glassHalfHeight + 50);
 
   glass.addEventListener("mousemove", onMoveMagnifier);
@@ -111,9 +111,17 @@ function magnify(img, zoom, e) {
     return { x: x, y: y };
   }
 
-  img.addEventListener("pointerleave", function () {
+  img.addEventListener("pointerleave", remove);
+  img.addEventListener("pointerup", remove);
+  img.addEventListener("pointercancel", remove);
+  // repeat pointer enters are possible on ios, remove this instance in those situations
+  img.addEventListener("pointerenter", remove);
+  // if magnifier gets stuck on for some reason, allow removing on tap
+  glass.addEventListener("pointerdown", remove);
+
+  function remove() {
     glass.remove();
-  });
+  }
 
   // magnify will be with a pointerenter event
   onMoveMagnifier(e);

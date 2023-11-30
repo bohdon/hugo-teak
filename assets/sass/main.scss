@@ -151,6 +151,11 @@ main {
     flex: 1 0 auto;
 }
 
+// show link underlines in main content body for clarity
+.content a {
+    text-decoration: underline;
+}
+
 .overflow-parent {
     min-width: 0;
 }
@@ -604,6 +609,15 @@ code, pre {
     100% {
         transform: translateX(-100%);
         left: 100%;
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }
 
