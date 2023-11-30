@@ -46,7 +46,81 @@ function initNavScroll() {
   });
 }
 
+function initMagnify() {
+  var zoomAmount = 4;
+  var images = document.querySelectorAll(".img-magnifier-container img");
+  for (var idx = 0; idx < images.length; idx++) {
+    var img = images[idx];
+    img.addEventListener("pointerenter", function (e) {
+      magnify(this, zoomAmount, e);
+    });
+  }
+}
+
+function magnify(img, zoom, e) {
+  // create magnifying glass
+  var glass = document.createElement("div");
+  glass.setAttribute("class", "img-magnifier-glass");
+  img.parentElement.insertBefore(glass, img);
+
+  // set magnifying glass image
+  glass.style.backgroundImage = "url('" + img.src + "')";
+  glass.style.backgroundRepeat = "no-repeat";
+  glass.style.backgroundSize =
+    img.width * zoom + "px " + img.height * zoom + "px";
+
+  var glassHalfHeight = glass.offsetWidth / 2;
+  var glassHalfWidth = glass.offsetHeight / 2;
+  var glassOffsetY = -(glassHalfHeight + 50);
+
+  glass.addEventListener("mousemove", onMoveMagnifier);
+  glass.addEventListener("touchmove", onMoveMagnifier);
+  img.addEventListener("mousemove", onMoveMagnifier);
+  img.addEventListener("touchmove", onMoveMagnifier);
+
+  function clamp(val, min, max) {
+    return Math.min(Math.max(val, min), max);
+  }
+
+  function onMoveMagnifier(e) {
+    // stop other events from occurring while moving over the image
+    e.preventDefault();
+    var pos = getLocalCursorPos(e);
+    var x = pos.x;
+    var y = pos.y;
+
+    // clamp to image bounds
+    var rect = img.getBoundingClientRect();
+    x = clamp(x, rect.left, rect.right);
+    y = clamp(y, rect.top, rect.bottom);
+
+    var localX = x - rect.left;
+    var localY = y - rect.top;
+
+    glass.style.left = x - glassHalfWidth + "px";
+    glass.style.top = y - glassHalfHeight + glassOffsetY + "px";
+    var bgPosX = -localX * zoom + glassHalfWidth;
+    var bgPosY = -localY * zoom + glassHalfHeight;
+    glass.style.backgroundPosition = bgPosX + "px " + bgPosY + "px";
+  }
+
+  function getLocalCursorPos(e) {
+    // cant use e.clientX/Y with touch events
+    var x = e.pageX - window.scrollX;
+    var y = e.pageY - window.scrollY;
+    return { x: x, y: y };
+  }
+
+  img.addEventListener("pointerleave", function () {
+    glass.remove();
+  });
+
+  // magnify will be with a pointerenter event
+  onMoveMagnifier(e);
+}
+
 document.addEventListener("DOMContentLoaded", function (event) {
   initHoverVideos();
   initNavScroll();
+  initMagnify();
 });
