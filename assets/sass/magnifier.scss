@@ -1,5 +1,9 @@
 .img-magnifier-container {
     position: relative;
+
+    img {
+        image-rendering: crisp-edges;
+    }
 }
 
 .img-magnifier-glass {
