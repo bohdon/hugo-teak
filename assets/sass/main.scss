@@ -137,6 +137,8 @@ html {
     @include widescreen {
         font-size: $body-size;
     }
+
+    scroll-padding-top: 90px;
 }
 
 body {
