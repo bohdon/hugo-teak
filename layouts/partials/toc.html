@@ -1,0 +1,9 @@
+{{/*  on by default unless disabled (but will not show if no toc content) */}}
+{{ if default true .Params.toc }}
+    {{/*  the default toc html string is 32 characters long when empty  */}}
+    {{ if gt (len .TableOfContents) 32 }}
+    <div class="box">
+        {{ .TableOfContents }}
+    </div>
+    {{ end }}
+{{ end }}

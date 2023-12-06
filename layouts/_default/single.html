@@ -17,6 +17,12 @@
 </div>
 {{ end }}
 
+
+{{/*  sticky side bar for table of contents, etc  */}}
+<aside class="sidebar sticky">
+    {{ partial "toc.html" . }}
+</aside>
+
 <div class="content">
     {{ .Content }}
 </div>

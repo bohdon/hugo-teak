@@ -50,6 +50,10 @@ $radius: 3px;
 $radius-large: 6px;
 $radius-rare: 0.25rem;
 $shadow: 0;
+// increase widescreen a small amount (default 1216px)
+$widescreen: 1280px;
+// limit all containers to widescreen to make space for sidebar.
+$container-max-width: $widescreen;
 
 // bulma derived variables
 $body-size: 17px;
@@ -121,6 +125,9 @@ $pagination-current-background-color: $grey-dark;
 $pagination-current-border-color: $grey-dark;
 $tag-radius: $radius-rare;
 
+// new component variables
+$sidebar-width: 300px;
+
 
 @import "../../../../node_modules/bulma/bulma.sass";
 
@@ -138,11 +145,12 @@ html {
         font-size: $body-size;
     }
 
-    scroll-padding-top: 90px;
+    scroll-padding-top: $navbar-height + 1.75rem;
 }
 
 body {
     min-height: 100vh;
+    // body is flex to support expanding main content
     display: flex;
     flex-direction: column;
     -webkit-box-orient: vertical;
@@ -150,7 +158,25 @@ body {
 }
 
 main {
+    // ensure main section expands to fill window height
     flex: 1 0 auto;
+}
+
+@include until($widescreen + $sidebar-width * 2) {
+    .sidebar {
+        display: none;
+    }
+}
+@include from($widescreen + $sidebar-width * 2) {
+    .sidebar {
+        &.sticky {
+            position: sticky;
+            top: $navbar-height + 1.75rem;
+            float: left;
+            width: $sidebar-width;
+            margin-left: -$sidebar-width - 30px;
+        }
+    }
 }
 
 // show link underlines in main content body for clarity
