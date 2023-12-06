@@ -127,6 +127,7 @@ $tag-radius: $radius-rare;
 
 // new component variables
 $sidebar-width: 300px;
+$sidebar-width-lg: 400px;
 
 
 @import "../../../../node_modules/bulma/bulma.sass";
@@ -145,6 +146,7 @@ html {
         font-size: $body-size;
     }
 
+    scroll-behavior: smooth;
     scroll-padding-top: $navbar-height + 1.75rem;
 }
 
@@ -169,12 +171,51 @@ main {
 }
 @include from($widescreen + $sidebar-width * 2) {
     .sidebar {
-        &.sticky {
-            position: sticky;
-            top: $navbar-height + 1.75rem;
-            float: left;
-            width: $sidebar-width;
-            margin-left: -$sidebar-width - 30px;
+        width: $sidebar-width;
+        margin-left: -$sidebar-width - 30px;
+    }
+}
+@include from($widescreen + $sidebar-width-lg * 2) {
+    .sidebar {
+        width: $sidebar-width-lg;
+        margin-left: -$sidebar-width-lg - 30px;
+    }
+}
+
+.sidebar.sticky {
+    position: sticky;
+    top: $navbar-height + 1.75rem;
+    float: left;
+}
+
+#TableOfContents {
+    li {
+        font-size: $size-6 * 0.9;
+        padding-left: 0.5em;
+        border-left: 2px solid rgba(0, 0, 0, 0);
+
+        &.is-active {
+            border-color: $link;
+
+            > a {
+                color: $link;
+            }
+        }
+        &:has(li.is-active) {
+            border-color: $primary;
+        }
+
+        // indent 2nd..nth list items
+        li {
+            padding-left: 1.5rem;
+        }
+
+        a {
+            color: $primary;
+        }
+
+        a:hover {
+            color: $link-hover;
         }
     }
 }

@@ -46,6 +46,7 @@ function initNavScroll() {
   });
 }
 
+/** Setup all .img-magnifier-container elements to support mouse-over magnification. */
 function initMagnify() {
   var zoomAmount = 4;
   var images = document.querySelectorAll(".img-magnifier-container img");
@@ -57,6 +58,10 @@ function initMagnify() {
   }
 }
 
+/**
+ * Create a magnifying glass popup that tracks the mouse for an image.
+ * Should be called with a pointerenter event to initialize the position.
+ */
 function magnify(img, zoom, e) {
   // create magnifying glass
   var glass = document.createElement("div");
@@ -127,8 +132,59 @@ function magnify(img, zoom, e) {
   onMoveMagnifier(e);
 }
 
+/** Init highlighting of elements when scrolled into view. */
+function initScrollSpy() {
+  // the threshold from the top of the window above which an element is considered in view
+  var threshold = 150;
+
+  // track all elements in content with an 'id'
+  var elements = document.querySelectorAll(".content [id]");
+  if (elements.length == 0) {
+    // nothing to track
+    return;
+  }
+
+  // build list of entries that have an associated anchor referencing the id
+  var entries = Array.from(elements)
+    .map((elem) => {
+      var id = elem.getAttribute("id");
+      var referencer = document.querySelector(`nav a[href="#${id}"]`);
+      return {
+        section: elem,
+        referencer: referencer ? referencer.parentElement : null,
+      };
+    })
+    .filter((entry) => {
+      return entry.referencer != null;
+    });
+
+  function updateActive() {
+    // iterate from bottom to top and find the first one above threshold
+    var activeIdx = -1;
+    for (var idx = entries.length - 1; idx >= 0; idx--) {
+      // check if this is the active element
+      var rect = entries[idx].section.getBoundingClientRect();
+      if ((rect.top < threshold || idx == 0) && activeIdx == -1) {
+        // only allow 1 section to be active
+        activeIdx = idx;
+        entries[idx].referencer.classList.add("is-active");
+      } else {
+        entries[idx].referencer.classList.remove("is-active");
+      }
+    }
+  }
+
+  // listen for scroll event
+  window.addEventListener("scroll", updateActive);
+  window.addEventListener("resize", updateActive);
+  // update once during initialize
+  updateActive();
+}
+
+/** Handle initializing behavior on content load. */
 document.addEventListener("DOMContentLoaded", function (event) {
   initHoverVideos();
   initNavScroll();
   initMagnify();
+  initScrollSpy();
 });
