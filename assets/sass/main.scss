@@ -413,6 +413,7 @@ $blockquote-bg-alpha-adjust: -0.85;
 
 @import "syntax/_syntax-theme-teak.scss";
 @import "magnifier.scss";
+@import "img-compare.scss";
 
 // simple, non-syntax highlighted code block, uses chroma colors from theme
 pre, code {

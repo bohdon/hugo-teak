@@ -46,6 +46,55 @@ function initNavScroll() {
   });
 }
 
+/** Init highlighting of elements when scrolled into view. */
+function initScrollSpy() {
+  // the threshold from the top of the window above which an element is considered in view
+  var threshold = 150;
+
+  // track all elements in content with an 'id'
+  var elements = document.querySelectorAll(".content [id]");
+  if (elements.length == 0) {
+    // nothing to track
+    return;
+  }
+
+  // build list of entries that have an associated anchor referencing the id
+  var entries = Array.from(elements)
+    .map((elem) => {
+      var id = elem.getAttribute("id");
+      var referencer = document.querySelector(`nav a[href="#${id}"]`);
+      return {
+        section: elem,
+        referencer: referencer ? referencer.parentElement : null,
+      };
+    })
+    .filter((entry) => {
+      return entry.referencer != null;
+    });
+
+  function updateActive() {
+    // iterate from bottom to top and find the first one above threshold
+    var activeIdx = -1;
+    for (var idx = entries.length - 1; idx >= 0; idx--) {
+      // check if this is the active element
+      var rect = entries[idx].section.getBoundingClientRect();
+      if ((rect.top < threshold || idx == 0) && activeIdx == -1) {
+        // only allow 1 section to be active
+        activeIdx = idx;
+        entries[idx].referencer.classList.add("is-active");
+      } else {
+        entries[idx].referencer.classList.remove("is-active");
+      }
+    }
+  }
+
+  // listen for scroll event
+  window.addEventListener("scroll", updateActive);
+  window.addEventListener("resize", updateActive);
+  // update once during initialize
+  updateActive();
+}
+
 /** Setup all .img-magnifier-container elements to support mouse-over magnification. */
 function initMagnify() {
   var zoomAmount = 4;
@@ -132,53 +181,53 @@ function magnify(img, zoom, e) {
   onMoveMagnifier(e);
 }
 
-/** Init highlighting of elements when scrolled into view. */
-function initScrollSpy() {
-  // the threshold from the top of the window above which an element is considered in view
-  var threshold = 150;
+/**
+ * Initializes functionality for mousing over some images and comparing them with
+ * an alternate image.
+ */
+function initImageCompare() {
+  var containers = document.querySelectorAll(".img-compare-container");
+  for (var idx = 0; idx < containers.length; idx++) {
+    var container = containers[idx];
 
-  // track all elements in content with an 'id'
-  var elements = document.querySelectorAll(".content [id]");
-  if (elements.length == 0) {
-    // nothing to track
-    return;
-  }
-
-  // build list of entries that have an associated anchor referencing the id
-  var entries = Array.from(elements)
-    .map((elem) => {
-      var id = elem.getAttribute("id");
-      var referencer = document.querySelector(`nav a[href="#${id}"]`);
-      return {
-        section: elem,
-        referencer: referencer ? referencer.parentElement : null,
-      };
-    })
-    .filter((entry) => {
-      return entry.referencer != null;
-    });
-
-  function updateActive() {
-    // iterate from bottom to top and find the first one above threshold
-    var activeIdx = -1;
-    for (var idx = entries.length - 1; idx >= 0; idx--) {
-      // check if this is the active element
-      var rect = entries[idx].section.getBoundingClientRect();
-      if ((rect.top < threshold || idx == 0) && activeIdx == -1) {
-        // only allow 1 section to be active
-        activeIdx = idx;
-        entries[idx].referencer.classList.add("is-active");
-      } else {
-        entries[idx].referencer.classList.remove("is-active");
-      }
+    function onMoveContainerCompare(e) {
+      onMoveCompare(e, container);
     }
+
+    var imgA = container.querySelector(".img-a");
+    var imgB = container.querySelector(".img-b");
+    container.addEventListener("mousemove", onMoveContainerCompare);
+    imgA.addEventListener("mousemove", onMoveContainerCompare);
+    imgA.addEventListener("touchmove", onMoveContainerCompare);
+    imgB.addEventListener("mousemove", onMoveContainerCompare);
+    imgB.addEventListener("touchmove", onMoveContainerCompare);
   }
 
-  // listen for scroll event
-  window.addEventListener("scroll", updateActive);
-  window.addEventListener("resize", updateActive);
-  // update once during initialize
-  updateActive();
+  function onMoveCompare(e, container) {
+    var imgA = container.querySelector(".img-a");
+    var imgRect = imgA.getBoundingClientRect();
+
+    function clamp(val, min, max) {
+      return Math.min(Math.max(val, min), max);
+    }
+
+    var localX = e.pageX - imgRect.left;
+
+    // the parent container mousemove will allow dragging out of bounds to cleanly
+    // wipe to 0% or 100%, but it shouldn't work outside of a certain margin otherwise
+    // the change feels accidental since the mouse is nowhere near the image.
+    var margin = 20;
+    if (localX < -margin || localX - imgRect.width > margin) {
+      return;
+    }
+
+    e.preventDefault();
+
+    var maskPct = clamp(1 - localX / imgRect.width, 0, 1) * 100;
+
+    var imgB = container.querySelector(".img-b");
+    imgB.style.clipPath = `inset(0 ${maskPct}% 0 0)`;
+  }
 }
 
 /** Handle initializing behavior on content load. */
@@ -186,5 +235,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
   initHoverVideos();
   initNavScroll();
   initMagnify();
+  initImageCompare();
   initScrollSpy();
 });

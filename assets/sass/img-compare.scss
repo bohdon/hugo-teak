@@ -1,0 +1,15 @@
+.img-compare-container {
+    position: relative;
+
+    img {
+        image-rendering: crisp-edges;
+    }
+
+    .img-b {
+        // clipped completely by default, mouse over to reveal
+        clip-path: inset(0 100% 0 0);
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}

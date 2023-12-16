@@ -1,0 +1,7 @@
+<figure class="img-compare-container">
+    <img class="img-a" src="{{ .Get "srcA" | safeURL }}" alt="{{ .Get "alt" }}" draggable="false">
+    <img class="img-b" src="{{ .Get "srcB" | safeURL }}" alt="{{ .Get "alt" }}" draggable="false">
+    {{ with .Get "caption" }}
+    <figcaption>{{ . }}</figcaption>
+    {{ end }}
+</figure>
