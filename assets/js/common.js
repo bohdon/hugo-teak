@@ -187,20 +187,24 @@ function magnify(img, zoom, e) {
  */
 function initImageCompare() {
   var containers = document.querySelectorAll(".img-compare-container");
+
   for (var idx = 0; idx < containers.length; idx++) {
     var container = containers[idx];
 
-    function onMoveContainerCompare(e) {
-      onMoveCompare(e, container);
+    function addMoveListener(element, container) {
+      element.addEventListener("mousemove", (e) => {
+        onMoveCompare(e, container);
+      });
+      element.addEventListener("touchmove", (e) => {
+        onMoveCompare(e, container);
+      });
     }
 
     var imgA = container.querySelector(".img-a");
     var imgB = container.querySelector(".img-b");
-    container.addEventListener("mousemove", onMoveContainerCompare);
-    imgA.addEventListener("mousemove", onMoveContainerCompare);
-    imgA.addEventListener("touchmove", onMoveContainerCompare);
-    imgB.addEventListener("mousemove", onMoveContainerCompare);
-    imgB.addEventListener("touchmove", onMoveContainerCompare);
+    addMoveListener(imgA, container);
+    addMoveListener(imgB, container);
+    addMoveListener(container, container);
   }
 
   function onMoveCompare(e, container) {
