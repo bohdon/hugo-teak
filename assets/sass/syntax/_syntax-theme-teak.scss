@@ -1,13 +1,19 @@
-$chroma-bg: hsl(32, 6%, 18%);
-$chroma-fg: hsl(32, 10%, 75%);
-$chroma-comment: hsl(30, 8%, 36%);
-$chroma-keyword: #749ec5;
-$chroma-name: #77dfa6;
+$chroma-main-hue: 12;
+$chroma-main-sat: 1%;
+
+$chroma-bg: hsl($chroma-main-hue, $chroma-main-sat, 20%);
+$chroma-fg: hsl($chroma-main-hue, $chroma-main-sat, 78%);
+$chroma-comment: #85C46C;
+$chroma-keyword: #6B94EA;
+$chroma-name: #6bae98;
+$chroma-variable: #66C3CC;
+$chroma-name-class: #C090FF;
 $chroma-error: hsl(0, 63%, 43%);
 $chroma-error-bg: hsl(10, 34%, 17%);
 $chroma-operator: $chroma-fg;
-$chroma-literal: hsl(0, 78%, 73%);
-$chroma-literal-string: hsl(32, 78%, 69%);
+$chroma-literal: #dd6363;
+$chroma-literal-string: #C9A26D;
+$chroma-literal-number: #ED94C0;
 $chroma-namespace: $chroma-name;
 $chroma-linenos: hsl(30, 8%, 32%);
 $tab-size: 4;
@@ -30,11 +36,11 @@ $tab-size: 4;
 /* KeywordPseudo */ .chroma .kp { color: $chroma-keyword }
 /* KeywordReserved */ .chroma .kr { color: $chroma-keyword }
 /* KeywordType */ .chroma .kt { color: $chroma-keyword }
-/* Name */ .chroma .n {  }
+/* Name */ .chroma .n { color: $chroma-name; }
 /* NameAttribute */ .chroma .na { color: $chroma-name }
 /* NameBuiltin */ .chroma .nb {  }
 /* NameBuiltinPseudo */ .chroma .bp {  }
-/* NameClass */ .chroma .nc { color: $chroma-name }
+/* NameClass */ .chroma .nc { color: $chroma-name-class; }
 /* NameConstant */ .chroma .no { color: $chroma-keyword }
 /* NameDecorator */ .chroma .nd { color: $chroma-name }
 /* NameEntity */ .chroma .ni {  }
@@ -67,13 +73,13 @@ $tab-size: 4;
 /* LiteralStringRegex */ .chroma .sr { color: $chroma-literal-string }
 /* LiteralStringSingle */ .chroma .s1 { color: $chroma-literal-string }
 /* LiteralStringSymbol */ .chroma .ss { color: $chroma-literal-string }
-/* LiteralNumber */ .chroma .m { color: $chroma-literal }
-/* LiteralNumberBin */ .chroma .mb { color: $chroma-literal }
-/* LiteralNumberFloat */ .chroma .mf { color: $chroma-literal }
-/* LiteralNumberHex */ .chroma .mh { color: $chroma-literal }
-/* LiteralNumberInteger */ .chroma .mi { color: $chroma-literal }
-/* LiteralNumberIntegerLong */ .chroma .il { color: $chroma-literal }
-/* LiteralNumberOct */ .chroma .mo { color: $chroma-literal }
+/* LiteralNumber */ .chroma .m { color: $chroma-literal-number }
+/* LiteralNumberBin */ .chroma .mb { color: $chroma-literal-number }
+/* LiteralNumberFloat */ .chroma .mf { color: $chroma-literal-number }
+/* LiteralNumberHex */ .chroma .mh { color: $chroma-literal-number }
+/* LiteralNumberInteger */ .chroma .mi { color: $chroma-literal-number }
+/* LiteralNumberIntegerLong */ .chroma .il { color: $chroma-literal-number }
+/* LiteralNumberOct */ .chroma .mo { color: $chroma-literal-number }
 /* Operator */ .chroma .o { color: $chroma-operator }
 /* OperatorWord */ .chroma .ow { color: $chroma-operator }
 /* Punctuation */ .chroma .p {  }
@@ -102,4 +108,10 @@ pre.chroma {
     -moz-tab-size: $tab-size;
     -o-tab-size: $tab-size;
     tab-size: $tab-size;
+}
+
+.chroma {
+    .c, .ch, .c1, .cs, .cp, .cpf {
+        font-style: italic;
+    }
 }
