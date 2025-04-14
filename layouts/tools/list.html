@@ -39,7 +39,7 @@
     <div class="columns is-multiline">
         {{ range $pages }}
         <div class="column is-full">
-            {{ partial "pagecard.html" (dict "context" . "NoTags" true "NoDate" true) }}
+            {{ partial "pagecard.html" (dict "context" . "NoDate" true) }}
         </div>
         {{ end }}
     </div>
@@ -54,7 +54,7 @@
 
     {{ range $uncategorizedPages }}
         <div class="column is-full">
-            {{ partial "pagecard.html" (dict "context" . "NoTags" true) }}
+            {{ partial "pagecard.html" (dict "context" . "NoDate" true) }}
         </div>
     {{ end }}
 {{ end }}
