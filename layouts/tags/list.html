@@ -30,7 +30,7 @@
 
         <div class="columns is-multiline">
             {{ range where $.Pages "Type" $section.Type }}
-                <div class="column is-half">
+                <div class="column is-full">
                     {{ partial "pagecard.html" (dict "context" .) }}
                 </div>
             {{ end }}

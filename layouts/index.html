@@ -29,18 +29,12 @@
 {{ if (where .Site.RegularPages "Section" "docs") }}
 <div class="columns is-reversed-mobile">
 
-    <div class="column">
+    <div class="column is-8">
         {{ range first 3 (where .Site.RegularPages.ByDate.Reverse "Section" "docs") }}
-        <div class="column">
+        <div class="p-2 is-flex">
             {{ partial "pagecard.html" (dict "context" .) }}
         </div>
         {{ end }}
-
-        <div class="has-text-centered">
-            <a class="button is-size-4 has-text-primary">
-                ...
-            </a>
-        </div>
     </div>
 
     <div class="column">
@@ -77,7 +71,7 @@
         </div>
     </div>
     <div class="column is-3 has-text-right">
-        <a class="button is-size-4 is-light is-outlined" href="/links">
+        <a class="button is-size-4 is-light is-outlined has-color-links" href="/links">
             <i class="fa-sharp fa-solid fa-chevron-right is-size-5 mr-3"></i>
             /links
         </a>
@@ -96,7 +90,7 @@
     <div class="column is-3">
     </div>
     <div class="column is-3">
-        <a class="button is-size-4 is-light is-outlined" href="/tools">
+        <a class="button is-size-4 is-light is-outlined has-color-tools" href="/tools">
             <i class="fa-sharp fa-solid fa-chevron-right is-size-5 mr-3"></i>
             /tools
         </a>

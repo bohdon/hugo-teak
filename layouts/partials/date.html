@@ -1,11 +1,11 @@
 {{ $dateTime := .Params.Date.Format "2006-01-02" }}
-{{ $dateFormat := .Site.Params.dateFormat | default "2006-01-02" }}
+{{ $dateFormat := .Site.Params.dateFormat | default "Jan 1 2006" }}
 {{ if .Params.yearOnly }}
 {{ $dateFormat = "2006" }}
 {{ end }}
 
 {{ if .Date }}
-<div class="field">
+<div class="field has-text-primary">
     <time datetime="{{ $dateTime }}">{{ .Date.Format $dateFormat }}</time>
 </div>
 {{ end }}

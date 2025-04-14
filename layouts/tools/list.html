@@ -34,11 +34,11 @@
     {{/*  use custom .title if available, otherwise just titlecase the category  */}}
     {{ $categoryTitle := default (replace $category.category "-" " " | title) $category.title}}
 
-    <h3 class="title is-3">{{ $categoryTitle}}</h3>
+    <h3 class="title is-4">{{ $categoryTitle}}</h3>
 
     <div class="columns is-multiline">
         {{ range $pages }}
-        <div class="column is-half">
+        <div class="column is-full">
             {{ partial "pagecard.html" (dict "context" . "NoTags" true "NoDate" true) }}
         </div>
         {{ end }}
@@ -53,7 +53,7 @@
     <h3 class="title is-3">{{ default "Uncategorized" .Params.uncategorizedTitle }}</h3>
 
     {{ range $uncategorizedPages }}
-        <div class="column is-half">
+        <div class="column is-full">
             {{ partial "pagecard.html" (dict "context" . "NoTags" true) }}
         </div>
     {{ end }}

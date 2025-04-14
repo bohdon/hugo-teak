@@ -40,26 +40,25 @@
 {{/*  show an icon if the main link is external  */}}
 {{ $titleIcon := (cond $externalLinkOnly "fa-sharp fa-solid fa-arrow-up-right" nil) }}
 
-{{/* TODO: use site settings to determine card class */}}
-{{ $cardClass := "" }}
+{{ $pageTypeClass := "" }}
 
 {{ if eq .context.Type "docs" }}
-{{ $cardClass = "docs-card" }}
+{{ $pageTypeClass = "docs-type" }}
 
 {{ else if eq .context.Type "links" }}
-{{ $cardClass = "links-card" }}
+{{ $pageTypeClass = "links-type" }}
 
 {{ else if eq .context.Type "tools" }}
-{{ $cardClass = "tools-card" }}
+{{ $pageTypeClass = "tools-type" }}
 
 {{ else if eq .context.Type "creative" }}
-{{ $cardClass = "creative-card" }}
+{{ $pageTypeClass = "creative-type" }}
 {{ end }}
 
 {{/*  build list of card classes  */}}
 {{ $cardClasses := (slice) }}
-{{ if and $cardClass (not $isFullWidth) }}
-    {{ $cardClasses = append $cardClass $cardClasses }}
+{{ if and $pageTypeClass (not $isFullWidth) }}
+    {{ $cardClasses = append $pageTypeClass $cardClasses }}
 {{ end }}
 {{ if $vFill }}
     {{ $cardClasses = append "vfill" $cardClasses }}
@@ -72,9 +71,11 @@
 {{ end }}
 {{ $cardClasses = delimit $cardClasses " " }}
 
-{{/*  set the image icon, automatically if applicable  */}}
+{{/*  get page image or icon  */}}
+{{ $image := .context.Params.Image }}
 {{ $imageIcon := .context.Params.ImageIcon }}
-{{ if and (in (slice "links" "docs") .context.Type) (not $imageIcon) (not .context.Params.Image) }}
+
+{{ if and (in (slice "links" "docs") .context.Type) (not $imageIcon) (not $image) }}
     {{/*  always set an image icon for links, using first letter as a fallback  */}}
     {{ $firstLetter := lower (substr .context.LinkTitle 0 1) }}
     {{ $imageIcon = printf "fa-sharp fa-light fa-%s" $firstLetter }}
@@ -83,15 +84,15 @@
 {{/*  set video to use, if any  */}}
 {{ $video := (cond (and (ne .context.Params.Video nil) (not $isPageHeader)) .context.Params.Video nil) }}
 
-<div class="card {{ $cardClasses }}">
+<div class="card {{ $cardClasses }} {{ if $isLargeCard }}pb-6{{ end }}">
 
-    {{ if or .context.Params.Image $imageIcon $video }}
+    {{ if or $image $imageIcon $video }}
     {{/* show `image` or `imageIcon`, either 2by1 or 1by1 */}}
     <div class="card-image">
         <a class="anchor-block" href="{{ $mainLink }}" target="{{ $mainLinkTarget }}" {{if not $mainLink }} style="pointer-events: none" {{ end }}>
-            <figure class="image {{ if $isLargeCard }} is-3by1 is-2by1-mobile {{ else }} is-1by1 {{ end }}">
-                {{ if .context.Params.Image }}
-                <img src="{{ .context.Params.Image }}">
+            <figure class="image {{ if $isLargeCard }} is-2by1 is-2by1-mobile {{ end }}">
+                {{ if $image }}
+                <img src="{{ $image }}">
                 {{ end }}
                 {{ if $video }}
                 {{ partial "video.html" (dict "URL" $video "HoverPlay" true) }}
@@ -104,66 +105,80 @@
             </figure>
         </a>
     </div>
+
     {{ end }}
 
-    {{/*  card contents  */}}
+    {{/*  card contents, made relative to position badge  */}}
     {{ if not (and $noTitle $noSummary $noExternalLink $noDate $noTags) }}
-    <div class="card-content overflow-parent">
+    <div class="card-content overflow-parent is-relative">
 
-        {{ $titleSize := (cond $isPageHeader "is-size-3" (cond $isLargeCard "is-size-4" "is-size-5")) }}
+        {{/*  add page type badge  */}}
+        {{ partial "pagetypebadge.html" (dict "context" .context) }}
 
-        {{/*  main link, either to the page or external link if using externalLinkOnly  */}}
-        <a class="text-scan-anchor flicker-link-anchor" href="{{ $mainLink }}" target="{{ $mainLinkTarget }}" {{if not $mainLink }} style="pointer-events: none" {{ end }}>
+        {{ $titleSize := (cond $isPageHeader "is-size-4" (cond $isLargeCard "is-size-5" "is-size-5")) }}
 
-            {{/*  card title  */}}
-            {{ if not $noTitle }}
-            <h5 class="has-text-weight-semibold {{ $titleSize }}">
-                {{ if and $titleIcon (not $noTitleIcon) }}
-                <span class="icon">
-                    <i class="{{ $titleIcon }}"></i>
-                </span>
-                {{ end }}
-                {{ .context.LinkTitle }}
-                {{ if .context.Params.draft }}
-                <span class="tag is-primary">Draft</span>
-                {{ end }}
-            </h5>
-            {{ end }}
+        {{/*  group title/link and tags on same row  */}}
+        <div class="card-title-row">
 
-            {{ if not $noSummary }}
-            <div class="content mt-1 mb-2">
-                {{ .context.Summary }}
+            {{/*  main link, either to the page or external link if using externalLinkOnly  */}}
+            <div class="card-title">
+                <a class="text-scan-anchor flicker-link-anchor" href="{{ $mainLink }}" target="{{ $mainLinkTarget }}" {{if not $mainLink }} style="pointer-events: none" {{ end }}>
+
+                    {{/*  card title  */}}
+                    {{ if not $noTitle }}
+                    <h4 class="has-text-weight-semibold {{ $titleSize }}">
+                        {{ if and $titleIcon (not $noTitleIcon) }}
+                        <span class="icon">
+                            <i class="{{ $titleIcon }}"></i>
+                        </span>
+                        {{ end }}
+                        {{ .context.LinkTitle }}
+                        {{ if .context.Params.draft }}
+                        <span class="tag is-primary">Draft</span>
+                        {{ end }}
+                    </h4>
+                    {{ end }}
+
+                    {{/*  show external link with its own anchor (if separate from main link)  */}}
+                    {{ if $externalLink }}
+                    {{ if not $externalLinkOnly }}
+                    <a href="{{ $externalLink }}" target="_blank">
+                    {{ end }}
+                        <div class="flicker-link text-scan-hover mb-1 {{ if not $externalLinkOnly }}mt-1{{ end }}">
+                            <span class="text-scan">
+                                {{ if not $externalLinkOnly }}
+                                {{/*  show independent arrow icon to indicate external link  */}}
+                                <span class="icon">
+                                    <i class="fa-sharp fa-solid fa-arrow-up-right"></i>
+                                </span>
+                                {{ end }}
+                                {{ strings.TrimPrefix "https://" $externalLink }}
+                            </span>
+                        </div>
+                    {{ if not $externalLinkOnly }}
+                    </a>
+                    {{ end }}
+                    {{ end }}
+                </a>
+            </div>
+
+            {{/*  show tags  */}}
+            {{ if not $noTags }}
+            <div class="card-title-suffix">
+                {{ partial "tags.html" (dict "context" .context "IsRight" true) }}
             </div>
             {{ end }}
 
-            {{/*  show external link with its own anchor (if separate from main link)  */}}
-            {{ if $externalLink }}
-                {{ if not $externalLinkOnly }}
-                <a href="{{ $externalLink }}" target="_blank">
-                {{ end }}
-                    <div class="flicker-link text-scan-hover mb-3">
-                        <span class="text-scan">
-                            {{ if not $externalLinkOnly }}
-                            {{/*  show independent arrow icon to indicate external link  */}}
-                            <span class="icon">
-                                <i class="fa-sharp fa-solid fa-arrow-up-right"></i>
-                            </span>
-                            {{ end }}
-                            {{ strings.TrimPrefix "https://" $externalLink }}
-                        </span>
-                    </div>
-                {{ if not $externalLinkOnly }}
-                </a>
-                {{ end }}
-            {{ end }}
-        </a>
+        </div>
+
+        {{ if not $noSummary }}
+        <div class="content mt-1 has-text-light">
+            {{ .context.Summary }}
+        </div>
+        {{ end }}
 
         {{ if not $noDate }}
         {{ partial "date.html" .context }}
-        {{ end }}
-
-        {{ if not $noTags }}
-        {{ partial "tags.html" .context }}
         {{ end }}
     </div>
     {{ end }}

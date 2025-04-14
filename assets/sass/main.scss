@@ -11,11 +11,12 @@ $scheme-main-sat-high: 3%;
 $grey-darker-bis: hsl($scheme-main-hue, $scheme-main-sat, 20%);
 $grey-darker-ter: hsl($scheme-main-hue, $scheme-main-sat, 28%);
 $shadow-custom: 3px 3px 8px rgba(0, 0, 0, 0.15);
+$corner-badge-size: 1.2rem;
 
 // content colors
 $content-docs-color: hsl($scheme-main-hue, $scheme-main-sat-high, 36%);
-$content-links-color: hsl(164, 21%, 41%);
-$content-tools-color: hsl(0, 0%, 72%);
+$content-links-color: hsl(164, 26%, 54%);
+$content-tools-color: hsl(263, 32%, 56%);
 $content-creative-color: hsl(20, 2%, 12%);
 
 // bulma global variables
@@ -56,7 +57,7 @@ $widescreen: 1280px;
 $container-max-width: $widescreen;
 
 // bulma derived variables
-$body-size: 17px;
+$body-size: 16px;
 $primary: $grey-dark;
 $primary-invert: $grey-lightest;
 $info: $turquoise;
@@ -116,8 +117,9 @@ $button-border-color: none;
 $button-hover-border-color: none;
 $button-active-border-color: none;
 $button-focus-border-color: none;
+$card-header-shadow: none;
 $card-content-background-color: $grey-darker-bis;
-$card-content-padding: 1rem;
+$card-content-padding: 0.72rem;
 $card-radius: $radius-rare;
 $panel-heading-background-color: $grey-darker-bis;
 $panel-block-hover-background-color: $grey-darker-bis;
@@ -326,7 +328,22 @@ a.has-text-primary:hover, a.has-text-link:hover {
         // make bottom-border width consistent for active and focused
         border-bottom: 3px solid transparent;
         padding-bottom: calc(0.5rem - 3px);
+
+        &.is-active {
+            &, &:not(:focus):not(:hover)
+            {
+                &.links-type {
+                    color: $content-links-color;
+                    border-color: $content-links-color;
+                }
+                &.tools-type {
+                    color: $content-tools-color;
+                    border-color: $content-tools-color;
+                }
+            }
+        }
     }
+
 }
 
 .navbar.is-transparent{
@@ -437,12 +454,49 @@ pre, code {
 }
 
 .card {
+    // for badges
+    overflow: hidden;
+    align-items: stretch;
+
+    .card-title-row {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .card-title {
+        flex: 1 1 auto;
+        overflow: hidden;
+        min-width: 10rem;
+    }
+
+    .card-title-suffix {
+        margin-left: 0.5rem;
+        flex: 0 0 auto;
+        max-height: 4rem;
+        overflow: hidden;
+
+        @include mobile {
+            // max-width: 10rem;
+            flex: 0 1 auto;
+        }
+
+        .tags {
+            flex-wrap: wrap;
+        }
+    }
 
     .card-image {
+        background-color: $black-ter;
+
         img {
             object-fit: cover;
             object-position: center;
         }
+    }
+
+    .card-content {
+        overflow: hidden;
+        padding-left: 1.15rem;
     }
 
     .content:not(:last-child) {
@@ -450,30 +504,28 @@ pre, code {
     }
 
     &.is-horizontal {
-        flex-direction: row;
         display: flex;
-        flex-basis: 50ex;
-        flex-grow: 0;
-        flex-shrink: 1;
+        flex-direction: row;
 
         .card-image {
-            flex: .75;
-            flex-shrink: 1;
+            flex: 0 0 auto;
+            width: 10rem;
+
+            @include mobile {
+                width: 5rem;
+            }
 
             .image {
-                display: block;
-                position: relative;
-                overflow: hidden;
                 height: 100%;
-                width: 100%;
             }
 
             img {
+                // prevent affecting layout
+                position: absolute;
+                // crop image so content is centered
                 height: 100%;
 
                 &:first-child {
-                    border-top-left-radius: $card-radius;
-                    border-bottom-left-radius: $card-radius;
                     border-top-right-radius: 0;
                     border-bottom-right-radius: 0;
                 }
@@ -482,8 +534,7 @@ pre, code {
         }
 
         .card-content {
-            flex: 3;
-            flex-shrink: 3;
+            flex: 1 1 auto;
 
             &:not(:first-child) {
                 border-top-left-radius: 0;
@@ -497,52 +548,64 @@ pre, code {
         }
     }
 
-    $card-border-width: 0.3rem;
-
-    &, &.is-horizontal {
-        &.links-card {
-            border-left: $card-border-width solid $content-links-color;
-        }
-
-        &.docs-card {
-            border-left: $card-border-width solid $content-docs-color;
-        }
-
-        &.tools-card {
-            border-left: $card-border-width solid $content-tools-color;
-        }
-
-        &.creative-card {
-            border-left: $card-border-width solid $content-creative-color;
-        }
-
-        .card-content:first-child {
-            // border radius is placed by the color borders above
-            border-top-left-radius: 0;
-            border-bottom-left-radius: 0;
-        }
-
-        &.links-card, &.docs-card, &.tools-card, &.creative-card {
-            .card-image:first-child img {
-                // border radius is placed by the color borders above
-                border-top-left-radius: 0;
-                border-bottom-left-radius: 0;
-            }
-        }
-    }
-
-    .card-image {
-        background-color: $black-ter;
-    }
-
     &.full-width {
         .card-content {
+            padding: 1.75rem;
+
             @include touch {
                 padding-left: 2rem;
             }
             @include desktop {
                 padding-left: 3rem;
             }
+        }
+    }
+
+    // page-type badges
+    &:not(.full-width) {
+        div.page-type-badge {
+            pointer-events: none;
+            position: absolute;
+            height: $corner-badge-size;
+            width: $corner-badge-size;
+            left: -$corner-badge-size * 0.5;
+            top: -$corner-badge-size * 0.5;
+
+            transform: rotate(-45deg);
+            -webkit-transform: rotate(-45deg);
+        }
+    }
+
+    &.links-type {
+        .page-type-badge {
+            background-color: $content-links-color;
+        }
+        .card-image i {
+            color: $content-links-color;
+        }
+    }
+    &.docs-type {
+        .page-type-badge {
+            background-color: $content-docs-color;
+        }
+        .card-image i {
+            color: $content-docs-color;
+        }
+    }
+    &.tools-type {
+        .page-type-badge {
+            background-color: $content-tools-color;
+        }
+        .card-image i {
+            color: $content-tools-color;
+        }
+    }
+    &.creative-type {
+        .page-type-badge {
+            background-color: $content-creative-color;
+        }
+        .card-image i {
+            color: $content-creative-color;
         }
     }
 }
@@ -745,5 +808,48 @@ pre, code {
     .columns.is-reversed-mobile {
         flex-direction: column-reverse;
         display: flex;
+    }
+}
+
+.has-ratio-1by1 {
+    aspect-ratio: 1 / 1;
+}
+.has-ratio-2by1 {
+    aspect-ratio: 2 / 1;
+}
+.has-ratio-3by1 {
+    aspect-ratio: 3 / 1;
+}
+.has-ratio-4by1 {
+    aspect-ratio: 4 / 1;
+}
+.has-ratio-1by2 {
+    aspect-ratio: 1 / 2;
+}
+.has-ratio-1by3 {
+    aspect-ratio: 1 / 3;
+}
+.has-ratio-1by4 {
+    aspect-ratio: 1 / 4;
+}
+
+
+.has-color-links {
+    color: $content-links-color !important;
+    border-color: $content-links-color !important;
+
+    &.button.is-light.is-outlined:hover {
+        background-color: rgba($content-links-color, 0.3) !important;
+    }
+}
+
+.has-color-tools {
+    &, & strong {
+        color: $content-tools-color !important;
+        border-color: $content-tools-color !important;
+    }
+
+    &.button.is-light.is-outlined:hover {
+        background-color: rgba($content-tools-color, 0.3) !important;
     }
 }

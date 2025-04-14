@@ -1,13 +1,16 @@
 {{ define "main" }}
 
 {{/* header card */}}
-<div class="mb-5">
+<div class="mb-5 columns">
+    <div class="column is-full pt-0 pb-0">
+
     {{ if or (eq .Type "tools") }}
         {{/*  display tools page cards with full summary and links, since they are not designed to have their own pages  */}}
         {{ partial "pagecard.html" (dict "context" . "IsPageHeader" true) }}
     {{ else }}
         {{ partial "pagecard.html" (dict "context" . "IsPageHeader" true "NoSummary" true "NoLink" true) }}
     {{ end }}
+    </div>
 </div>
 
 {{/*  display reading time if more than 3 minutes  */}}
