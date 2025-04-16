@@ -103,6 +103,8 @@ $text-light: $grey-lighter;
 $text-strong: $grey-lighter;
 $pre: $text;
 $pre: $background;
+$content-heading-line-height: 1em;
+$content-blockquote-padding: 1em 1.25em;
 
 // bulma component variables
 $column-gap: 0.5rem;
@@ -193,7 +195,7 @@ main {
 #TableOfContents {
     li {
         font-size: $size-6 * 0.9;
-        padding-left: 0.5em;
+        padding-left: 0.6em;
         border-left: 2px solid rgba(0, 0, 0, 0);
 
         &.is-active {
@@ -209,7 +211,7 @@ main {
 
         // indent 2nd..nth list items
         li {
-            padding-left: 1.5rem;
+            padding-left: 0.7rem;
         }
 
         a {
@@ -222,9 +224,25 @@ main {
     }
 }
 
-// show link underlines in main content body for clarity
-.content a {
-    text-decoration: underline;
+.content {
+    a {
+        // show link underlines in main content body for clarity
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
+
+    h1 {
+        font-size: 1.75em;
+    }
+    h2 {
+        font-size: 1.5em;
+    }
+    h3 {
+        font-size: 1.25em;
+    }
+    h4, h5, h6 {
+        font-size: 1em;
+    }
 }
 
 .overflow-parent {
