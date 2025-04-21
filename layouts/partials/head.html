@@ -30,12 +30,6 @@
         {{ end }}
     {{ end }}
 
-    {{ if .Site.Params.plausibleDomain }}
-        {{ if not hugo.IsServer }}
-        <script defer data-domain="{{ .Site.Params.plausibleDomain }}" src="https://plausible.io/js/plausible.js"></script>
-        {{ end }}
-    {{ end }}
-
     {{ if .Site.Params.enableSearch }}
         <script src="https://unpkg.com/lunr/lunr.js"></script>
     {{ end }}
