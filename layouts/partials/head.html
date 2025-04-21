@@ -5,6 +5,7 @@
     {{ template "_internal/schema.html" . }}
     {{ template "_internal/opengraph.html" . }}
     {{ template "_internal/twitter_cards.html" . }}
+    {{ template "_internal/google_analytics.html" . }}
 
     {{ range .AlternativeOutputFormats -}}
         {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
@@ -32,20 +33,6 @@
     {{ if .Site.Params.plausibleDomain }}
         {{ if not hugo.IsServer }}
         <script defer data-domain="{{ .Site.Params.plausibleDomain }}" src="https://plausible.io/js/plausible.js"></script>
-        {{ end }}
-    {{ end }}
-
-    {{ if .Site.Params.googleAnalytics }}
-        {{ if not hugo.IsServer }}
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.googleAnalytics }}"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', '{{ .Site.Params.googleAnalytics }}');
-        </script>
         {{ end }}
     {{ end }}
 
