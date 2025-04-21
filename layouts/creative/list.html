@@ -10,8 +10,12 @@
 
     {{ range .Pages }}
     <div class="column is-full">
-        {{ partial "pagecard.html" (dict "context" . "IsFullWidth" true "IsLargeCard" true
-            "NoExternalLink" false "NoDate" true "NoTags" true) }}
+        {{ partial "pagecard.html" (dict
+            "context" .
+            "IsFullWidth" true
+            "IsLargeCard" true
+            "NoTags" true)
+        }}
     </div>
     {{ end }}
 
