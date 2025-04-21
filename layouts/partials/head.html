@@ -10,47 +10,56 @@
         {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
     {{ end -}}
 
-    {{ $css := resources.Get "sass/main.scss" }}
-    {{ $css = $css | resources.ToCSS }}
-    <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+    {{ with resources.Get "sass/main.scss" }}
+        {{ $opts := dict
+            "enableSourceMap" (not hugo.IsProduction)
+            "outputStyle" (cond hugo.IsProduction "compressed" "expanded")
+        }}
+        {{ with . | toCSS $opts }}
+            <link rel="stylesheet" href="{{ .RelPermalink }}">
+        {{ end }}
+    {{ end }}
 
     {{ $title := print .Site.Title " | " .Title }} {{ if .IsHome }} {{ $title = .Site.Title }} {{ end }}
     <title>{{ $title }}</title>
 
-    {{ $commonScript := (resources.Get "js/common.js" | minify).RelPermalink }}
-    <script src="{{ $commonScript }}"></script>
+    {{ with resources.Get "js/common.js" }}
+        {{ with . | minify }}
+            <script src="{{ .RelPermalink }}"></script>
+        {{ end }}
+    {{ end }}
 
     {{ if .Site.Params.plausibleDomain }}
-    {{ if not .Site.IsServer }}
-    <script defer data-domain="{{ .Site.Params.plausibleDomain }}" src="https://plausible.io/js/plausible.js"></script>
-    {{ end }}
+        {{ if not hugo.IsServer }}
+        <script defer data-domain="{{ .Site.Params.plausibleDomain }}" src="https://plausible.io/js/plausible.js"></script>
+        {{ end }}
     {{ end }}
 
     {{ if .Site.Params.googleAnalytics }}
-    {{ if not .Site.IsServer }}
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.googleAnalytics }}"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+        {{ if not hugo.IsServer }}
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.googleAnalytics }}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-        gtag('config', '{{ .Site.Params.googleAnalytics }}');
-    </script>
-    {{ end }}
+            gtag('config', '{{ .Site.Params.googleAnalytics }}');
+        </script>
+        {{ end }}
     {{ end }}
 
     {{ if .Site.Params.enableSearch }}
-    <script src="https://unpkg.com/lunr/lunr.js"></script>
+        <script src="https://unpkg.com/lunr/lunr.js"></script>
     {{ end }}
 
     {{ if .Site.Params.FontAwesomeScript }}
-    <script src="{{ .Site.Params.fontAwesomeScript }}" crossorigin="anonymous"></script>
+        <script src="{{ .Site.Params.fontAwesomeScript }}" crossorigin="anonymous"></script>
     {{ end }}
 
     {{ if .IsHome }}
     {{/* TODO: Add setting to optionally enable decap cms */}}
-    <!-- Include the script that enables Netlify Identity on this page. -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+        <!-- Include the script that enables Netlify Identity on this page. -->
+        <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     {{ end }}
 </head>
